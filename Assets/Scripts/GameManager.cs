@@ -10,6 +10,13 @@ public class GameManager : MonoBehaviour
     private bool _Quitting = false;
     public DetectedPlane detectedPlane;
     private bool planeSet = false;
+
+    //Playable characters
+    [SerializeField]
+    private GameObject[] ListOfCharacters;
+    //Enemies
+    [SerializeField]
+    private GameObject[] ListOfEnemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -101,5 +108,11 @@ public class GameManager : MonoBehaviour
                 toastObject.Call("show");
             }));
         }
+    }
+
+    public GameObject GetEnemy(int value)
+    {
+        GameObject chosenEnemy = ListOfEnemies[value];
+        return chosenEnemy;
     }
 }

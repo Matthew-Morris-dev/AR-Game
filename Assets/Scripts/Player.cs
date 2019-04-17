@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] Minions;
-    public GameObject playerCharacter;
+    public GameObject _characterToSpawn;
     public Text currentMinionText;
-    private bool _playerCharacterAlive = false;
+    private bool _playerCharacterSpawned = false;
     private GameManager _gm;
+
+    //spawning variables
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,12 +50,15 @@ public class Player : MonoBehaviour
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinBounds | TrackableHitFlags.PlaneWithinPolygon;
 
-            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit) && _playerCharacterAlive == false)
+            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit) && _playerCharacterSpawned == false)
             {
                 //anchor hopefully keeps the players character model in a good place.
                 Anchor anchor = _gm.detectedPlane.CreateAnchor(new Pose(hit.Pose.position, Quaternion.identity));
-                Instantiate(playerCharacter, hit.Pose.position, Quaternion.identity, anchor.transform);
-                _playerCharacterAlive = true;
+                Instantiate(_characterToSpawn, hit.Pose.position, Quaternion.identity, anchor.transform);
+                if(_characterToSpawn == Minions[0])
+                {
+                    _playerCharacterSpawned = true;
+                }
             }
         }
     }
@@ -87,15 +93,32 @@ public class Player : MonoBehaviour
     }
     */
 
+    public void SetSpawnObject(GameObject obj)
+    {
+        _characterToSpawn = obj;
+        currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
+    }
+
+    public void SetSpawnToTotem()
+    {
+        _characterToSpawn = _gm.GetEnemy(0);
+        currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
+    }
+
     public void SetPlayerCharacterToCube()
     {
-        playerCharacter = Minions[0];
-        currentMinionText.text = "Current Minion:" + playerCharacter.name;
+        _characterToSpawn = Minions[0];
+        currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
     }
 
     public void SetPlayerCharacterToSphere()
     {
-        playerCharacter = Minions[1];
-        currentMinionText.text = "Current Minion: " + playerCharacter.name;
+        _characterToSpawn = Minions[1];
+        currentMinionText.text = "Current Minion: " + _characterToSpawn.name;
+    }
+
+    public void SetPlayerCharacterSpawned(bool value)
+    {
+        _playerCharacterSpawned = value;
     }
 }
