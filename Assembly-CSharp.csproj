@@ -254,6 +254,7 @@
     <Compile Include="Assets\Scripts\TestPlayer.cs" />
     <Compile Include="Assets\Scripts\TotemCollision.cs" />
     <Compile Include="Assets\Scripts\TrainingTotem.cs" />
+    <Compile Include="Assets\Scripts\TutorialTextController.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\XbuttonController.cs" />
     <Compile Include="Assets\Scripts\YbuttonController.cs" />

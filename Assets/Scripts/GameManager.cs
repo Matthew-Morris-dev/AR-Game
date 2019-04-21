@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     private bool _Quitting = false;
     public DetectedPlane detectedPlane;
     private bool planeSet = false;
-
+    [SerializeField]
+    private TutorialTextController _ttc;
     //Playable characters
     [SerializeField]
     private GameObject[] ListOfCharacters;
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
             Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
             Instantiate(_Enemy, detectedPlane.CenterPose.position, Quaternion.identity);
             planeSet = true;
-            
+            _ttc.IncrementTutText();
             extentXtext.text = "arena scale: " + _arenaScale;
             //extentZtext.text = "ExtentZ: " + detectedPlane.ExtentZ * 0.1;
             //_groundPlane.transform.localScale = new Vector3(detectedPlane.ExtentX * 0.1f, 1f, detectedPlane.ExtentZ * 0.1f);
@@ -149,7 +150,18 @@ public class GameManager : MonoBehaviour
             }));
         }
     }
-
+    /*
+    public void VisualizePlanes(bool showPlanes)
+    {
+        foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
+        {
+            Renderer r = plane.GetComponent<Renderer>();
+            DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
+            r.enabled = showPlanes;
+            t.enabled = showPlanes;
+        }
+    }
+    */
     public bool GetPlaneSet()
     {
         return planeSet;

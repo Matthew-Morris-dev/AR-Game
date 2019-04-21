@@ -13,7 +13,7 @@ public class ArenaController : MonoBehaviour
     {
         _gm = FindObjectOfType<GameManager>();
         _size = _gm.GetArenaScale();
-        this.transform.localScale = new Vector3(_size, _size, _size) * 0.5f;
+        this.transform.localScale = new Vector3(_size, _size/2, _size) * 0.5f;
     }
 
     // Update is called once per frame

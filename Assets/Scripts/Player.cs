@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using GoogleARCore;
+using GoogleARCore.Examples.Common;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] Minions;
     public GameObject _characterToSpawn;
-    public Text currentMinionText;
+    //public Text currentMinionText;
     private bool _playerCharacterSpawned = false;
     private GameManager _gm;
-
+    [SerializeField]
+    private TutorialTextController _ttc;
     //spawning variables
 
     // Start is called before the first frame update
@@ -61,7 +63,9 @@ public class Player : MonoBehaviour
                 if (_characterToSpawn == Minions[0])
                 {
                     Instantiate(_characterToSpawn, hit.Pose.position + new Vector3(0f, (_characterToSpawn.transform.localScale.y/2), 0f), Quaternion.identity, anchor.transform);
-                    currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
+                    _ttc.IncrementTutText();
+                    OnTogglePlanes(false);
+                    //currentMinionText.text = "Current Minion:" + _characterToSpawn.name; //Debugging
                 }
                 else
                 {
@@ -72,6 +76,17 @@ public class Player : MonoBehaviour
                     _playerCharacterSpawned = true;
                 }
             }
+        }
+    }
+
+    public void OnTogglePlanes(bool flag)
+    {
+        foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
+        {
+            Renderer r = plane.GetComponent<Renderer>();
+            DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
+            r.enabled = flag;
+            t.enabled = flag;
         }
     }
     /* might use later

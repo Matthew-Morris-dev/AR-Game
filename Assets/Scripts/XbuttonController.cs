@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class XbuttonController : MonoBehaviour, IPointerDownHandler
+public class XbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField]
     private Text XbuttonText;
+    [SerializeField]
+    private Image XbuttonImage;
     [SerializeField]
     private characterController _cc;
     [SerializeField]
@@ -15,7 +17,7 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler
     // Start is called before the first frame update
     void Start()
     {
-
+        XbuttonImage.color = Color.white;
     }
 
     // Update is called once per frame
@@ -26,8 +28,13 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData evt)
     {
-        //_cc.Attack();
+        XbuttonImage.color = Color.gray;
         _pc.Attack();
+    }
+
+    public void OnPointerUp(PointerEventData evt)
+    {
+        XbuttonImage.color = Color.white;
     }
 
     public void SetPlayerController(GameObject obj)

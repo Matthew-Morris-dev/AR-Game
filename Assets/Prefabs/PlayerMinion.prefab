@@ -240,9 +240,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  JumpHeight: 2
-  _attackDamage: 0
-  _attackRange: 0
+  JumpHeight: 0.5
+  _attackDamage: 15
+  _attackRange: 1
   GroundDistance: 0.2
   Ground:
     serializedVersion: 2

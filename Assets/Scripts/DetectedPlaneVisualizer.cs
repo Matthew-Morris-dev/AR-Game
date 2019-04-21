@@ -65,6 +65,9 @@ namespace GoogleARCore.Examples.Common
 
         private MeshRenderer m_MeshRenderer;
 
+        private TutorialTextController _ttc;
+        private bool _incTTC = false;
+
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -72,6 +75,11 @@ namespace GoogleARCore.Examples.Common
         {
             m_Mesh = GetComponent<MeshFilter>().mesh;
             m_MeshRenderer = GetComponent<UnityEngine.MeshRenderer>();
+        }
+
+        public void Start()
+        {
+            _ttc = FindObjectOfType<TutorialTextController>();
         }
 
         /// <summary>
@@ -95,7 +103,11 @@ namespace GoogleARCore.Examples.Common
             }
 
             m_MeshRenderer.enabled = true;
-
+            if (_incTTC == false)
+            {
+                _ttc.IncrementTutText();
+                _incTTC = true;
+            }
             _UpdateMeshIfNeeded();
         }
 
@@ -108,7 +120,6 @@ namespace GoogleARCore.Examples.Common
             m_DetectedPlane = plane;
             m_MeshRenderer.material.SetColor("_GridColor", k_PlaneColors[s_PlaneCount++ % k_PlaneColors.Length]);
             m_MeshRenderer.material.SetFloat("_UvRotation", Random.Range(0.0f, 360.0f));
-
             Update();
         }
 

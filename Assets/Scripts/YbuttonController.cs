@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class YbuttonController : MonoBehaviour, IPointerDownHandler
+public class YbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField]
     private Text YbuttonText;
+    [SerializeField]
+    private Image YbuttonImage;
     [SerializeField]
     private characterController _cc;
     [SerializeField]
@@ -15,7 +17,7 @@ public class YbuttonController : MonoBehaviour, IPointerDownHandler
     // Start is called before the first frame update
     void Start()
     {
-        
+        YbuttonImage.color = Color.white;
     }
 
     // Update is called once per frame
@@ -26,12 +28,19 @@ public class YbuttonController : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData evt)
     {
-        //_cc.Dodge();
+        YbuttonImage.color = Color.gray;
         if (_pc.GetIsGrounded())
         {
             _pc.Dodge();
         }
     }
+
+    public void OnPointerUp(PointerEventData evt)
+    {
+        YbuttonImage.color = Color.white;
+    }
+
+
 
     public void SetPlayerController(GameObject obj)
     {

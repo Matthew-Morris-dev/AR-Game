@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     //Movement Variables
     public float Speed = 5f;
-    public float JumpHeight = 2f;
+    public float JumpHeight = .5f;
     private Vector3 _moveDirection = Vector3.zero;
     //Attack Variables
     [SerializeField]
@@ -47,31 +47,38 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //debugging stuff
-        _currentVelocity = GameObject.Find("Velocity").GetComponent<Text>();
-        _joystickStatus = GameObject.Find("Joystick Status").GetComponent<Text>();
+        //_currentVelocity = GameObject.Find("Velocity").GetComponent<Text>();
+        //_joystickStatus = GameObject.Find("Joystick Status").GetComponent<Text>();
         //_ARCText = GameObject.Find("PlayerARCText").GetComponent<Text>();
         //_JSCText = GameObject.Find("PlayerJSC").GetComponent<Text>();
 
         //actuall needed stuff
         _ARCamera = FindObjectOfType<Camera>().GetComponent<Camera>();
-        //_ARCText.text = "ARCam is: " + _ARCamera;
+        //_ARCText.text = "ARCam is: " + _ARCamera; //Debugging
         _rb = GetComponent<Rigidbody>();
         _groundChecker = transform.GetChild(0);
         _gm = FindObjectOfType<GameManager>();
         //_jsc = FindObjectOfType<MobileJoystickController>().GetComponent<MobileJoystickController>();
+
+        //Get Mobile Joystick (so we can move player)
         _jsc = FindObjectOfType<MobileJoystickController>().GetComponent<MobileJoystickController>();
-        //_JSCText.text = "JSC is: " + _jsc;
+        //_JSCText.text = "JSC is: " + _jsc; //Debugging
+
+        //Tell the buttons to control the player
         FindObjectOfType<YbuttonController>().SetPlayerController(this.gameObject);
         FindObjectOfType<XbuttonController>().SetPlayerController(this.gameObject);
-
+        
+        //This code makes the game scalable
         this.transform.localScale = new Vector3(_gm.GetArenaScale(), _gm.GetArenaScale(), _gm.GetArenaScale()) * 0.1f;
         Speed *= _gm.GetArenaScale() * 0.1f;
         JumpHeight *= _gm.GetArenaScale() * 0.1f;
+        _attackRange *= _gm.GetArenaScale() * 0.1f;
         _target = GameObject.FindGameObjectWithTag("Enemy");
     }
 
     void Update()
     {
+        //Debugging Stuff
         if(_jsc == null)
         {
             _JSCText.text = "JSC is: null :( ";
@@ -79,7 +86,9 @@ public class PlayerController : MonoBehaviour
         //check if player is on the ground
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
 
-        //get player movement from joystick
+        //get player movement from joystick and calculate movement accoring to the camera's forward 
+        //and right position, this allows players to walk around the augmented world
+        //keeping movement unified.
         Vector3 camForward = _ARCamera.transform.forward;
         Vector3 camRight = _ARCamera.transform.right;
         camForward.y = 0f;
@@ -89,8 +98,9 @@ public class PlayerController : MonoBehaviour
 
         _moveDirection = ((camForward * _jsc.inputDirection.y + camRight * _jsc.inputDirection.x)/* * _speed * Time.deltaTime*/);
 
-        _currentVelocity.text = "moveDirection: " + _moveDirection;
-        _joystickStatus.text = "Joystick" + _jsc.GetJoystickActive();
+        //_currentVelocity.text = "moveDirection: " + _moveDirection; //Debugging
+        //_joystickStatus.text = "Joystick" + _jsc.GetJoystickActive(); //Debugging
+
         //make sure target is focused
         if (_target != null && _isGrounded)
         {
@@ -111,6 +121,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            _isGrounded = false;
         }
         /*
         if (Input.GetButtonDown("Dash"))
@@ -134,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dodge()
     {
-        _rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+        _rb.AddForce((Vector3.up + (-1*this.transform.forward))* Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
     }
 
     public bool GetIsGrounded()
