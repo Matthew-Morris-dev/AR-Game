@@ -19,10 +19,10 @@ public class UIController : MonoBehaviour
     {
         
     }
-
+    /*
     public void SetEnemyToTotem()
     {
         GameObject obj = _gm.GetEnemy(0);
         _p.SetSpawnObject(obj);
-    }
+    }*/
 }

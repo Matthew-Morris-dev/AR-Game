@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _gm = FindObjectOfType<GameManager>();
+        SetPlayerCharacterToCube();
     }
 
     // Update is called once per frame
@@ -33,7 +34,10 @@ public class Player : MonoBehaviour
             return;
         }
         //if we are tracking check if screen is touched
-        ProcessTouches();
+        if ((_gm.GetPlaneSet() == true) && _playerCharacterSpawned == false)
+        {
+            ProcessTouches();
+        }
     }
 
     //This will detect if user touches the screen.
@@ -50,11 +54,19 @@ public class Player : MonoBehaviour
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinBounds | TrackableHitFlags.PlaneWithinPolygon;
 
-            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit) && _playerCharacterSpawned == false)
+            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
             {
                 //anchor hopefully keeps the players character model in a good place.
                 Anchor anchor = _gm.detectedPlane.CreateAnchor(new Pose(hit.Pose.position, Quaternion.identity));
-                Instantiate(_characterToSpawn, hit.Pose.position, Quaternion.identity, anchor.transform);
+                if (_characterToSpawn == Minions[0])
+                {
+                    Instantiate(_characterToSpawn, hit.Pose.position + new Vector3(0f, (_characterToSpawn.transform.localScale.y/2), 0f), Quaternion.identity, anchor.transform);
+                    currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
+                }
+                else
+                {
+                    Instantiate(_characterToSpawn, hit.Pose.position, Quaternion.identity, anchor.transform);
+                }
                 if(_characterToSpawn == Minions[0])
                 {
                     _playerCharacterSpawned = true;
@@ -96,25 +108,25 @@ public class Player : MonoBehaviour
     public void SetSpawnObject(GameObject obj)
     {
         _characterToSpawn = obj;
-        currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
+        //currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
     }
-
+    /*
     public void SetSpawnToTotem()
     {
         _characterToSpawn = _gm.GetEnemy(0);
         currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
     }
-
+    */
     public void SetPlayerCharacterToCube()
     {
         _characterToSpawn = Minions[0];
-        currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
+        //currentMinionText.text = "Current Minion:" + _characterToSpawn.name;
     }
 
     public void SetPlayerCharacterToSphere()
     {
         _characterToSpawn = Minions[1];
-        currentMinionText.text = "Current Minion: " + _characterToSpawn.name;
+        //currentMinionText.text = "Current Minion: " + _characterToSpawn.name;
     }
 
     public void SetPlayerCharacterSpawned(bool value)

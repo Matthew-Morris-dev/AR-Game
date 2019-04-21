@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +18,17 @@ public class GameManager : MonoBehaviour
     private GameObject[] ListOfCharacters;
     //Enemies
     [SerializeField]
-    private GameObject[] ListOfEnemies;
+    private GameObject _Enemy;
+    [SerializeField]
+    private GameObject _arena;
+
+    private float _arenaScale;
+    
+    [SerializeField]
+    private Text extentXtext;
+    [SerializeField]
+    private Text extentZtext;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -62,8 +74,31 @@ public class GameManager : MonoBehaviour
     //Used to test if raycast is working as intended
     private void SetSelectedPlane(DetectedPlane selectedPlane)
     {
-        Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
-        detectedPlane = selectedPlane;
+        if (selectedPlane.PlaneType == DetectedPlaneType.HorizontalUpwardFacing)
+        {
+            Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
+            detectedPlane = selectedPlane;
+            if (detectedPlane.ExtentX >= detectedPlane.ExtentZ)
+            {
+                _arenaScale = detectedPlane.ExtentX;
+            }
+            else
+            {
+                _arenaScale = detectedPlane.ExtentZ;
+            }
+            Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
+            Instantiate(_Enemy, detectedPlane.CenterPose.position, Quaternion.identity);
+            planeSet = true;
+            
+            extentXtext.text = "arena scale: " + _arenaScale;
+            //extentZtext.text = "ExtentZ: " + detectedPlane.ExtentZ * 0.1;
+            //_groundPlane.transform.localScale = new Vector3(detectedPlane.ExtentX * 0.1f, 1f, detectedPlane.ExtentZ * 0.1f);
+            //Instantiate(_groundPlane, detectedPlane.CenterPose.position, Quaternion.identity);
+        }
+        else
+        {
+            return;
+        }
     }
 
     //checks the ARCore session and that ARCore is working in our application
@@ -88,6 +123,11 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
     // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
     /// <summary>
     /// Show an Android toast message.
@@ -110,9 +150,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject GetEnemy(int value)
+    public bool GetPlaneSet()
     {
-        GameObject chosenEnemy = ListOfEnemies[value];
-        return chosenEnemy;
+        return planeSet;
+    }
+
+    public float GetArenaScale()
+    {
+        return _arenaScale;
     }
 }

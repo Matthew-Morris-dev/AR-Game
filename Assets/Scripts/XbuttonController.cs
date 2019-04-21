@@ -10,6 +10,8 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler
     private Text XbuttonText;
     [SerializeField]
     private characterController _cc;
+    [SerializeField]
+    private PlayerController _pc;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +26,13 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData evt)
     {
-        /*if(_cc == null)
-        {
-            return;
-        }
-        else
-        {*/
-        XbuttonText.text = "Y Button Pressed: true";
-        //}
+        //_cc.Attack();
+        _pc.Attack();
+    }
+
+    public void SetPlayerController(GameObject obj)
+    {
+        _pc = obj.GetComponent<PlayerController>();
     }
 
     public void SetCharacterController(GameObject obj)
