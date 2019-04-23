@@ -88,7 +88,14 @@ public class GameManager : MonoBehaviour
                 _arenaScale = detectedPlane.ExtentZ;
             }
             Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
-            Instantiate(_Enemy, detectedPlane.CenterPose.position, Quaternion.identity);
+            if (_Enemy.name == "Enemy")
+            {
+                Instantiate(_Enemy, detectedPlane.CenterPose.position + new Vector3(0f,0.3f,0f), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_Enemy, detectedPlane.CenterPose.position, Quaternion.identity);
+            }
             planeSet = true;
             _ttc.IncrementTutText();
             extentXtext.text = "arena scale: " + _arenaScale;
@@ -127,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
     /// <summary>
@@ -170,5 +177,10 @@ public class GameManager : MonoBehaviour
     public float GetArenaScale()
     {
         return _arenaScale;
+    }
+
+    public void SpawnEnemy()
+    {
+        Instantiate(_Enemy, detectedPlane.CenterPose.position + new Vector3(0f, 0.3f, 0f), Quaternion.identity);
     }
 }

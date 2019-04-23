@@ -97,7 +97,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.1
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -105,13 +105,13 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.033333335
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 3817cd809c9b3904f8bce24bccb6c64e, type: 2}
 --- !u!1001 &3189720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -476,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   YbuttonText: {fileID: 2049633115}
+  YbuttonImage: {fileID: 0}
   _cc: {fileID: 0}
   _pc: {fileID: 0}
 --- !u!1 &264725170
@@ -722,6 +723,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37afc20feceb79a41a6cf011b625f014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &833315058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 833315060}
+  - component: {fileID: 833315059}
+  m_Layer: 0
+  m_Name: test prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &833315059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833315058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92fa2e5d299f1e44bd129c0d78bc621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Arena: {fileID: 128965978965750532, guid: bb29a7da0edc4db4ea552c4937496c4f, type: 3}
+  enemy: {fileID: 121231288042700857, guid: 3ea3df58dd155b3449b5ae297b6ca89f, type: 3}
+--- !u!4 &833315060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833315058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1055065741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1110,7 @@ GameObject:
   - component: {fileID: 1396451477}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1083,7 +1129,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!65 &1396451473
 BoxCollider:
@@ -1151,7 +1197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396451471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5344734, y: 0.6, z: 0.045841172}
+  m_LocalPosition: {x: 7.64, y: 0.6, z: 0.045841172}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 264725171}
@@ -1172,14 +1218,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 5
   JumpHeight: 2
+  _attackDamage: 0
+  _attackRange: 0
+  _currentHealth: 100
   GroundDistance: 0.2
-  DashDistance: 5
   Ground:
     serializedVersion: 2
     m_Bits: 512
+  _isGrounded: 1
   _ARCamera: {fileID: 1814970687}
   _jsc: {fileID: 758495252}
-  _isGrounded: 1
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
+  _currentVelocity: {fileID: 0}
+  _joystickStatus: {fileID: 0}
+  _ARCText: {fileID: 0}
+  _JSCText: {fileID: 0}
 --- !u!1 &1814970685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,6 +1443,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e7102a4cdd5866946a4b7e153098c3e5, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e7102a4cdd5866946a4b7e153098c3e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e7102a4cdd5866946a4b7e153098c3e5, type: 3}
       propertyPath: m_LocalPosition.x

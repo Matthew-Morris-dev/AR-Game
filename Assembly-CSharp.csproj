@@ -244,6 +244,7 @@
     <Compile Include="Assets\Scripts\characterController.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneGenerator.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneVisualizer.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GroundPlane.cs" />
     <Compile Include="Assets\Scripts\MobileJoystickController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\testController.cs" />
     <Compile Include="Assets\Scripts\TestPlayer.cs" />
+    <Compile Include="Assets\Scripts\TestPrefabScript.cs" />
     <Compile Include="Assets\Scripts\TotemCollision.cs" />
     <Compile Include="Assets\Scripts\TrainingTotem.cs" />
     <Compile Include="Assets\Scripts\TutorialTextController.cs" />

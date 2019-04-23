@@ -15,7 +15,14 @@ public class PlayerController : MonoBehaviour
     private float _attackDamage;
     [SerializeField]
     private float _attackRange;
-
+    //HitPoints Variables
+    [SerializeField]
+    private int _currentHealth = 100;
+    private int _maxHealth;
+    [SerializeField]
+    private Image _healthBarImage;
+    //Enemies Container
+    private List<EnemyController> Enemies;
     //Check grounded variables
     public float GroundDistance = 0.2f;
     public LayerMask Ground;
@@ -67,13 +74,18 @@ public class PlayerController : MonoBehaviour
         //Tell the buttons to control the player
         FindObjectOfType<YbuttonController>().SetPlayerController(this.gameObject);
         FindObjectOfType<XbuttonController>().SetPlayerController(this.gameObject);
+
+        //Tell enemies who spawn before player about the player
+        FindObjectOfType<EnemyController>().SetPlayer(this.gameObject);
         
         //This code makes the game scalable
-        this.transform.localScale = new Vector3(_gm.GetArenaScale(), _gm.GetArenaScale(), _gm.GetArenaScale()) * 0.1f;
-        Speed *= _gm.GetArenaScale() * 0.1f;
-        JumpHeight *= _gm.GetArenaScale() * 0.1f;
-        _attackRange *= _gm.GetArenaScale() * 0.1f;
-        _target = GameObject.FindGameObjectWithTag("Enemy");
+        //this.transform.localScale = new Vector3(_gm.GetArenaScale(), _gm.GetArenaScale(), _gm.GetArenaScale()) * 0.1f;
+        //Speed *= _gm.GetArenaScale() * 0.1f;
+       // JumpHeight *= _gm.GetArenaScale() * 0.1f;
+        //_attackRange *= _gm.GetArenaScale() * 0.1f;
+       _target = GameObject.FindGameObjectWithTag("Enemy");
+        //Set Max Health
+        _maxHealth = _currentHealth;
     }
 
     void Update()
@@ -148,6 +160,16 @@ public class PlayerController : MonoBehaviour
         _rb.AddForce((Vector3.up + (-1*this.transform.forward))* Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
     }
 
+    public void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+        UpdateHealthBar();
+        if(_currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+
     public bool GetIsGrounded()
     {
         return _isGrounded;
@@ -157,4 +179,31 @@ public class PlayerController : MonoBehaviour
     {
         _rb.MovePosition(_rb.position + _moveDirection * Speed * Time.fixedDeltaTime);
     }
+    private void UpdateHealthBar()
+    {
+        float hpbarFill = (float)_currentHealth / (float)_maxHealth;
+        _healthBarImage.fillAmount = hpbarFill;
+    }
+
+    private void Death()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public void SetTarget(GameObject obj)
+    {
+        _target = obj;
+    }
+    /*
+    public void AddEnemy(GameObject obj)
+    {
+        Enemies.Add(obj.GetComponent<EnemyController>());
+        obj.GetComponent<EnemyController>().SetPlayer(this.gameObject);
+    }
+
+    public void RemoveEnemy(GameObject obj)
+    {
+        Enemies.Remove(obj.GetComponent<EnemyController>());
+    }
+    */
 }
