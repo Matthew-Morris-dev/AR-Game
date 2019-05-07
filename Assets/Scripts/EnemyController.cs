@@ -16,7 +16,8 @@ public class EnemyController : MonoBehaviour
     private Rigidbody _rb;
     [SerializeField]
     private Animator _animator;
-
+    [SerializeField]
+    private float _animationSpeed;
     [SerializeField]
     private GameObject _target;
 
@@ -48,7 +49,14 @@ public class EnemyController : MonoBehaviour
         }
         else if (_scaled == false)
         {
+            Debug.Log("we run this");
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
+            _speed *= _gm.GetGameWorldScale();
+            Debug.Log("speed = " + _speed);
+            _animationSpeed *= _gm.GetGameWorldScale();
+            _stoppingDistance *= _gm.GetGameWorldScale();
+            _attackRange *= _gm.GetGameWorldScale();
+            _scaled = true;
         }
         //Find and move towards target
         if (_target == null)
@@ -81,6 +89,7 @@ public class EnemyController : MonoBehaviour
             else if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
             {
                 _rb.velocity = this.transform.forward * _speed * Time.deltaTime;
+                Debug.Log(this.transform.forward);
             }
         }
     }

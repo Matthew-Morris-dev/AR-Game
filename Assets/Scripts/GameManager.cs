@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     private TutorialTextController _ttc;
 
     [SerializeField]
+    private GameObject _player;
+    [SerializeField]
     private GameObject _gameWorld;
     [SerializeField]
     private float _gameWorldScale;
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
             detectedPlane = selectedPlane;
+            
             if (detectedPlane.ExtentX >= detectedPlane.ExtentZ)
             {
                 //_arenaScale = detectedPlane.ExtentX;
@@ -108,8 +111,10 @@ public class GameManager : MonoBehaviour
                 //_arenaScale = detectedPlane.ExtentZ;
                 _gameWorldScale = detectedPlane.ExtentZ;
             }
+            
             //Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
             Instantiate(_gameWorld, detectedPlane.CenterPose.position, Quaternion.identity);
+            Instantiate(_player, detectedPlane.CenterPose.position, Quaternion.identity);
             OnTogglePlanes(false);
             /*
             if (_Enemy.name == "Enemy")

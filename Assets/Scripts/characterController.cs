@@ -13,6 +13,8 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private Animator _animator;
     [SerializeField]
+    private float _animationSpeed;
+    [SerializeField]
     private MobileJoystickController _jsc;
     //Target Stuff
     [SerializeField]
@@ -63,6 +65,9 @@ public class characterController : MonoBehaviour
         else if (_scaled == false)
         {
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
+            _speed *= _gm.GetGameWorldScale();
+            _animationSpeed *= _gm.GetGameWorldScale();
+            _scaled = true;
         }
         //Blend animations for moving diagonally
         _animator.SetFloat("Zmovement", _rb.velocity.z);
