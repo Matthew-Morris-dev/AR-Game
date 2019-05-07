@@ -2,8 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
+using GoogleARCore.Examples.Common;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+// NOTE:
+// - InstantPreviewInput does not support `deltaPosition`.
+// - InstantPreviewInput does not support input from
+//   multiple simultaneous screen touches.
+// - InstantPreviewInput might miss frames. A steady stream
+//   of touch events across frames while holding your finger
+//   on the screen is not guaranteed.
+// - InstantPreviewInput does not generate Unity UI event system
+//   events from device touches. Use mouse/keyboard in the editor
+//   instead.
+using Input = GoogleARCore.InstantPreviewInput;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -14,22 +29,26 @@ public class GameManager : MonoBehaviour
     private bool planeSet = false;
     [SerializeField]
     private TutorialTextController _ttc;
-    //Playable characters
-    [SerializeField]
-    private GameObject[] ListOfCharacters;
-    //Enemies
-    [SerializeField]
-    private GameObject _Enemy;
-    [SerializeField]
-    private GameObject _arena;
 
-    private float _arenaScale;
-    
+    [SerializeField]
+    private GameObject _gameWorld;
+    [SerializeField]
+    private float _gameWorldScale;
+    //Playable characters
+    //[SerializeField]
+    //private GameObject[] ListOfCharacters;
+    //Enemies
+    //[SerializeField]
+    //private GameObject _Enemy;
+    //[SerializeField]
+    //private GameObject _arena;
+    //private float _arenaScale;
+    /*
     [SerializeField]
     private Text extentXtext;
     [SerializeField]
     private Text extentZtext;
-    
+    */
     // Start is called before the first frame update
     void Start()
     {
@@ -81,13 +100,18 @@ public class GameManager : MonoBehaviour
             detectedPlane = selectedPlane;
             if (detectedPlane.ExtentX >= detectedPlane.ExtentZ)
             {
-                _arenaScale = detectedPlane.ExtentX;
+                //_arenaScale = detectedPlane.ExtentX;
+                _gameWorldScale = detectedPlane.ExtentX;
             }
             else
             {
-                _arenaScale = detectedPlane.ExtentZ;
+                //_arenaScale = detectedPlane.ExtentZ;
+                _gameWorldScale = detectedPlane.ExtentZ;
             }
-            Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
+            //Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
+            Instantiate(_gameWorld, detectedPlane.CenterPose.position, Quaternion.identity);
+            OnTogglePlanes(false);
+            /*
             if (_Enemy.name == "Enemy")
             {
                 Instantiate(_Enemy, detectedPlane.CenterPose.position + new Vector3(0f,0.3f,0f), Quaternion.identity);
@@ -96,9 +120,10 @@ public class GameManager : MonoBehaviour
             {
                 Instantiate(_Enemy, detectedPlane.CenterPose.position, Quaternion.identity);
             }
+            */
             planeSet = true;
             _ttc.IncrementTutText();
-            extentXtext.text = "arena scale: " + _arenaScale;
+            //extentXtext.text = "arena scale: " + _arenaScale;
             //extentZtext.text = "ExtentZ: " + detectedPlane.ExtentZ * 0.1;
             //_groundPlane.transform.localScale = new Vector3(detectedPlane.ExtentX * 0.1f, 1f, detectedPlane.ExtentZ * 0.1f);
             //Instantiate(_groundPlane, detectedPlane.CenterPose.position, Quaternion.identity);
@@ -134,6 +159,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        OnTogglePlanes(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
@@ -157,6 +183,17 @@ public class GameManager : MonoBehaviour
             }));
         }
     }
+
+    public void OnTogglePlanes(bool flag)
+    {
+        foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
+        {
+            Renderer r = plane.GetComponent<Renderer>();
+            DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
+            r.enabled = flag;
+            t.enabled = flag;
+        }
+    }
     /*
     public void VisualizePlanes(bool showPlanes)
     {
@@ -174,13 +211,20 @@ public class GameManager : MonoBehaviour
         return planeSet;
     }
 
+    /*
     public float GetArenaScale()
     {
         return _arenaScale;
     }
-
+    */
+    public float GetGameWorldScale()
+    {
+        return _gameWorldScale;
+    }
+    /*
     public void SpawnEnemy()
     {
         Instantiate(_Enemy, detectedPlane.CenterPose.position + new Vector3(0f, 0.3f, 0f), Quaternion.identity);
     }
+    */
 }

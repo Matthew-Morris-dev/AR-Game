@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         FindObjectOfType<XbuttonController>().SetPlayerController(this.gameObject);
 
         //Tell enemies who spawn before player about the player
-        FindObjectOfType<EnemyController>().SetPlayer(this.gameObject);
+        FindObjectOfType<OldEnemyController>().SetPlayer(this.gameObject);
         
         //This code makes the game scalable
         //this.transform.localScale = new Vector3(_gm.GetArenaScale(), _gm.GetArenaScale(), _gm.GetArenaScale()) * 0.1f;

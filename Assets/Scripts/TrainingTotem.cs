@@ -26,7 +26,7 @@ public class TrainingTotem : MonoBehaviour
         maxHitPoints = _hitPoints;
         _gm = FindObjectOfType<GameManager>();
 
-        this.gameObject.transform.localScale = new Vector3(_gm.GetArenaScale(), _gm.GetArenaScale(), _gm.GetArenaScale()) * 0.05f;
+        //this.gameObject.transform.localScale = new Vector3(_gm.GetArenaScale(), _gm.GetArenaScale(), _gm.GetArenaScale()) * 0.05f;
         //hptext = GameObject.Find("Joystick Status").GetComponent<Text>();
     }
 
