@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
             _speed *= _gm.GetGameWorldScale();
             Debug.Log("speed = " + _speed);
-            _animationSpeed *= _gm.GetGameWorldScale();
+            //_animationSpeed *= this.transform.localScale.magnitude;
             _stoppingDistance *= _gm.GetGameWorldScale();
             _attackRange *= _gm.GetGameWorldScale();
             _scaled = true;
@@ -82,21 +82,32 @@ public class EnemyController : MonoBehaviour
     {
         if (_target != null)
         {
-            if (Vector3.Distance(this.transform.position, _target.transform.position) <= _stoppingDistance)
+            if ((Vector3.Distance(this.transform.position, _target.transform.position) <= _stoppingDistance) || this._animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
             {
-                _rb.velocity = Vector3.zero;
+                this._rb.velocity = Vector3.zero;
             }
-            else if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            else if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
             {
-                _rb.velocity = this.transform.forward * _speed * Time.deltaTime;
+                this._rb.velocity = this.transform.forward * _speed * Time.deltaTime;
                 Debug.Log(this.transform.forward);
             }
         }
     }
 
-    public void TakeDamage()
+    private void LateUpdate()
     {
-        _animator.SetTrigger("Hit");
-        Debug.Log("Enemy took damage from players bullet");
+        if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("TakeDamage"))
+        {
+            _animator.speed = _animationSpeed;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _animator.speed = _animationSpeed / 2;
+        _animator.SetTrigger("TakeDamage");
+        _rb.velocity = Vector3.zero;
+        //hp - damage blah blah
+        Debug.Log(this.gameObject.name + " hit for: " + damage);
     }
 }

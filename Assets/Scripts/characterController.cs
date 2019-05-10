@@ -20,12 +20,17 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private float _speed;
     [SerializeField]
+    private float _rotationSpeed;
+    [SerializeField]
+    private GameObject _gun;
+    [SerializeField]
     private float _attackDamage;
     [SerializeField]
     private float _rateOfFire;
 
     private Vector3 moveDirection;
-    
+    private Vector3 lookDirection;
+
     [SerializeField]
     private float _jumpSpeed;
     [SerializeField]
@@ -33,6 +38,9 @@ public class characterController : MonoBehaviour
     private float _groundRayDistance;
 
     private float startingY; // i dont think we need this
+    //Raycast Stuff
+    [SerializeField]
+    private GameObject rayCastIcon;
     //Scaling stuff
     [SerializeField]
     private float _xScaleFactor;
@@ -49,9 +57,10 @@ public class characterController : MonoBehaviour
     {
         _ARCamera = FindObjectOfType<Camera>().GetComponent<Camera>();
         _rb = GetComponent<Rigidbody>();
-        _jsc = FindObjectOfType<MobileJoystickController>().GetComponent<MobileJoystickController>();
+        //_jsc = FindObjectOfType<MobileJoystickController>().GetComponent<MobileJoystickController>();
         _gm = FindObjectOfType<GameManager>();
         startingY = this.transform.position.y;
+        Instantiate(rayCastIcon, Vector3.zero, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -70,21 +79,25 @@ public class characterController : MonoBehaviour
             _scaled = true;
         }
         //Blend animations for moving diagonally
-        _animator.SetFloat("Zmovement", _rb.velocity.z);
-        _animator.SetFloat("Xmovement", _rb.velocity.x);
+        float forwardMovement = ((Vector3.Dot(this.transform.forward, _rb.velocity)) / (this.transform.forward.magnitude));
+        float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
+        _animator.SetFloat("Zmovement", forwardMovement);
+        _animator.SetFloat("Xmovement", rightMovement);
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack();
-        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
-        if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
         {
             _rb.velocity = Vector3.zero;
         }
+        else
+        {
+            _rb.velocity = moveDirection * _speed * Time.deltaTime;
+        }
+        /*
         else if (_jsc.GetJoystickActive())
         {
             Vector3 camForward = _ARCamera.transform.forward;
@@ -97,30 +110,39 @@ public class characterController : MonoBehaviour
             moveDirection = ((camForward * _jsc.inputDirection.y + camRight * _jsc.inputDirection.x) * _speed * Time.deltaTime);
             _rb.velocity = moveDirection;
         }
+        */
     }
-        
-    public void Attack()
+
+    public void Attack(Vector3 target)
     {
-        _animator.SetTrigger("Shoot");
-        /*
-        RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, _attackRange))
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
         {
-            if (hit.transform.gameObject.tag == "Enemy")
+            return;
+        }
+        else
+        {
+            _animator.SetTrigger("Shoot");
+            RaycastHit hit;
+            if (Physics.Raycast(_gun.transform.position, (target - _gun.transform.position), out hit, 100))
             {
-                hit.transform.gameObject.SendMessage("TakeDamage", _attackDamage);
+                Debug.Log("we are shooting");
+                if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    Debug.Log("we hit :" + hit.transform.gameObject.name);
+                    hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(10);
+                }
             }
-        }*/
+        }
     }
 
     public void TakeDamage()
     {
-        Debug.Log("Player recieved damage message");
+        //Debug.Log("Player recieved damage message");
     }
-    
+
     private void CheckGrounded()
     {
-        if(_grounded)
+        if (_grounded)
         {
             _groundRayDistance = 0.35f;
         }
@@ -129,7 +151,7 @@ public class characterController : MonoBehaviour
             _groundRayDistance = 0.15f;
         }
 
-        if(Physics.Raycast(this.transform.position - new Vector3(0f, 0.15f, 0f), -1*this.transform.up, _groundRayDistance))
+        if (Physics.Raycast(this.transform.position - new Vector3(0f, 0.15f, 0f), -1 * this.transform.up, _groundRayDistance))
         {
             _grounded = true;
         }
@@ -147,5 +169,17 @@ public class characterController : MonoBehaviour
     public bool GetGrounded()
     {
         return _grounded;
+    }
+
+    public void setMoveDir(Vector3 Destination)
+    {
+        moveDirection = (Destination - this.transform.position);
+        moveDirection = moveDirection.normalized;
+        lookDirection = moveDirection;
+    }
+
+    public void setLookDir(Vector3 Destination)
+    {
+        lookDirection = Destination;
     }
 }

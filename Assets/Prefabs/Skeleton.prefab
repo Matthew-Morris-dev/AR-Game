@@ -48,7 +48,7 @@ MonoBehaviour:
   _attackRange: 0.15
   _rb: {fileID: 600955703}
   _animator: {fileID: 1901056571898281690}
-  _animationSpeed: 0
+  _animationSpeed: 1
   _target: {fileID: 0}
   _xScaleFactor: 1
   _yScaleFactor: 1

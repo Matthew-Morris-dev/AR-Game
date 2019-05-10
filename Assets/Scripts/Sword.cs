@@ -17,11 +17,17 @@ public class Sword : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("we enter here");
+        //Debug.Log("we enter here");
         if(other.gameObject.tag == "Player")
         {
             other.gameObject.SendMessage("TakeDamage");
-            Debug.Log("Skeleton Hit Player");
+            //Debug.Log("Skeleton Hit Player");
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        //hp - damage blah blah
+        Debug.Log("we applied damage to the skeletons sword :/");
     }
 }
