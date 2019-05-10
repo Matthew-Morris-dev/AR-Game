@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         //Tell the buttons to control the player
         FindObjectOfType<YbuttonController>().SetPlayerController(this.gameObject);
-        FindObjectOfType<XbuttonController>().SetPlayerController(this.gameObject);
+        //FindObjectOfType<XbuttonController>().SetPlayerController(this.gameObject);
 
         //Tell enemies who spawn before player about the player
         FindObjectOfType<OldEnemyController>().SetPlayer(this.gameObject);

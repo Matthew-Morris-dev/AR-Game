@@ -11,39 +11,32 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpH
     [SerializeField]
     private Image XbuttonImage;
     [SerializeField]
-    private characterController _cc;
-    [SerializeField]
-    private PlayerController _pc;
+    private characterController _player;
     // Start is called before the first frame update
     void Start()
     {
         XbuttonImage.color = Color.white;
+        _player = FindObjectOfType<characterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(_player == null)
+        {
+            _player = FindObjectOfType<characterController>();
+        }
     }
 
     public void OnPointerDown(PointerEventData evt)
     {
         XbuttonImage.color = Color.gray;
-        _pc.Attack();
+        _player.setCanMove(false);
     }
 
     public void OnPointerUp(PointerEventData evt)
     {
         XbuttonImage.color = Color.white;
-    }
-
-    public void SetPlayerController(GameObject obj)
-    {
-        _pc = obj.GetComponent<PlayerController>();
-    }
-
-    public void SetCharacterController(GameObject obj)
-    {
-        _cc = obj.GetComponent<characterController>();
+        _player.setCanMove(true);
     }
 }

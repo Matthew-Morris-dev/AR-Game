@@ -56,7 +56,7 @@ public class OldcharacterController : MonoBehaviour
         //_CharController = GetComponent<CharacterController>();
         _jsc = FindObjectOfType<MobileJoystickController>().GetComponent<MobileJoystickController>();
         _target = GameObject.Find("CenterOfMass");
-        FindObjectOfType<XbuttonController>().SetCharacterController(this.gameObject);
+        //FindObjectOfType<XbuttonController>().SetCharacterController(this.gameObject);
         FindObjectOfType<YbuttonController>().SetCharacterController(this.gameObject);
         startingY = this.transform.position.y;
         //_groundHeight = this.transform.position.y;

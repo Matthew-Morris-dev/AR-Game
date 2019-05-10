@@ -28,6 +28,7 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private float _rateOfFire;
 
+    private bool canMove = true;
     private Vector3 moveDirection;
     private Vector3 lookDirection;
 
@@ -93,7 +94,7 @@ public class characterController : MonoBehaviour
         {
             _rb.velocity = Vector3.zero;
         }
-        else
+        else if(canMove == true)
         {
             _rb.velocity = moveDirection * _speed * Time.deltaTime;
         }
@@ -181,5 +182,10 @@ public class characterController : MonoBehaviour
     public void setLookDir(Vector3 Destination)
     {
         lookDirection = Destination;
+    }
+
+    public void setCanMove(bool value)
+    {
+        canMove = value;
     }
 }
