@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float _stoppingDistance;
     [SerializeField]
-    private int _attackDamage;
+    private float _attackDamage;
     [SerializeField]
     private float _attackRange;
     [SerializeField]
@@ -31,12 +32,23 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private GameManager _gm;
 
+    //Health stuff
+    [SerializeField]
+    private float _maxHealth;
+    [SerializeField]
+    private float _currentHealth;
+    [SerializeField]
+    private Image _hpBar;
+
     private bool _scaled = false;
+    private bool _playerDead = false;
 
     // Start is called before the first frame update
     void Start()
     {
         _gm = FindObjectOfType<GameManager>();
+        _currentHealth = _maxHealth;
+        _animator.SetFloat("Health", _currentHealth);
     }
 
     // Update is called once per frame
@@ -58,42 +70,55 @@ public class EnemyController : MonoBehaviour
             _attackRange *= _gm.GetGameWorldScale();
             _scaled = true;
         }
-        //Find and move towards target
-        if (_target == null)
+        if (_playerDead == false)
         {
-            _target = FindObjectOfType<characterController>().gameObject;
+            //Find and move towards target
+            if (_target == null)
+            {
+                _target = FindObjectOfType<characterController>().gameObject;
+            }
+            else
+            {
+                Vector3 lookinDirection = new Vector3(_target.transform.position.x, this.transform.position.y, _target.transform.position.z);
+                this.transform.LookAt(lookinDirection);
+                if (Vector3.Distance(this.transform.position, _target.transform.position) <= _attackRange)
+                {
+                    _animator.SetTrigger("Attack");
+                }
+            }
+
+            _hpBar.fillAmount = _currentHealth / _maxHealth;
+
+            //Walking animation stuff
+            _animator.SetFloat("Speed", _rb.velocity.magnitude);
         }
         else
         {
-            Vector3 lookinDirection = new Vector3(_target.transform.position.x, this.transform.position.y, _target.transform.position.z);
-            this.transform.LookAt(lookinDirection);
-            if(Vector3.Distance(this.transform.position, _target.transform.position) <= _attackRange)
-            {
-                _animator.SetTrigger("Attack");
-            }
+            _rb.velocity = Vector3.zero;
+            _animator.SetFloat("Speed", _rb.velocity.magnitude);
         }
-        
-
-        //Walking animation stuff
-        _animator.SetFloat("Speed", _rb.velocity.magnitude);
     }
 
     private void FixedUpdate()
     {
-        if (_target != null)
+        if (_playerDead == false)
         {
-            if ((Vector3.Distance(this.transform.position, _target.transform.position) <= _stoppingDistance) || this._animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
+            if (_target != null)
             {
-                this._rb.velocity = Vector3.zero;
-            }
-            else if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
-            {
-                this._rb.velocity = this.transform.forward * _speed * Time.deltaTime;
-                Debug.Log(this.transform.forward);
+                if ((Vector3.Distance(this.transform.position, _target.transform.position) <= _stoppingDistance) || this._animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
+                {
+                    this._rb.velocity = Vector3.zero;
+                }
+                else if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
+                {
+                    this._rb.velocity = this.transform.forward * _speed * Time.deltaTime;
+                    Debug.Log(this.transform.forward);
+                }
             }
         }
     }
 
+    
     private void LateUpdate()
     {
         if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("TakeDamage"))
@@ -101,13 +126,30 @@ public class EnemyController : MonoBehaviour
             _animator.speed = _animationSpeed;
         }
     }
+    
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         _animator.speed = _animationSpeed / 2;
         _animator.SetTrigger("TakeDamage");
         _rb.velocity = Vector3.zero;
-        //hp - damage blah blah
+        _currentHealth -= damage;
         Debug.Log(this.gameObject.name + " hit for: " + damage);
+        if(this.gameObject.GetComponent<EnemyController>()._currentHealth <= 0)
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        _animator.SetFloat("Health", _currentHealth);
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        Destroy(this.gameObject);
+    }
+
+    public void SetPlayerDead(bool value)
+    {
+        _playerDead = value;
     }
 }

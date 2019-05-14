@@ -65,9 +65,6 @@ namespace GoogleARCore.Examples.Common
 
         private MeshRenderer m_MeshRenderer;
 
-        private TutorialTextController _ttc;
-        private bool _incTTC = false;
-
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -75,11 +72,6 @@ namespace GoogleARCore.Examples.Common
         {
             m_Mesh = GetComponent<MeshFilter>().mesh;
             m_MeshRenderer = GetComponent<UnityEngine.MeshRenderer>();
-        }
-
-        public void Start()
-        {
-            _ttc = FindObjectOfType<TutorialTextController>();
         }
 
         /// <summary>
@@ -103,11 +95,6 @@ namespace GoogleARCore.Examples.Common
             }
 
             m_MeshRenderer.enabled = true;
-            if (_incTTC == false)
-            {
-                _ttc.IncrementTutText();
-                _incTTC = true;
-            }
             _UpdateMeshIfNeeded();
         }
 

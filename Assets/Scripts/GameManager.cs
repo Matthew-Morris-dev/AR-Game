@@ -27,8 +27,6 @@ public class GameManager : MonoBehaviour
     private bool _Quitting = false;
     public DetectedPlane detectedPlane;
     private bool planeSet = false;
-    [SerializeField]
-    private TutorialTextController _ttc;
 
     [SerializeField]
     private GameObject _player;
@@ -36,21 +34,6 @@ public class GameManager : MonoBehaviour
     private GameObject _gameWorld;
     [SerializeField]
     private float _gameWorldScale;
-    //Playable characters
-    //[SerializeField]
-    //private GameObject[] ListOfCharacters;
-    //Enemies
-    //[SerializeField]
-    //private GameObject _Enemy;
-    //[SerializeField]
-    //private GameObject _arena;
-    //private float _arenaScale;
-    /*
-    [SerializeField]
-    private Text extentXtext;
-    [SerializeField]
-    private Text extentZtext;
-    */
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +54,13 @@ public class GameManager : MonoBehaviour
         if (!planeSet)
         {
             ProcessTouches();
+        }
+        else
+        {
+            if(GameObject.FindGameObjectsWithTag("Plane").Length > 0)
+            {
+                OnTogglePlanes(false);
+            }
         }
     }
 
@@ -111,27 +101,13 @@ public class GameManager : MonoBehaviour
                 //_arenaScale = detectedPlane.ExtentZ;
                 _gameWorldScale = detectedPlane.ExtentZ;
             }
-            
-            //Instantiate(_arena, detectedPlane.CenterPose.position, Quaternion.identity);
+
+            //Anchor anchor = this.detectedPlane.CreateAnchor(new Pose(detectedPlane.CenterPose.position, Quaternion.identity));
             Instantiate(_gameWorld, detectedPlane.CenterPose.position, Quaternion.identity);
             Instantiate(_player, detectedPlane.CenterPose.position, Quaternion.identity);
+            firstPersonCamera.GetComponentInParent<ARCoreSession>().SessionConfig.PlaneFindingMode = GoogleARCore.DetectedPlaneFindingMode.Disabled;
             OnTogglePlanes(false);
-            /*
-            if (_Enemy.name == "Enemy")
-            {
-                Instantiate(_Enemy, detectedPlane.CenterPose.position + new Vector3(0f,0.3f,0f), Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(_Enemy, detectedPlane.CenterPose.position, Quaternion.identity);
-            }
-            */
             planeSet = true;
-            _ttc.IncrementTutText();
-            //extentXtext.text = "arena scale: " + _arenaScale;
-            //extentZtext.text = "ExtentZ: " + detectedPlane.ExtentZ * 0.1;
-            //_groundPlane.transform.localScale = new Vector3(detectedPlane.ExtentX * 0.1f, 1f, detectedPlane.ExtentZ * 0.1f);
-            //Instantiate(_groundPlane, detectedPlane.CenterPose.position, Quaternion.identity);
         }
         else
         {
@@ -199,37 +175,14 @@ public class GameManager : MonoBehaviour
             t.enabled = flag;
         }
     }
-    /*
-    public void VisualizePlanes(bool showPlanes)
-    {
-        foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
-        {
-            Renderer r = plane.GetComponent<Renderer>();
-            DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
-            r.enabled = showPlanes;
-            t.enabled = showPlanes;
-        }
-    }
-    */
+
     public bool GetPlaneSet()
     {
         return planeSet;
     }
-
-    /*
-    public float GetArenaScale()
-    {
-        return _arenaScale;
-    }
-    */
+    
     public float GetGameWorldScale()
     {
         return _gameWorldScale;
     }
-    /*
-    public void SpawnEnemy()
-    {
-        Instantiate(_Enemy, detectedPlane.CenterPose.position + new Vector3(0f, 0.3f, 0f), Quaternion.identity);
-    }
-    */
 }

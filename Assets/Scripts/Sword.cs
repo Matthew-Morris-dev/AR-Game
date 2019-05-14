@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    private float _attackDamage;
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("we enter here");
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.SendMessage("TakeDamage");
+            other.GetComponent<characterController>().TakeDamage(_attackDamage);
             //Debug.Log("Skeleton Hit Player");
         }
     }

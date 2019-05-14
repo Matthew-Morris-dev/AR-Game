@@ -67,4 +67,19 @@ public class rayCastIcon : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<characterController>().setCanMove(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<characterController>().setCanMove(true);
+        }
+    }
 }

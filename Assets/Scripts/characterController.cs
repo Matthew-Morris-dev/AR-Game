@@ -32,6 +32,14 @@ public class characterController : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 lookDirection;
 
+    //Health stuff
+    [SerializeField]
+    private float _maxHealth;
+    [SerializeField]
+    private float _currentHealth;
+    [SerializeField]
+    private Image _hpBar;
+
     [SerializeField]
     private float _jumpSpeed;
     [SerializeField]
@@ -44,15 +52,12 @@ public class characterController : MonoBehaviour
     private GameObject rayCastIcon;
     //Scaling stuff
     [SerializeField]
-    private float _xScaleFactor;
-    [SerializeField]
-    private float _yScaleFactor;
-    [SerializeField]
-    private float _zScaleFactor;
+    private float _scaleFactor;
     [SerializeField]
     private GameManager _gm;
 
     private bool _scaled = false;
+    private bool _dead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +67,8 @@ public class characterController : MonoBehaviour
         _gm = FindObjectOfType<GameManager>();
         startingY = this.transform.position.y;
         Instantiate(rayCastIcon, Vector3.zero, Quaternion.identity);
+        _currentHealth = _maxHealth;
+        _animator.SetFloat("Health", _currentHealth);
     }
 
     // Update is called once per frame
@@ -74,44 +81,52 @@ public class characterController : MonoBehaviour
         }
         else if (_scaled == false)
         {
-            this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
+            this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _scaleFactor, _gm.GetGameWorldScale() * _scaleFactor, _gm.GetGameWorldScale() * _scaleFactor);
             _speed *= _gm.GetGameWorldScale();
             _animationSpeed *= _gm.GetGameWorldScale();
             _scaled = true;
         }
-        //Blend animations for moving diagonally
-        float forwardMovement = ((Vector3.Dot(this.transform.forward, _rb.velocity)) / (this.transform.forward.magnitude));
-        float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
-        _animator.SetFloat("Zmovement", forwardMovement);
-        _animator.SetFloat("Xmovement", rightMovement);
+        if (_dead == false)
+        {
+            //Blend animations for moving diagonally
+            float forwardMovement = ((Vector3.Dot(this.transform.forward, _rb.velocity)) / (this.transform.forward.magnitude));
+            float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
+            _animator.SetFloat("Zmovement", forwardMovement);
+            _animator.SetFloat("Xmovement", rightMovement);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
+
+            _hpBar.fillAmount = _currentHealth / _maxHealth;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+        if (_dead == false)
         {
-            _rb.velocity = Vector3.zero;
-        }
-        else if(canMove == true)
-        {
-            _rb.velocity = moveDirection * _speed * Time.deltaTime;
-        }
-        /*
-        else if (_jsc.GetJoystickActive())
-        {
-            Vector3 camForward = _ARCamera.transform.forward;
-            Vector3 camRight = _ARCamera.transform.right;
-            camForward.y = 0f;
-            camRight.y = 0f;
-            camForward = camForward.normalized;
-            camRight = camRight.normalized;
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+            {
+                _rb.velocity = Vector3.zero;
+            }
+            else if (canMove == true)
+            {
+                _rb.velocity = moveDirection * _speed * Time.deltaTime;
+            }
+            /*
+            else if (_jsc.GetJoystickActive())
+            {
+                Vector3 camForward = _ARCamera.transform.forward;
+                Vector3 camRight = _ARCamera.transform.right;
+                camForward.y = 0f;
+                camRight.y = 0f;
+                camForward = camForward.normalized;
+                camRight = camRight.normalized;
 
-            moveDirection = ((camForward * _jsc.inputDirection.y + camRight * _jsc.inputDirection.x) * _speed * Time.deltaTime);
-            _rb.velocity = moveDirection;
+                moveDirection = ((camForward * _jsc.inputDirection.y + camRight * _jsc.inputDirection.x) * _speed * Time.deltaTime);
+                _rb.velocity = moveDirection;
+            }
+            */
         }
-        */
     }
 
     public void Attack(Vector3 target)
@@ -130,15 +145,25 @@ public class characterController : MonoBehaviour
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
                     Debug.Log("we hit :" + hit.transform.gameObject.name);
-                    hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(10);
+                    hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(_attackDamage);
                 }
             }
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float damage)
     {
-        //Debug.Log("Player recieved damage message");
+        Debug.Log("Player recieved damage message");
+        _currentHealth -= damage;
+        if(_currentHealth <= 0)
+        {
+            _animator.SetFloat("Health", 0f);
+            _dead = true;
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                enemy.GetComponent<EnemyController>().SetPlayerDead(true);
+            }
+        }
     }
 
     private void CheckGrounded()
