@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class XbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class XbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Text XbuttonText;
@@ -35,6 +35,18 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpH
     }
 
     public void OnPointerUp(PointerEventData evt)
+    {
+        XbuttonImage.color = Color.white;
+        _player.setCanMove(true);
+    }
+
+    public void OnPointerEnter(PointerEventData evt)
+    {
+        XbuttonImage.color = Color.gray;
+        _player.setCanMove(false);
+    }
+
+    public void OnPointerExit(PointerEventData evt)
     {
         XbuttonImage.color = Color.white;
         _player.setCanMove(true);

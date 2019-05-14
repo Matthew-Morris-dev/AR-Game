@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\bullet.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\AugmentedFaces\Scripts\ARCoreAugmentedFaceMeshFilter.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\AugmentedFaces\Scripts\ARCoreAugmentedFaceRig.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\AugmentedFaces\Scripts\AugmentedFacesExampleController.cs" />
@@ -272,8 +273,10 @@
     <Compile Include="Assets\Scripts\TrainingTotem.cs" />
     <Compile Include="Assets\Scripts\TutorialTextController.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\WallEffect.cs" />
     <Compile Include="Assets\Scripts\XbuttonController.cs" />
     <Compile Include="Assets\Scripts\YbuttonController.cs" />
+    <Compile Include="Assets\WorldScale.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
     <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />

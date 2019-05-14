@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawn: {fileID: 1901056571890879828, guid: 8744c5626db007d4f8663e8ab598e5bc,
     type: 3}
+  _gm: {fileID: 0}
 --- !u!1 &8718002875347101855
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawn: {fileID: 1901056571890879828, guid: 8744c5626db007d4f8663e8ab598e5bc,
     type: 3}
+  _gm: {fileID: 0}
 --- !u!1 &8718002875926699227
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,3 +297,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawn: {fileID: 1901056571890879828, guid: 8744c5626db007d4f8663e8ab598e5bc,
     type: 3}
+  _gm: {fileID: 0}

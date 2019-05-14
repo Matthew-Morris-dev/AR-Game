@@ -94,9 +94,9 @@ MonoBehaviour:
   _mats:
   - {fileID: 2100000, guid: 0f53fdd647cfea24f8471ba8d848985a, type: 2}
   - {fileID: 2100000, guid: 5ceabf57d38ec0744930ee5aa81ea409, type: 2}
-  _xScaleFactor: 0.0125
-  _yScaleFactor: 0.0125
-  _zScaleFactor: 0.0125
+  _xScaleFactor: 0.025
+  _yScaleFactor: 0.025
+  _zScaleFactor: 0.025
   _gm: {fileID: 0}
 --- !u!64 &3759348379912655252
 MeshCollider:

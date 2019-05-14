@@ -13,6 +13,8 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private Animator _animator;
     [SerializeField]
+    private GameObject _muzzleFlash;
+    [SerializeField]
     private float _animationSpeed;
     [SerializeField]
     private MobileJoystickController _jsc;
@@ -24,10 +26,16 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private GameObject _gun;
     [SerializeField]
+    private GameObject _bulletEmitter;
+    [SerializeField]
+    private GameObject _bullet;
+    [SerializeField]
     private float _attackDamage;
     [SerializeField]
     private float _rateOfFire;
+    private float _timeSinceLastBullet = 0;
 
+    [SerializeField]
     private bool canMove = true;
     private Vector3 moveDirection;
     private Vector3 lookDirection;
@@ -86,6 +94,7 @@ public class characterController : MonoBehaviour
             _animationSpeed *= _gm.GetGameWorldScale();
             _scaled = true;
         }
+        _hpBar.fillAmount = _currentHealth / _maxHealth;
         if (_dead == false)
         {
             //Blend animations for moving diagonally
@@ -96,7 +105,28 @@ public class characterController : MonoBehaviour
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
 
-            _hpBar.fillAmount = _currentHealth / _maxHealth;
+            if(canMove == false)
+            {
+                if(_timeSinceLastBullet >= _rateOfFire)
+                {
+                    Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
+                    _muzzleFlash.SetActive(true);
+                    _timeSinceLastBullet = 0;
+                }
+                else
+                {
+                    _timeSinceLastBullet += Time.deltaTime;
+                }
+            }
+            else
+            {
+                _muzzleFlash.SetActive(false);
+            }
+        }
+        else
+        {
+            _rb.freezeRotation = true;
+            _muzzleFlash.SetActive(false);
         }
     }
 
@@ -104,13 +134,13 @@ public class characterController : MonoBehaviour
     {
         if (_dead == false)
         {
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
-            {
-                _rb.velocity = Vector3.zero;
-            }
-            else if (canMove == true)
+            if (canMove == true)
             {
                 _rb.velocity = moveDirection * _speed * Time.deltaTime;
+            }
+            else
+            {
+                _rb.velocity = Vector3.zero;
             }
             /*
             else if (_jsc.GetJoystickActive())
@@ -128,7 +158,7 @@ public class characterController : MonoBehaviour
             */
         }
     }
-
+    /*
     public void Attack(Vector3 target)
     {
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
@@ -150,7 +180,7 @@ public class characterController : MonoBehaviour
             }
         }
     }
-
+    */
     public void TakeDamage(float damage)
     {
         Debug.Log("Player recieved damage message");
@@ -212,5 +242,9 @@ public class characterController : MonoBehaviour
     public void setCanMove(bool value)
     {
         canMove = value;
+        if(value == false)
+        {
+            _muzzleFlash.SetActive(false);
+        }
     }
 }

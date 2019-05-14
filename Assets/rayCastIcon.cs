@@ -40,6 +40,7 @@ public class rayCastIcon : MonoBehaviour
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
             _scaled = true;
         }
+        
         RaycastHit hit;
         if (Physics.Raycast(_ARCamera.transform.position, _ARCamera.transform.forward, out hit, 100))
         {
@@ -58,15 +59,15 @@ public class rayCastIcon : MonoBehaviour
                 this.transform.up = hit.normal;
                 Vector3 playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
                 _player.setMoveDir(playerMovePosition);
-                _player.Attack(hit.point);
             }
         }
         else
         {
             _player.setMoveDir(_player.transform.position);
         }
-    }
 
+    }
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
@@ -81,5 +82,5 @@ public class rayCastIcon : MonoBehaviour
         {
             other.GetComponent<characterController>().setCanMove(true);
         }
-    }
+    }*/
 }
