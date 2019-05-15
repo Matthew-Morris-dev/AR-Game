@@ -37,10 +37,16 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("we are colliding");
+        Debug.Log("we are colliding with" + collision.gameObject.name);
         if(collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+            Destroy(this.gameObject);
+        }
+        else if(collision.gameObject.CompareTag("TutorialEnemy"))
+        {
+            Debug.Log("we hit dummy");
+            collision.gameObject.GetComponent<TutorialEnemy>().TakeDamage(damage);
             Destroy(this.gameObject);
         }
         else if(collision.gameObject.CompareTag("Arena"))

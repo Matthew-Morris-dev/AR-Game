@@ -276,6 +276,9 @@
     <Compile Include="Assets\Scripts\WallEffect.cs" />
     <Compile Include="Assets\Scripts\XbuttonController.cs" />
     <Compile Include="Assets\Scripts\YbuttonController.cs" />
+    <Compile Include="Assets\TutorialEnemy.cs" />
+    <Compile Include="Assets\TutorialManager.cs" />
+    <Compile Include="Assets\TutorialWaypoint.cs" />
     <Compile Include="Assets\WorldScale.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />

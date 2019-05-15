@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
             detectedPlane = selectedPlane;
             
-            if (detectedPlane.ExtentX >= detectedPlane.ExtentZ)
+            if (detectedPlane.ExtentX <= detectedPlane.ExtentZ)
             {
                 //_arenaScale = detectedPlane.ExtentX;
                 _gameWorldScale = detectedPlane.ExtentX;
