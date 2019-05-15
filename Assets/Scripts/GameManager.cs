@@ -23,13 +23,20 @@ using Input = GoogleARCore.InstantPreviewInput;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject ARCoreDevice;
+    [SerializeField]
     private Camera firstPersonCamera;
     private bool _Quitting = false;
     public DetectedPlane detectedPlane;
     private bool planeSet = false;
-
+    [SerializeField]
+    private GameObject detectSurfaceUI;
+    [SerializeField]
+    private GameObject gameOverUI;
     [SerializeField]
     private GameObject _player;
+    [SerializeField]
+    private bool playerDead = false;
     [SerializeField]
     private GameObject _gameWorld;
     [SerializeField]
@@ -61,6 +68,11 @@ public class GameManager : MonoBehaviour
             {
                 OnTogglePlanes(false);
             }
+        }
+
+        if(playerDead)
+        {
+            gameOverUI.SetActive(true);
         }
     }
 
@@ -108,6 +120,7 @@ public class GameManager : MonoBehaviour
             firstPersonCamera.GetComponentInParent<ARCoreSession>().SessionConfig.PlaneFindingMode = GoogleARCore.DetectedPlaneFindingMode.Disabled;
             OnTogglePlanes(false);
             planeSet = true;
+            detectSurfaceUI.SetActive(false);
         }
         else
         {
@@ -140,8 +153,25 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        StartCoroutine(restart());
+        /*
         OnTogglePlanes(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        */
+    }
+
+    public IEnumerator restart()
+    {
+        ARCoreSession session = ARCoreDevice.GetComponent<ARCoreSession>();
+        ARCoreSessionConfig myConfig = session.SessionConfig;
+        DestroyImmediate(session);
+        // Destroy(session);
+        Debug.Log("destroyed session");
+        yield return null;
+        session = ARCoreDevice.AddComponent<ARCoreSession>();
+        session.SessionConfig = myConfig;
+        session.enabled = true;
+        Debug.Log("new session");
     }
     // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
     /// <summary>
@@ -184,5 +214,10 @@ public class GameManager : MonoBehaviour
     public float GetGameWorldScale()
     {
         return _gameWorldScale;
+    }
+
+    public void SetPlayerDead(bool value)
+    {
+        playerDead = value;
     }
 }

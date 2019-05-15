@@ -186,7 +186,8 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         if (WC != null)
         {
-            WC.increamentEnemiesDead();
+            //WC.increamentEnemiesDead();
+            WC.decrementEnemiesAlive();
         }
         Destroy(this.gameObject);
     }

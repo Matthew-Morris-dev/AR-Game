@@ -13,7 +13,9 @@ public class WaveController : MonoBehaviour
     [SerializeField]
     private int enemiesDead = 0;
     [SerializeField]
-    private bool[] wave;
+    private int enemiesAlive = 0;
+    [SerializeField]
+    private int waveTracker = 0;
 
     private GameManager _gm;
     private bool _spawned;
@@ -32,35 +34,34 @@ public class WaveController : MonoBehaviour
         }
         else if (tutorialOver)
         {
-            if((enemiesDead == 0) && (wave[0] == false))
+            if((enemiesAlive == 0) && waveTracker == 0)
             {
                 StartWave(1);
-                wave[0] = true;
+                waveTracker++;
             }
-            else if((enemiesDead == 1 && wave[1] == false))
+            else if((enemiesAlive == 0 && waveTracker == 1))
             {
                 StartWave(2);
-                wave[1] = true;
+                waveTracker++;
             }
-            else if((enemiesDead == 3) && (wave[2] == false))
+            else if((enemiesAlive == 0 && waveTracker == 2))
             {
                 StartWave(3);
-                wave[2] = true;
+                waveTracker++;
             }
-            else if ((enemiesDead == 6) && (wave[3] == false))
+            else if ((enemiesAlive == 0 && waveTracker == 3))
             {
                 StartWave(4);
-                wave[3] = true;
+                waveTracker++;
             }
-            else if ((enemiesDead == 10) && (wave[4] == false))
+            else if ((enemiesAlive == 0 && waveTracker == 4))
             {
                 StartWave(5);
-                wave[4] = true;
+                waveTracker++;
             }
-            else if ((enemiesDead == 15) && (wave[5] == false))
+            else if ((enemiesAlive == 0 && waveTracker == 5))
             {
                 StartWave(6);
-                wave[5] = true;
             }
         }
     }
@@ -69,10 +70,15 @@ public class WaveController : MonoBehaviour
     {
         tutorialOver = value;
     }
-
+    /*
     public void increamentEnemiesDead()
     {
         enemiesDead++;
+    }
+    */
+    public void decrementEnemiesAlive()
+    {
+        enemiesAlive--;
     }
 
     public void StartWave(int waveId)
@@ -80,17 +86,20 @@ public class WaveController : MonoBehaviour
         if(waveId == 1)
         {
             _spawners[0].SpawnEnemy();
+            enemiesAlive = 1;
         }
         else if(waveId == 2)
         {
             _spawners[1].SpawnEnemy();
             _spawners[2].SpawnEnemy();
+            enemiesAlive = 2;
         }
         else if(waveId == 3)
         {
             _spawners[0].SpawnEnemy();
             _spawners[1].SpawnEnemy();
             _spawners[2].SpawnEnemy();
+            enemiesAlive = 3;
         }
         else if (waveId == 4)
         {
@@ -98,6 +107,7 @@ public class WaveController : MonoBehaviour
             _spawners[1].SpawnEnemy();
             _spawners[2].SpawnEnemy();
             _spawners[3].SpawnEnemy();
+            enemiesAlive = 4;
         }
         else if (waveId == 5)
         {
@@ -106,6 +116,7 @@ public class WaveController : MonoBehaviour
             _spawners[2].SpawnEnemy();
             _spawners[3].SpawnEnemy();
             _spawners[4].SpawnEnemy();
+            enemiesAlive = 5;
         }
         else if (waveId == 6)
         {
@@ -115,6 +126,7 @@ public class WaveController : MonoBehaviour
             _spawners[3].SpawnEnemy();
             _spawners[4].SpawnEnemy();
             _spawners[5].SpawnEnemy();
+            enemiesAlive = 6;
         }
     }
 }
