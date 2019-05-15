@@ -67,7 +67,7 @@ public class rayCastIcon : MonoBehaviour
         }
 
     }
-    /*
+    
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
@@ -82,5 +82,5 @@ public class rayCastIcon : MonoBehaviour
         {
             other.GetComponent<characterController>().setCanMove(true);
         }
-    }*/
+    }
 }

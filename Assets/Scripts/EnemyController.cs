@@ -14,6 +14,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float _attackRange;
     [SerializeField]
+    private GameObject sword;
+    [SerializeField]
+    private float damageDelay;
+    [SerializeField]
+    private float delayTimer = 0f;
+
+    [SerializeField]
     private Rigidbody _rb;
     [SerializeField]
     private Animator _animator;
@@ -43,10 +50,15 @@ public class EnemyController : MonoBehaviour
     private bool _scaled = false;
     private bool _playerDead = false;
 
+    //Wave Spawning Stuff
+    [SerializeField]
+    private WaveController WC;
+
     // Start is called before the first frame update
     void Start()
     {
         _gm = FindObjectOfType<GameManager>();
+        WC = FindObjectOfType<WaveController>();
         _currentHealth = _maxHealth;
         _animator.SetFloat("Health", _currentHealth);
     }
@@ -54,6 +66,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(WC == null)
+        {
+            WC = FindObjectOfType<WaveController>();
+        }
+
         //Find GM or scale
         if (_gm == null)
         {
@@ -96,6 +113,28 @@ public class EnemyController : MonoBehaviour
         {
             _rb.velocity = Vector3.zero;
             _animator.SetFloat("Speed", _rb.velocity.magnitude);
+        }
+
+        if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            if(delayTimer >= damageDelay)
+            {
+                sword.GetComponent<BoxCollider>().enabled = true;
+                sword.GetComponent<Sword>().SetCanDoDamage(true);
+                delayTimer = 0f;
+                damageDelay = 10f;
+            }
+            else
+            {
+                delayTimer += Time.deltaTime;
+            }
+        }
+        else
+        {
+            sword.GetComponent<BoxCollider>().enabled = false;
+            sword.GetComponent<Sword>().SetCanDoDamage(false);
+            delayTimer = 0f;
+            damageDelay = 0.8f;
         }
     }
 
@@ -145,6 +184,10 @@ public class EnemyController : MonoBehaviour
     {
         _animator.SetFloat("Health", _currentHealth);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        if (WC != null)
+        {
+            WC.increamentEnemiesDead();
+        }
         Destroy(this.gameObject);
     }
 

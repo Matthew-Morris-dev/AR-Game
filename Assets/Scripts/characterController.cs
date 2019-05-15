@@ -24,7 +24,9 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private float _rotationSpeed;
     [SerializeField]
-    private GameObject _gun;
+    private GameObject shootRaycastFrom;
+    [SerializeField]
+    private Vector3 shootRaycastHit;
     [SerializeField]
     private GameObject _bulletEmitter;
     [SerializeField]
@@ -34,7 +36,8 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private float _rateOfFire;
     private float _timeSinceLastBullet = 0;
-
+    [SerializeField]
+    private bool shoot = false;
     [SerializeField]
     private bool canMove = true;
     private Vector3 moveDirection;
@@ -105,10 +108,17 @@ public class characterController : MonoBehaviour
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
 
-            if(canMove == false)
+            if(shoot)
             {
                 if(_timeSinceLastBullet >= _rateOfFire)
                 {
+                    RaycastHit hit;
+                    if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
+                    {
+                        Debug.Log("we shoot raycast");
+                        shootRaycastHit = hit.point;
+                    }
+                    Debug.Log("hit:" + hit.transform.tag);
                     Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
                     _muzzleFlash.SetActive(true);
                     _timeSinceLastBullet = 0;
@@ -241,8 +251,32 @@ public class characterController : MonoBehaviour
 
     public void setCanMove(bool value)
     {
-        canMove = value;
+        if(!shoot)
+        {
+            canMove = value;
+        }
+        else
+        {
+            canMove = false;
+        }
+        /*
         if(value == false)
+        {
+            _muzzleFlash.SetActive(false);
+        }
+        */
+    }
+
+    public Vector3 getLatestRaycastHit()
+    {
+        return shootRaycastHit;
+    }
+
+    public void setShoot(bool value)
+    {
+        shoot = value;
+        canMove = !value;
+        if (value == false)
         {
             _muzzleFlash.SetActive(false);
         }

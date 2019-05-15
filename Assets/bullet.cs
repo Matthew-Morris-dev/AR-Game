@@ -21,10 +21,9 @@ public class bullet : MonoBehaviour
     {
         this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
         this.transform.Rotate(90f, 0f, 0f);
-        Vector3 temp = FindObjectOfType<rayCastIcon>().transform.position;
-        Debug.Log("temp: " + temp);
-        temp.y = this.transform.position.y;
-        Vector3 dir = temp - this.transform.position;
+        Vector3 endDestination = FindObjectOfType<characterController>().getLatestRaycastHit();
+        Debug.Log("endDestination: " + endDestination);
+        Vector3 dir = endDestination - this.transform.position;
 
         rb.AddForce(dir * initialForce);
     }

@@ -21,6 +21,7 @@ public class TutorialEnemy : MonoBehaviour
     private float _zScaleFactor;
     [SerializeField]
     private GameManager _gm;
+    private bool _scaled = false;
 
     //Health stuff
     [SerializeField]
@@ -32,19 +33,22 @@ public class TutorialEnemy : MonoBehaviour
     [SerializeField]
     private Text _dummyText;
 
-    private bool _scaled = false;
+    //End Tutorial Stuff
+    [SerializeField]
+    private WaveController WC;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        _gm = FindObjectOfType<GameManager>();
+        //_gm = FindObjectOfType<GameManager>();
+        WC = FindObjectOfType<WaveController>();
         _currentHealth = _maxHealth;
         _animator.SetFloat("Health", _currentHealth);
     }
 
     void Start()
     {
-        _gm = FindObjectOfType<GameManager>();
+        //_gm = FindObjectOfType<GameManager>();
         _currentHealth = _maxHealth;
         _animator.SetFloat("Health", _currentHealth);
     }
@@ -52,6 +56,7 @@ public class TutorialEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         //Find GM or scale
         if (_gm == null)
         {
@@ -62,6 +67,12 @@ public class TutorialEnemy : MonoBehaviour
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
             _scaled = true;
         }
+        */
+        if(WC == null)
+        {
+            WC = FindObjectOfType<WaveController>();
+        }
+
         _hpBar.fillAmount = _currentHealth / _maxHealth;
         _rb.velocity = Vector3.zero;
         _animator.SetFloat("Speed", _rb.velocity.magnitude);
@@ -94,6 +105,7 @@ public class TutorialEnemy : MonoBehaviour
     {
         _animator.SetFloat("Health", _currentHealth);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        WC.setTutorialOver(true);
         Destroy(this.gameObject);
     }
 }

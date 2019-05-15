@@ -294,17 +294,21 @@ MonoBehaviour:
   _stoppingDistance: 0.1
   _attackDamage: 10
   _attackRange: 0.15
+  sword: {fileID: 1901056571890879868}
+  damageDelay: 0.8
+  delayTimer: 0
   _rb: {fileID: 600955703}
   _animator: {fileID: 1901056571898281690}
   _animationSpeed: 1
   _target: {fileID: 0}
-  _xScaleFactor: 1
-  _yScaleFactor: 1
-  _zScaleFactor: 1
+  _xScaleFactor: 2
+  _yScaleFactor: 2
+  _zScaleFactor: 2
   _gm: {fileID: 0}
   _maxHealth: 100
   _currentHealth: 0
   _hpBar: {fileID: 8201815652365524639}
+  WC: {fileID: 0}
 --- !u!65 &586916507616798159
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -331,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 10
+  canDoDamage: 0
 --- !u!1 &4946979418922881351
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,24 +31,24 @@ public class XbuttonController : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerDown(PointerEventData evt)
     {
         XbuttonImage.color = Color.gray;
-        _player.setCanMove(false);
+        _player.setShoot(true);
     }
 
     public void OnPointerUp(PointerEventData evt)
     {
         XbuttonImage.color = Color.white;
-        _player.setCanMove(true);
+        _player.setShoot(false);
     }
 
     public void OnPointerEnter(PointerEventData evt)
     {
         XbuttonImage.color = Color.gray;
-        _player.setCanMove(false);
+        _player.setShoot(true);
     }
 
     public void OnPointerExit(PointerEventData evt)
     {
         XbuttonImage.color = Color.white;
-        _player.setCanMove(true);
+        _player.setShoot(false);
     }
 }

@@ -24,11 +24,11 @@ public class TutorialWaypoint : MonoBehaviour
     {
         if(_tm == null)
         {
-            FindObjectOfType<TutorialManager>();
+            _tm = FindObjectOfType<TutorialManager>();
         }
         if (_gm = null)
         {
-
+            _gm = FindObjectOfType<GameManager>();
         }
         else if (_scaled == false)
         {
