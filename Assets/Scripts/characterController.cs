@@ -95,8 +95,8 @@ public class characterController : MonoBehaviour
         else if (_scaled == false)
         {
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _scaleFactor, _gm.GetGameWorldScale() * _scaleFactor, _gm.GetGameWorldScale() * _scaleFactor);
-            _speed *= _gm.GetGameWorldScale();
-            _animationSpeed *= _gm.GetGameWorldScale();
+            _speed *= _gm.GetGameWorldScale() * _scaleFactor;
+            _animationSpeed *= _gm.GetGameWorldScale() * _scaleFactor;
             _scaled = true;
         }
         _hpBar.fillAmount = _currentHealth / _maxHealth;
@@ -113,10 +113,10 @@ public class characterController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
             {
-                Debug.Log("we shoot raycast");
+                //Debug.Log("we shoot raycast");
                 shootRaycastHit = hit.point;
             }
-            Debug.Log("hit:" + hit.transform.tag);
+            //Debug.Log("hit:" + hit.transform.tag);
 
             _laserSight.SetLaserSightEnd(shootRaycastHit);
 
@@ -160,11 +160,17 @@ public class characterController : MonoBehaviour
         {
             if (canMove == true)
             {
-                _rb.velocity = moveDirection * _speed * Time.fixedDeltaTime;
+                //_rb.velocity = moveDirection * _speed * Time.fixedDeltaTime;
+                transform.Translate(moveDirection * _speed * Time.fixedDeltaTime, Space.World);
+                _animator.SetTrigger("Walking");
             }
             else
             {
                 _rb.velocity = Vector3.zero;
+                if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+                {
+                    _animator.SetTrigger("Idle");
+                }
             }
             /*
             else if (_jsc.GetJoystickActive())
@@ -291,6 +297,7 @@ public class characterController : MonoBehaviour
     {
         shoot = value;
         canMove = !value;
+        _animator.SetBool("Shoot", shoot);
         if (value == false)
         {
             _muzzleFlash.SetActive(false);

@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     private GameObject sword;
     [SerializeField]
     private float damageDelay;
+    private float initialDamageDelay;
     [SerializeField]
     private float delayTimer = 0f;
 
@@ -80,13 +81,15 @@ public class EnemyController : MonoBehaviour
         }
         else if (_scaled == false)
         {
-            Debug.Log("we run this");
+            //Debug.Log("we run this");
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
-            _speed *= _gm.GetGameWorldScale() * _xScaleFactor;
-            Debug.Log("speed = " + _speed);
-            //_animationSpeed *= this.transform.localScale.magnitude;
-            _stoppingDistance *= _gm.GetGameWorldScale() * _xScaleFactor;
-            _attackRange *= _gm.GetGameWorldScale() * _xScaleFactor;
+            _speed *= _gm.GetGameWorldScale() * 1f; //set speed scale to the same as the players scale
+            //_animationSpeed *= _gm.GetGameWorldScale() * 1f;
+            //_animator.speed = _animationSpeed;
+            //damageDelay = damageDelay * (_animationSpeed);
+            initialDamageDelay = damageDelay;
+            _stoppingDistance *= _gm.GetGameWorldScale();
+            _attackRange *= _gm.GetGameWorldScale();
             _scaled = true;
         }
         if (_playerDead == false)
@@ -100,21 +103,27 @@ public class EnemyController : MonoBehaviour
             {
                 Vector3 lookinDirection = new Vector3(_target.transform.position.x, this.transform.position.y, _target.transform.position.z);
                 this.transform.LookAt(lookinDirection);
+                Debug.Log("Look direction" + lookinDirection);
                 if (Vector3.Distance(this.transform.position, _target.transform.position) <= _attackRange)
                 {
                     _animator.SetTrigger("Attack");
+                    //_animator.speed = _animationSpeed;
+                }
+                else
+                {
+                    _animator.SetFloat("Speed", _speed);
                 }
             }
 
             _hpBar.fillAmount = _currentHealth / _maxHealth;
 
             //Walking animation stuff
-            _animator.SetFloat("Speed", _rb.velocity.magnitude);
+            //_animator.SetFloat("Speed", _rb.velocity.magnitude);
         }
         else
         {
             _rb.velocity = Vector3.zero;
-            _animator.SetFloat("Speed", _rb.velocity.magnitude);
+            _animator.SetFloat("Speed", 0f);
         }
 
         if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
@@ -136,7 +145,7 @@ public class EnemyController : MonoBehaviour
             sword.GetComponent<BoxCollider>().enabled = false;
             sword.GetComponent<Sword>().SetCanDoDamage(false);
             delayTimer = 0f;
-            damageDelay = 0.8f;
+            damageDelay = initialDamageDelay;
         }
     }
 
@@ -152,15 +161,14 @@ public class EnemyController : MonoBehaviour
                 }
                 else if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
                 {
-                    //this.transform.Translate(this.transform.forward * _speed * Time.fixedDeltaTime);
-                    this._rb.velocity = this.transform.forward * _speed * Time.fixedDeltaTime;
-                    Debug.Log(this.transform.forward);
+                    Vector3 movDir = (new Vector3(_target.transform.position.x, 0f, _target.transform.position.z) - new Vector3(this.transform.position.x, 0f, this.transform.position.z));
+                    this.transform.Translate(movDir * _speed * Time.fixedDeltaTime, Space.World);
                 }
             }
         }
     }
 
-    
+    /*
     private void LateUpdate()
     {
         if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("TakeDamage"))
@@ -168,11 +176,11 @@ public class EnemyController : MonoBehaviour
             _animator.speed = _animationSpeed;
         }
     }
-    
+    */
 
     public void TakeDamage(float damage)
     {
-        _animator.speed = _animationSpeed / 2;
+        //_animator.speed = _animationSpeed;
         _animator.SetTrigger("TakeDamage");
         _rb.velocity = Vector3.zero;
         _currentHealth -= damage;

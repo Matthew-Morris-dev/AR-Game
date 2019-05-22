@@ -26,7 +26,7 @@ public class TutorialWaypoint : MonoBehaviour
         {
             _tm = FindObjectOfType<TutorialManager>();
         }
-        if (_gm = null)
+        if (_gm == null)
         {
             _gm = FindObjectOfType<GameManager>();
         }

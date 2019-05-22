@@ -1429,7 +1429,7 @@ Transform:
   m_GameObject: {fileID: 408503140485499676}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 408503141657320564}
   - {fileID: 408503139986373682}
@@ -1509,9 +1509,9 @@ MonoBehaviour:
   _animator: {fileID: 408503140485499664}
   _muzzleFlash: {fileID: 408503140887935044}
   _laserSight: {fileID: 6551021783225975012}
-  _animationSpeed: 4
+  _animationSpeed: 10
   _jsc: {fileID: 0}
-  _speed: 20
+  _speed: 4
   _rotationSpeed: 360
   shootRaycastFrom: {fileID: 408503141107429959}
   shootRaycastHit: {x: 0, y: 0, z: 0}

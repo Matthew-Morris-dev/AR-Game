@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53832e7f2a519a499e5beefa9ee942f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
+  _speed: 0.3
   _stoppingDistance: 0.1
   _attackDamage: 10
   _attackRange: 0.15
@@ -447,15 +447,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 13
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 13
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 13
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_Controller
