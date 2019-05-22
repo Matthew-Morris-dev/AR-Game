@@ -31,6 +31,7 @@ public class GameWorldController : MonoBehaviour
         else if (_scaled == false)
         {
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
+            _scaled = true;
         }
     }
 }

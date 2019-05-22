@@ -1625,7 +1625,7 @@ MonoBehaviour:
   _grounded: 1
   rayCastIcon: {fileID: 5208294696381877712, guid: 793ea1a94d60fab4794b384bcc755b6b,
     type: 3}
-  _scaleFactor: 0.15
+  _scaleFactor: 0.1
   _gm: {fileID: 0}
 --- !u!1 &189902495094303674
 GameObject:

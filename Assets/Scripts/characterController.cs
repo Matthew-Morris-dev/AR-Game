@@ -15,6 +15,8 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private GameObject _muzzleFlash;
     [SerializeField]
+    private LaserSight _laserSight;
+    [SerializeField]
     private float _animationSpeed;
     [SerializeField]
     private MobileJoystickController _jsc;
@@ -108,10 +110,21 @@ public class characterController : MonoBehaviour
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
 
-            if(shoot)
+            RaycastHit hit;
+            if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
+            {
+                Debug.Log("we shoot raycast");
+                shootRaycastHit = hit.point;
+            }
+            Debug.Log("hit:" + hit.transform.tag);
+
+            _laserSight.SetLaserSightEnd(shootRaycastHit);
+
+            if (shoot)
             {
                 if(_timeSinceLastBullet >= _rateOfFire)
                 {
+                    /*
                     RaycastHit hit;
                     if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
                     {
@@ -119,6 +132,7 @@ public class characterController : MonoBehaviour
                         shootRaycastHit = hit.point;
                     }
                     Debug.Log("hit:" + hit.transform.tag);
+                    */
                     Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
                     _muzzleFlash.SetActive(true);
                     _timeSinceLastBullet = 0;
@@ -146,7 +160,7 @@ public class characterController : MonoBehaviour
         {
             if (canMove == true)
             {
-                _rb.velocity = moveDirection * _speed * Time.deltaTime;
+                _rb.velocity = moveDirection * _speed * Time.fixedDeltaTime;
             }
             else
             {
@@ -203,6 +217,7 @@ public class characterController : MonoBehaviour
             {
                 enemy.GetComponent<EnemyController>().SetPlayerDead(true);
             }
+            _gm.SetPlayerDead(true);
         }
     }
 

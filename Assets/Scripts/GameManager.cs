@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour
         {
             gameOverUI.SetActive(true);
         }
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    SceneManager.LoadScene("MainMenu");
+        //}
     }
 
     //This will detect if user touches the screen.
@@ -154,10 +159,8 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         StartCoroutine(restart());
-        /*
         OnTogglePlanes(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        */
     }
 
     public IEnumerator restart()

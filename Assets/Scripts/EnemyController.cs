@@ -61,6 +61,8 @@ public class EnemyController : MonoBehaviour
         WC = FindObjectOfType<WaveController>();
         _currentHealth = _maxHealth;
         _animator.SetFloat("Health", _currentHealth);
+        _rb.drag = 0f;
+        _rb.angularDrag = 0f;
     }
 
     // Update is called once per frame
@@ -80,11 +82,11 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("we run this");
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
-            _speed *= _gm.GetGameWorldScale();
+            _speed *= _gm.GetGameWorldScale() * _xScaleFactor;
             Debug.Log("speed = " + _speed);
             //_animationSpeed *= this.transform.localScale.magnitude;
-            _stoppingDistance *= _gm.GetGameWorldScale();
-            _attackRange *= _gm.GetGameWorldScale();
+            _stoppingDistance *= _gm.GetGameWorldScale() * _xScaleFactor;
+            _attackRange *= _gm.GetGameWorldScale() * _xScaleFactor;
             _scaled = true;
         }
         if (_playerDead == false)
@@ -150,7 +152,8 @@ public class EnemyController : MonoBehaviour
                 }
                 else if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
                 {
-                    this._rb.velocity = this.transform.forward * _speed * Time.deltaTime;
+                    //this.transform.Translate(this.transform.forward * _speed * Time.fixedDeltaTime);
+                    this._rb.velocity = this.transform.forward * _speed * Time.fixedDeltaTime;
                     Debug.Log(this.transform.forward);
                 }
             }
