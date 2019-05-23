@@ -1413,6 +1413,7 @@ GameObject:
   - component: {fileID: 408503140485499665}
   - component: {fileID: 408503140485499666}
   - component: {fileID: 408503140485499667}
+  - component: {fileID: 9203101724813714308}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -1530,6 +1531,26 @@ MonoBehaviour:
     type: 3}
   _scaleFactor: 0.1
   _gm: {fileID: 0}
+--- !u!114 &9203101724813714308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408503140485499676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58913e692646b24289e4874d091e0cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_targetIconOnScreen: {fileID: 21300000, guid: 397f6416f7d31394488559618605ceae,
+    type: 3}
+  m_targetIconOffScreen: {fileID: 21300000, guid: a7dfe621ec67a494ea759b80736b58b4,
+    type: 3}
+  m_edgeBuffer: 60
+  m_targetIconScale: {x: 0.5, y: 0.5, z: 0.5}
+  PointTarget: 1
+  ShowDebugLines: 0
 --- !u!1 &408503140533303466
 GameObject:
   m_ObjectHideFlags: 0
