@@ -60,7 +60,7 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 98ad81e9f689a492509f07e75b810aaa Unity.TextMeshPro.dll:TMPro.TMP_InputField
 5d18903124844bf37abf2c84b5e470e0 Assembly-CSharp.dll:GoogleARCore.Examples.CloudAnchors.NetworkManagerUIController
-ba3da608fe327b6016f2f9dadc74939e Assembly-CSharp.dll:.EnemySpawner
+6607de8a3daa38fffb677fc009a9bbdf Assembly-CSharp.dll:.EnemySpawner
 4cb443ffb7b54a755d9852ae91684f7d Assembly-CSharp.dll:GoogleARCore.Examples.ComputerVision.ComputerVisionController
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -218,7 +218,8 @@ fbbf64dcbe0662e3eda1dec45ea8f895 Vuforia.UnityExtensions.dll:Vuforia.WireframeBe
 b818207c0b8a805931f7a7989870283e Assembly-CSharp.dll:GoogleARCore.ARCoreBackgroundRenderer
 ffd216f4bb65b2aab1e439389a5b81a6 Assembly-CSharp.dll:.rayCastIcon
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
-c770b05cd29b558a2b9cdebc753ded45 Assembly-CSharp.dll:.TutorialEnemy
+56287885c839e0b289c23517874d8ead Assembly-CSharp.dll:.TutorialEnemy
+b7a5a64e91a913ab37f34a64bb138709 Assembly-CSharp.dll:.TargetIndicator
 269133bf6785f1e198f98a5b4b08eda1 Assembly-CSharp.dll:GoogleARCore.Examples.CloudAnchors.ARCoreWorldOriginHelper
 8f4159da5008f57988d759549fda2962 Assembly-CSharp.dll:GoogleARCoreInternal.InstantPreviewWarning
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
@@ -284,8 +285,8 @@ a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 6a13a31f3ff0910c06a1af7cb60291eb Assembly-CSharp.dll:GoogleARCore.Examples.ObjectManipulation.AndyPlacementManipulator
 dea189cf620f6ac37dd27d491e1234b1 Assembly-CSharp.dll:GoogleARCore.Examples.Common.DetectedPlaneGenerator
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-348ec2f866bbad68b1a88313b7f24e0a Assembly-CSharp.dll:.TutorialWaypoint
-0ca14ffc315fcf506ae0cf2f10afcc7e Assembly-CSharp.dll:.TutorialManager
+db4fdd71cf817de843d2ac541d16034a Assembly-CSharp.dll:.TutorialWaypoint
+7b75275f6601ee25b3eda57c00224def Assembly-CSharp.dll:.TutorialManager
 024f41b2944f04b2aa2c5f6a1d12ca22 Assembly-CSharp.dll:.WorldScale
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GoogleARCore.Examples.Common.DetectedPlaneVisualizer
 8fdb63ddf3911966b1560e0ad5e4c076 Assembly-CSharp.dll:.bullet
@@ -372,4 +373,7 @@ cd67f3e1e9ccac6db86c1564cea5a827 Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 69167579cf7fcbb2676fc1e675963dcd Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 fbbf64dcbe0662e3eda1dec45ea8f895 Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 71bb6a6b6c8f052f948db64c7dd3ca4f Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
-6d565ba4a336f8b06c7d2fc5f27633f7 Assembly-CSharp.dll:.TargetIndicator
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ReverseNormals
+fd9929367df3e3bd067c3420e4e62afe Assembly-CSharp.dll:.randomParticleRotation
+31bbe517b13ca59c4caca773b243a4c3 Assembly-CSharp.dll:.rotation
+2c78508d67df37094377b29be4b72d85 Assembly-CSharp.dll:.spawnEffect

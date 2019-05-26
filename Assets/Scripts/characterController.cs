@@ -117,7 +117,6 @@ public class characterController : MonoBehaviour
                 shootRaycastHit = hit.point;
             }
             //Debug.Log("hit:" + hit.transform.tag);
-
             _laserSight.SetLaserSightEnd(shootRaycastHit);
 
             if (shoot)

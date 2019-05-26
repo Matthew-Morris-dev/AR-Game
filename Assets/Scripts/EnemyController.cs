@@ -54,7 +54,6 @@ public class EnemyController : MonoBehaviour
     //Wave Spawning Stuff
     [SerializeField]
     private WaveController WC;
-
     // Start is called before the first frame update
     void Start()
     {

@@ -23,6 +23,8 @@ public class TargetIndicator : MonoBehaviour
     public bool ShowDebugLines;
     //Indicates if the object is out of the screen
     private bool m_outOfScreen;
+    [SerializeField]
+    private GameObject thisIcon;
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class TargetIndicator : MonoBehaviour
         Debug.Log(mainCanvas);
         Debug.Assert((mainCanvas != null), "There needs to be a Canvas object in the scene for the OTI to display");
         InstainateTargetIcon();
+        thisIcon = GameObject.Find(m_icon.name);
     }
 
     void Update()
@@ -119,5 +122,10 @@ public class TargetIndicator : MonoBehaviour
         max = vector.z > max ? vector.z : max;
         returnVector /= max;
         return returnVector;
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(thisIcon);
     }
 }
