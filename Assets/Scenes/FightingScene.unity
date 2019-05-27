@@ -900,7 +900,7 @@ MonoBehaviour:
   playerDead: 0
   _gameWorld: {fileID: 3252879416008286110, guid: d64ec0448f67a024fbf499cf64d64542,
     type: 3}
-  _gameWorldScale: 20
+  _gameWorldScale: 4
 --- !u!4 &1548517907
 Transform:
   m_ObjectHideFlags: 0

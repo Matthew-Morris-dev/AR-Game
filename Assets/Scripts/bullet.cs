@@ -50,7 +50,10 @@ public class bullet : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Arena"))
         {
-            //Instantiate(wallHitEffect, collision.transform.position, Quaternion.identity);
+            Vector3 collisionNormal = collision.contacts[0].normal;
+            Debug.Log("Collision normal: " + collisionNormal);
+            Quaternion hitWallEffectRotation = Quaternion.LookRotation(collisionNormal);
+            Instantiate(wallHitEffect, collision.contacts[0].point, hitWallEffectRotation);
             Destroy(this.gameObject);
         }
         else

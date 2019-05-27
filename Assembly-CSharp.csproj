@@ -259,6 +259,8 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameWorldController.cs" />
     <Compile Include="Assets\Scripts\GroundPlane.cs" />
+    <Compile Include="Assets\Scripts\HitWallEffect.cs" />
+    <Compile Include="Assets\Scripts\KillParticleEffects.cs" />
     <Compile Include="Assets\Scripts\LaserSight.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\MobileJoystickController.cs" />

@@ -111,7 +111,8 @@ MonoBehaviour:
   rb: {fileID: 4996121406299370231}
   initialForce: 50
   damage: 10
-  wallHitEffect: {fileID: 0}
+  wallHitEffect: {fileID: 2156120584582666346, guid: 9723f5570d9edce4684e264a38489e92,
+    type: 3}
   scaleFactor: 0.01
 --- !u!135 &3441011968308911893
 SphereCollider:
