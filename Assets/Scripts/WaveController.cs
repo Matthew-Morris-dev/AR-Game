@@ -46,6 +46,7 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(1, waveDelay));
                 waveTracker++;
+                _gm.AnnounceWave(waveTracker);
             }
             else if((enemiesAlive == 0 && waveTracker == 1) && waveStarted == false)
             {
@@ -53,6 +54,7 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(2, waveDelay));
                 waveTracker++;
+                _gm.AnnounceWave(waveTracker);
             }
             else if((enemiesAlive == 0 && waveTracker == 2) && waveStarted == false)
             {
@@ -60,6 +62,7 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(3, waveDelay));
                 waveTracker++;
+                _gm.AnnounceWave(waveTracker);
             }
             else if ((enemiesAlive == 0 && waveTracker == 3) && waveStarted == false)
             {
@@ -67,6 +70,7 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(4, waveDelay));
                 waveTracker++;
+                _gm.AnnounceWave(waveTracker);
             }
             else if ((enemiesAlive == 0 && waveTracker == 4) && waveStarted == false)
             {
@@ -74,12 +78,15 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(5, waveDelay));
                 waveTracker++;
+                _gm.AnnounceWave(waveTracker);
             }
-            else if ((enemiesAlive == 0 && waveTracker == 5) && waveStarted == false)
+            else if ((enemiesAlive == 0 && waveTracker >= 5) && waveStarted == false)
             {
                 waveStarted = true;
                 spawnSFX.Play();
                 StartCoroutine(StartWave(6, waveDelay));
+                waveTracker++;
+                _gm.AnnounceWave(waveTracker);
             }
             else if(enemiesAlive > 0)
             {

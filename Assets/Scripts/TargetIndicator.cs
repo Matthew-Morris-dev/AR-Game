@@ -29,9 +29,9 @@ public class TargetIndicator : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        Debug.Log(mainCamera);
+        //Debug.Log(mainCamera);
         mainCanvas = GameObject.Find("MainCanvas").GetComponent<Canvas>();
-        Debug.Log(mainCanvas);
+        //Debug.Log(mainCanvas);
         Debug.Assert((mainCanvas != null), "There needs to be a Canvas object in the scene for the OTI to display");
         InstainateTargetIcon();
         thisIcon = GameObject.Find(m_icon.name);

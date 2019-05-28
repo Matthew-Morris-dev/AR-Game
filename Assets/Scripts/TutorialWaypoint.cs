@@ -17,9 +17,9 @@ public class TutorialWaypoint : MonoBehaviour
     private void Start()
     {
         _tm = FindObjectOfType<TutorialManager>();
-        _gm = FindObjectOfType<GameManager>();
+        //_gm = FindObjectOfType<GameManager>();
     }
-
+    /*
     private void Update()
     {
         if(_tm == null)
@@ -36,7 +36,7 @@ public class TutorialWaypoint : MonoBehaviour
             _scaled = true;
         }
     }
-
+    */
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))

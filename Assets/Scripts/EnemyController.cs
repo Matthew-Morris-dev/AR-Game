@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour
         {
             //Debug.Log("we run this");
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
-            _speed *= _gm.GetGameWorldScale() * 1f; //set speed scale to the same as the players scale
+            _speed *= _gm.GetGameWorldScale() * 0.1f; //set speed scale to the same as the players scale
             //_animationSpeed *= _gm.GetGameWorldScale() * 1f;
             //_animator.speed = _animationSpeed;
             //damageDelay = damageDelay * (_animationSpeed);
@@ -162,6 +162,7 @@ public class EnemyController : MonoBehaviour
                 else if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
                 {
                     Vector3 movDir = (new Vector3(_target.transform.position.x, 0f, _target.transform.position.z) - new Vector3(this.transform.position.x, 0f, this.transform.position.z));
+                    movDir = movDir.normalized;
                     this.transform.Translate(movDir * _speed * Time.fixedDeltaTime, Space.World);
                 }
             }
@@ -198,12 +199,14 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Die()
     {
         _animator.SetFloat("Health", _currentHealth);
+        _gm.IncrementKills();
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         if (WC != null)
         {
             //WC.increamentEnemiesDead();
             WC.decrementEnemiesAlive();
         }
+        this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
         Destroy(this.gameObject);
     }
 

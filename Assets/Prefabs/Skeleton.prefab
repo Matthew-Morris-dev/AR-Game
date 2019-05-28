@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53832e7f2a519a499e5beefa9ee942f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.3
+  _speed: 2
   _stoppingDistance: 0.1
   _attackDamage: 10
   _attackRange: 0.15
@@ -536,23 +536,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.01, z: 0.085}
   m_Center: {x: 0.002, y: 0, z: 0.055}
---- !u!114 &8420985152133024892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901056571890879868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14658ff46f995e247be0629022d2aaa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackDamage: 10
-  canDoDamage: 0
-  playerDamageEffect: {fileID: 1861776072994860, guid: 356af48cec75bd649999d6957f16b032,
-    type: 3}
-  playerHitSFX: {fileID: 8804022828808437961}
 --- !u!82 &8804022828808437961
 AudioSource:
   m_ObjectHideFlags: 0
@@ -649,6 +632,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8420985152133024892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901056571890879868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14658ff46f995e247be0629022d2aaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackDamage: 10
+  canDoDamage: 0
+  playerDamageEffect: {fileID: 1861776072994860, guid: 356af48cec75bd649999d6957f16b032,
+    type: 3}
+  playerHitSFX: {fileID: 8804022828808437961}
 --- !u!1 &4946979418922881351
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +713,10 @@ PrefabInstance:
     - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalPosition.x

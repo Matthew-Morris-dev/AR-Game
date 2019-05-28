@@ -297,6 +297,7 @@ MonoBehaviour:
   sword: {fileID: 3604896956089990132}
   damageDelay: 0.8
   delayTimer: 0
+  hitSFX: {fileID: 0}
   _rb: {fileID: 1472224772}
   _animator: {fileID: 3604896956082554962}
   _animationSpeed: 1
@@ -357,6 +358,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackDamage: 10
   canDoDamage: 0
+  playerDamageEffect: {fileID: 0}
+  playerHitSFX: {fileID: 0}
 --- !u!1 &4946979418720474228
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +424,10 @@ PrefabInstance:
     - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalPosition.x

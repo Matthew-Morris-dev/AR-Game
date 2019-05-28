@@ -9,6 +9,7 @@ public class rayCastIcon : MonoBehaviour
 
     private Camera _ARCamera;
     private characterController _player;
+    private Vector3 playerMovePosition = Vector3.zero;
 
     //Scaling stuff
     [SerializeField]
@@ -42,28 +43,30 @@ public class rayCastIcon : MonoBehaviour
         }
         
         RaycastHit hit;
-        if (Physics.Raycast(_ARCamera.transform.position, _ARCamera.transform.forward, out hit, 100))
+        Debug.Log("Raycast layer: " + LayerMask.GetMask("Raycast"));
+        if (Physics.Raycast(_ARCamera.transform.position, _ARCamera.transform.forward, out hit, 100, LayerMask.GetMask("Raycast")))
         {
+            Debug.Log("racast hit");
             if (hit.transform.gameObject.tag == "Arena")
             {
                 this.gameObject.GetComponent<Renderer>().material = _mats[0];
                 this.transform.position = hit.point;
                 this.transform.up = hit.normal;
-                Vector3 playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
+                playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
                 _player.setMoveDir(playerMovePosition);
             }
-            else if(hit.transform.gameObject.tag == "Enemy")
+            else if(hit.transform.gameObject.tag == "Enemy" || hit.transform.gameObject.tag == "TutorialEnemy")
             {
                 this.gameObject.GetComponent<Renderer>().material = _mats[1];
                 this.transform.position = hit.point;
                 this.transform.up = hit.normal;
-                Vector3 playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
+                playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
                 _player.setMoveDir(playerMovePosition);
             }
         }
         else
         {
-            _player.setMoveDir(_player.transform.position);
+            _player.setMoveDir(playerMovePosition);
         }
 
     }

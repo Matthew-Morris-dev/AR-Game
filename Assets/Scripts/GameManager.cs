@@ -5,6 +5,7 @@ using GoogleARCore;
 using GoogleARCore.Examples.Common;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 #if UNITY_EDITOR
 // NOTE:
@@ -31,6 +32,12 @@ public class GameManager : MonoBehaviour
     private bool planeSet = false;
     [SerializeField]
     private GameObject detectSurfaceUI;
+    [SerializeField]
+    private TextMeshProUGUI waveAnnouncementText;
+    [SerializeField]
+    private TextMeshProUGUI killTrackerText;
+    [SerializeField]
+    private int numberOfKills = 0;
     [SerializeField]
     private GameObject gameOverUI;
     [SerializeField]
@@ -222,5 +229,23 @@ public class GameManager : MonoBehaviour
     public void SetPlayerDead(bool value)
     {
         playerDead = value;
+    }
+
+    public void AnnounceWave(int number)
+    {
+        waveAnnouncementText.text = ("WAVE " + number);
+        waveAnnouncementText.enabled = true;
+        Invoke("HideWave", 2f);
+    }
+
+    private void HideWave()
+    {
+        waveAnnouncementText.enabled = false;
+    }
+
+    public void IncrementKills()
+    {
+        numberOfKills++;
+        killTrackerText.text = ("KILLS: " + numberOfKills);
     }
 }
