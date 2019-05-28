@@ -34,6 +34,8 @@ public class characterController : MonoBehaviour
     [SerializeField]
     private GameObject _bullet;
     [SerializeField]
+    private AudioSource gunShotSFX;
+    [SerializeField]
     private float _attackDamage;
     [SerializeField]
     private float _rateOfFire;
@@ -132,6 +134,7 @@ public class characterController : MonoBehaviour
                     }
                     Debug.Log("hit:" + hit.transform.tag);
                     */
+                    gunShotSFX.Play();
                     Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
                     _muzzleFlash.SetActive(true);
                     _timeSinceLastBullet = 0;

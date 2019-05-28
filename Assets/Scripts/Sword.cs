@@ -9,6 +9,10 @@ public class Sword : MonoBehaviour
     private float _attackDamage;
     [SerializeField]
     private bool canDoDamage = false;
+    [SerializeField]
+    private GameObject playerDamageEffect;
+    [SerializeField]
+    private AudioSource playerHitSFX;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +21,8 @@ public class Sword : MonoBehaviour
         {
             other.GetComponent<characterController>().TakeDamage(_attackDamage);
             canDoDamage = false;
+            playerHitSFX.Play();
+            Instantiate(playerDamageEffect, other.ClosestPointOnBounds(this.transform.position), Quaternion.identity);
             //Debug.Log("Skeleton Hit Player");
         }
     }

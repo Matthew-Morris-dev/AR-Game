@@ -11,6 +11,8 @@ public class TutorialEnemy : MonoBehaviour
     private Animator _animator;
     [SerializeField]
     private float _animationSpeed;
+    [SerializeField]
+    private AudioSource hitSFX;
 
     //Scaling Stuff
     [SerializeField]
@@ -91,6 +93,10 @@ public class TutorialEnemy : MonoBehaviour
     {
         _animator.speed = _animationSpeed / 2;
         _animator.SetTrigger("TakeDamage");
+        if(hitSFX.isPlaying == false)
+        {
+            hitSFX.Play();
+        }
         _rb.velocity = Vector3.zero;
         this._currentHealth -= damage;
         Debug.Log(this.gameObject.name + " hit for: " + damage);

@@ -20,7 +20,8 @@ public class EnemyController : MonoBehaviour
     private float initialDamageDelay;
     [SerializeField]
     private float delayTimer = 0f;
-
+    [SerializeField]
+    private AudioSource hitSFX;
     [SerializeField]
     private Rigidbody _rb;
     [SerializeField]
@@ -181,6 +182,10 @@ public class EnemyController : MonoBehaviour
     {
         //_animator.speed = _animationSpeed;
         _animator.SetTrigger("TakeDamage");
+        if (hitSFX.isPlaying == false)
+        {
+            hitSFX.Play();
+        }
         _rb.velocity = Vector3.zero;
         _currentHealth -= damage;
         Debug.Log(this.gameObject.name + " hit for: " + damage);

@@ -16,6 +16,12 @@ public class WaveController : MonoBehaviour
     private int enemiesAlive = 0;
     [SerializeField]
     private int waveTracker = 0;
+    [SerializeField]
+    private AudioSource spawnSFX;
+    [SerializeField]
+    private float waveDelay;
+
+    private bool waveStarted = false;
 
     private GameManager _gm;
     private bool _spawned;
@@ -34,34 +40,50 @@ public class WaveController : MonoBehaviour
         }
         else if (tutorialOver)
         {
-            if((enemiesAlive == 0) && waveTracker == 0)
+            if((enemiesAlive == 0) && waveTracker == 0 && waveStarted == false)
             {
-                StartWave(1);
+                waveStarted = true;
+                spawnSFX.Play();
+                StartCoroutine(StartWave(1, waveDelay));
                 waveTracker++;
             }
-            else if((enemiesAlive == 0 && waveTracker == 1))
+            else if((enemiesAlive == 0 && waveTracker == 1) && waveStarted == false)
             {
-                StartWave(2);
+                waveStarted = true;
+                spawnSFX.Play();
+                StartCoroutine(StartWave(2, waveDelay));
                 waveTracker++;
             }
-            else if((enemiesAlive == 0 && waveTracker == 2))
+            else if((enemiesAlive == 0 && waveTracker == 2) && waveStarted == false)
             {
-                StartWave(3);
+                waveStarted = true;
+                spawnSFX.Play();
+                StartCoroutine(StartWave(3, waveDelay));
                 waveTracker++;
             }
-            else if ((enemiesAlive == 0 && waveTracker == 3))
+            else if ((enemiesAlive == 0 && waveTracker == 3) && waveStarted == false)
             {
-                StartWave(4);
+                waveStarted = true;
+                spawnSFX.Play();
+                StartCoroutine(StartWave(4, waveDelay));
                 waveTracker++;
             }
-            else if ((enemiesAlive == 0 && waveTracker == 4))
+            else if ((enemiesAlive == 0 && waveTracker == 4) && waveStarted == false)
             {
-                StartWave(5);
+                waveStarted = true;
+                spawnSFX.Play();
+                StartCoroutine(StartWave(5, waveDelay));
                 waveTracker++;
             }
-            else if ((enemiesAlive == 0 && waveTracker == 5))
+            else if ((enemiesAlive == 0 && waveTracker == 5) && waveStarted == false)
             {
-                StartWave(6);
+                waveStarted = true;
+                spawnSFX.Play();
+                StartCoroutine(StartWave(6, waveDelay));
+            }
+            else if(enemiesAlive > 0)
+            {
+                waveStarted = false;
             }
         }
     }
@@ -81,8 +103,9 @@ public class WaveController : MonoBehaviour
         enemiesAlive--;
     }
 
-    public void StartWave(int waveId)
+    IEnumerator StartWave(int waveId, float delay)
     {
+        yield return new WaitForSeconds(delay);
         if(waveId == 1)
         {
             _spawners[0].SpawnEnemy();
