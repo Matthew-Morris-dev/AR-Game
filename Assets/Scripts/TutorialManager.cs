@@ -39,4 +39,14 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialStep++;
     }
+    
+    public void StartTutorial()
+    {
+        _waypointText.SetActive(true);
+    }
+
+    public void DestroyWaypointIndicator()
+    {
+        waypoint.GetComponent<TargetIndicator>().OnDestroy();
+    }
 }

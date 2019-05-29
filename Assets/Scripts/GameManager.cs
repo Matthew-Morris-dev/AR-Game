@@ -18,7 +18,7 @@ using TMPro;
 // - InstantPreviewInput does not generate Unity UI event system
 //   events from device touches. Use mouse/keyboard in the editor
 //   instead.
-using Input = GoogleARCore.InstantPreviewInput;
+//using Input = GoogleARCore.InstantPreviewInput;
 #endif
 
 public class GameManager : MonoBehaviour
@@ -39,7 +39,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int numberOfKills = 0;
     [SerializeField]
+    private int waveTracker = 0;
+    [SerializeField]
     private GameObject gameOverUI;
+    [SerializeField]
+    private TextMeshProUGUI gameOverText;
+    private bool gameOver = false;
+    [SerializeField]
+    private GameObject skipTutorialUI;
+    [SerializeField]
+    private WaveController WC;
+    [SerializeField]
+    private TutorialManager TM;
     [SerializeField]
     private GameObject _player;
     [SerializeField]
@@ -48,15 +59,25 @@ public class GameManager : MonoBehaviour
     private GameObject _gameWorld;
     [SerializeField]
     private float _gameWorldScale;
+    [SerializeField]
+    private AudioSource ambientMusic;
+
+    [SerializeField]
+    private SceneTracker ST;
     // Start is called before the first frame update
     void Start()
     {
         QuitOnConnectionErrors();
+        ST = FindObjectOfType<SceneTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(ST == null)
+        {
+            ST = FindObjectOfType<SceneTracker>();
+        }
         //session must be tracking in order access the frame
         if (Session.Status != SessionStatus.Tracking)
         {
@@ -77,15 +98,23 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if(gameOver)
+        {
+            GameOverTouches();
+        }
+        /*
         if(playerDead)
         {
             gameOverUI.SetActive(true);
         }
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    SceneManager.LoadScene("MainMenu");
-        //}
+        */
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ST.SetUsedEscape(true);
+            ST.SetFastSkipMainMenu(false);
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     //This will detect if user touches the screen.
@@ -105,6 +134,17 @@ public class GameManager : MonoBehaviour
         {
             SetSelectedPlane(hit.Trackable as DetectedPlane);
         }
+    }
+
+    private void GameOverTouches()
+    {
+        Touch touch;
+        if ((Input.touchCount != 1) || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+        {
+            return;
+        }
+        ST.SetUsedEscape(false);
+        SceneManager.LoadScene("MainMenu");
     }
 
     //Used to test if raycast is working as intended
@@ -133,6 +173,16 @@ public class GameManager : MonoBehaviour
             OnTogglePlanes(false);
             planeSet = true;
             detectSurfaceUI.SetActive(false);
+            if(ST.GetFastSkipMainMenu())
+            {
+                CheckSkipTutorial();
+                SkipTutorial();
+                ST.SetFastSkipMainMenu(false);
+            }
+            else
+            {
+                CheckSkipTutorial();
+            }
         }
         else
         {
@@ -229,10 +279,12 @@ public class GameManager : MonoBehaviour
     public void SetPlayerDead(bool value)
     {
         playerDead = value;
+        GameOver();
     }
 
     public void AnnounceWave(int number)
     {
+        waveTracker = number;
         waveAnnouncementText.text = ("WAVE " + number);
         waveAnnouncementText.enabled = true;
         Invoke("HideWave", 2f);
@@ -247,5 +299,38 @@ public class GameManager : MonoBehaviour
     {
         numberOfKills++;
         killTrackerText.text = ("KILLS: " + numberOfKills);
+    }
+
+    private void GameOver()
+    {
+        ambientMusic.Stop();
+        gameOverText.text = "Game Over! \n\n" + "You survived\n" + (waveTracker - 1) + "\n" + " waves and killed\n" + numberOfKills + "\n" + "enemies!";
+        gameOverUI.SetActive(true);
+        killTrackerText.enabled = false;
+        gameOver = true;
+    }
+
+    private void CheckSkipTutorial()
+    {
+        TM = FindObjectOfType<TutorialManager>();
+        WC = FindObjectOfType<WaveController>();
+        skipTutorialUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void SkipTutorial()
+    {
+        TM.DestroyWaypointIndicator();
+        TM.gameObject.SetActive(false);
+        WC.setTutorialOver(true);
+        Time.timeScale = 1f;
+        skipTutorialUI.SetActive(false);
+    }
+
+    public void DontSkipTutorial()
+    {
+        Time.timeScale = 1f;
+        skipTutorialUI.SetActive(false);
+        TM.StartTutorial();
     }
 }

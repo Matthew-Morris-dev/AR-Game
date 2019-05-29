@@ -97,10 +97,10 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GroundPlane
-c2ca05eb1556bb2c2065ab631f2429ff Assembly-CSharp.dll:.GameManager
+161c1fa0f6a90f29291bee551bd39921 Assembly-CSharp.dll:.GameManager
 1e9c409e29cdc019c5521daf5eb17010 Assembly-CSharp.dll:GoogleARCore.Examples.ComputerVision.TextureReader
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TotemCollision
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MainMenuManager
+734c0b2d2b3b46a804b445c4e34206f4 Assembly-CSharp.dll:.MainMenuManager
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -222,7 +222,7 @@ b818207c0b8a805931f7a7989870283e Assembly-CSharp.dll:GoogleARCore.ARCoreBackgrou
 ffd216f4bb65b2aab1e439389a5b81a6 Assembly-CSharp.dll:.rayCastIcon
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 afc784c77580ea3a490cd1683458f3cd Assembly-CSharp.dll:.TutorialEnemy
-b7a5a64e91a913ab37f34a64bb138709 Assembly-CSharp.dll:.TargetIndicator
+09e5e7d5d8928c3a05c587e3352b55bf Assembly-CSharp.dll:.TargetIndicator
 269133bf6785f1e198f98a5b4b08eda1 Assembly-CSharp.dll:GoogleARCore.Examples.CloudAnchors.ARCoreWorldOriginHelper
 8f4159da5008f57988d759549fda2962 Assembly-CSharp.dll:GoogleARCoreInternal.InstantPreviewWarning
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
@@ -381,3 +381,7 @@ cd67f3e1e9ccac6db86c1564cea5a827 Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 69167579cf7fcbb2676fc1e675963dcd Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 fbbf64dcbe0662e3eda1dec45ea8f895 Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 71bb6a6b6c8f052f948db64c7dd3ca4f Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
+d0b9c7759c9046f1f277927c86c5a8ba Assembly-CSharp.dll:.SkipTutorialButton
+d0b9c7759c9046f1f277927c86c5a8ba Assembly-CSharp.dll:.DontSkipTutorialButton
+18b9238fc09adc570af4027098630d7d Assembly-CSharp.dll:.ScreenLoadTracker
+8f29c0bd40ccc075cc9e9d378aa34c21 Assembly-CSharp.dll:.SceneTracker

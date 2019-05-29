@@ -7,6 +7,7 @@ public class TargetIndicator : MonoBehaviour
 {
     private Camera mainCamera;
     private RectTransform m_icon;
+    [SerializeField]
     private Image m_iconImage;
     private Canvas mainCanvas;
     private Vector3 m_cameraOffsetUp;
@@ -34,7 +35,6 @@ public class TargetIndicator : MonoBehaviour
         //Debug.Log(mainCanvas);
         Debug.Assert((mainCanvas != null), "There needs to be a Canvas object in the scene for the OTI to display");
         InstainateTargetIcon();
-        thisIcon = GameObject.Find(m_icon.name);
     }
 
     void Update()
@@ -47,6 +47,7 @@ public class TargetIndicator : MonoBehaviour
     private void InstainateTargetIcon()
     {
         m_icon = new GameObject().AddComponent<RectTransform>();
+        thisIcon = m_icon.gameObject;
         m_icon.transform.SetParent(mainCanvas.transform);
         m_icon.localScale = m_targetIconScale;
         m_icon.name = name + ": OTI icon";

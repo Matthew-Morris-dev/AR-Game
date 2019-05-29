@@ -255,6 +255,7 @@
     <Compile Include="Assets\Scripts\characterController.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneGenerator.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneVisualizer.cs" />
+    <Compile Include="Assets\Scripts\DontSkipTutorialButton.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -272,7 +273,10 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\rayCastIcon.cs" />
+    <Compile Include="Assets\Scripts\SceneTracker.cs" />
+    <Compile Include="Assets\Scripts\ScreenLoadTracker.cs" />
     <Compile Include="Assets\Scripts\ShrapnelEffect.cs" />
+    <Compile Include="Assets\Scripts\SkipTutorialButton.cs" />
     <Compile Include="Assets\Scripts\spawnEffect.cs" />
     <Compile Include="Assets\Scripts\Sword.cs" />
     <Compile Include="Assets\Scripts\TargetIndicator.cs" />
@@ -315,6 +319,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileSpecularWithLightEstimation.shader" />
+    <None Include="Assets\Horror Ambient Album - 082318\Notes.txt" />
     <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleAddEffect.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

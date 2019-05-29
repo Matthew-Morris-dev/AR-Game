@@ -199,7 +199,6 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Die()
     {
         _animator.SetFloat("Health", _currentHealth);
-        _gm.IncrementKills();
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         if (WC != null)
         {
@@ -207,6 +206,7 @@ public class EnemyController : MonoBehaviour
             WC.decrementEnemiesAlive();
         }
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
+        _gm.IncrementKills();
         Destroy(this.gameObject);
     }
 

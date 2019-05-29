@@ -11,6 +11,8 @@ public class rayCastIcon : MonoBehaviour
     private characterController _player;
     private Vector3 playerMovePosition = Vector3.zero;
 
+    private bool stopPlayer = false;
+
     //Scaling stuff
     [SerializeField]
     private float _xScaleFactor;
@@ -41,40 +43,49 @@ public class rayCastIcon : MonoBehaviour
             this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
             _scaled = true;
         }
-        
-        RaycastHit hit;
-        Debug.Log("Raycast layer: " + LayerMask.GetMask("Raycast"));
-        if (Physics.Raycast(_ARCamera.transform.position, _ARCamera.transform.forward, out hit, 100, LayerMask.GetMask("Raycast")))
-        {
-            Debug.Log("racast hit");
-            if (hit.transform.gameObject.tag == "Arena")
-            {
-                this.gameObject.GetComponent<Renderer>().material = _mats[0];
-                this.transform.position = hit.point;
-                this.transform.up = hit.normal;
-                playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
-                _player.setMoveDir(playerMovePosition);
-            }
-            else if(hit.transform.gameObject.tag == "Enemy" || hit.transform.gameObject.tag == "TutorialEnemy")
-            {
-                this.gameObject.GetComponent<Renderer>().material = _mats[1];
-                this.transform.position = hit.point;
-                this.transform.up = hit.normal;
-                playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
-                _player.setMoveDir(playerMovePosition);
-            }
-        }
-        else
-        {
-            _player.setMoveDir(playerMovePosition);
-        }
 
+            RaycastHit hit;
+            //Debug.Log("Raycast layer: " + LayerMask.GetMask("Raycast"));
+            if (Physics.Raycast(_ARCamera.transform.position, _ARCamera.transform.forward, out hit, 100, LayerMask.GetMask("Raycast")))
+            {
+                Debug.Log("racast hit");
+                if (hit.transform.gameObject.tag == "Arena")
+                {
+                    this.gameObject.GetComponent<Renderer>().material = _mats[0];
+                    this.transform.position = hit.point;
+                    this.transform.up = hit.normal;
+                    playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
+                    _player.setMoveDir(playerMovePosition);
+                }
+                else if (hit.transform.gameObject.tag == "Enemy" || hit.transform.gameObject.tag == "TutorialEnemy")
+                {
+                    this.gameObject.GetComponent<Renderer>().material = _mats[1];
+                    this.transform.position = hit.point;
+                    this.transform.up = hit.normal;
+                    playerMovePosition = new Vector3(hit.point.x, _player.transform.position.y, hit.point.z);
+                    _player.setMoveDir(playerMovePosition);
+                }
+            }
+            else
+            {
+                _player.setMoveDir(playerMovePosition);
+            }
     }
     
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("player in trigger");
+            other.GetComponent<characterController>().setCanMove(false);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("player in trigger");
             other.GetComponent<characterController>().setCanMove(false);
         }
     }
@@ -83,6 +94,7 @@ public class rayCastIcon : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("player out trigger");
             other.GetComponent<characterController>().setCanMove(true);
         }
     }

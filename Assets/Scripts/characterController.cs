@@ -104,6 +104,15 @@ public class characterController : MonoBehaviour
         _hpBar.fillAmount = _currentHealth / _maxHealth;
         if (_dead == false)
         {
+            if(Input.touchCount > 0)
+            {
+                setCanMove(false);
+                setShoot(true);
+            }
+            else
+            {
+                setShoot(false);
+            }
             //Blend animations for moving diagonally
             float forwardMovement = ((Vector3.Dot(this.transform.forward, _rb.velocity)) / (this.transform.forward.magnitude));
             float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
@@ -173,6 +182,10 @@ public class characterController : MonoBehaviour
                 {
                     _animator.SetTrigger("Idle");
                 }
+            }
+            if (!shoot)
+            {
+                canMove = true;
             }
             /*
             else if (_jsc.GetJoystickActive())
@@ -274,20 +287,7 @@ public class characterController : MonoBehaviour
 
     public void setCanMove(bool value)
     {
-        if(!shoot)
-        {
             canMove = value;
-        }
-        else
-        {
-            canMove = false;
-        }
-        /*
-        if(value == false)
-        {
-            _muzzleFlash.SetActive(false);
-        }
-        */
     }
 
     public Vector3 getLatestRaycastHit()
@@ -298,7 +298,7 @@ public class characterController : MonoBehaviour
     public void setShoot(bool value)
     {
         shoot = value;
-        canMove = !value;
+        //canMove = !value;
         _animator.SetBool("Shoot", shoot);
         if (value == false)
         {
