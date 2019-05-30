@@ -10,6 +10,10 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private SceneTracker ST;
+    [SerializeField]
+    private Button startButton;
+    [SerializeField]
+    private AudioSource buttonPressedAudio;
 
     private void Awake()
     {
@@ -58,6 +62,13 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         ST.SetFastSkipMainMenu(false);
+        buttonPressedAudio.Play();
+        startButton.interactable = false;
+        Invoke("DelayStartGame", .8f);
+    }
+
+    public void DelayStartGame()
+    {
         SceneManager.LoadScene("FightingScene");
     }
 }

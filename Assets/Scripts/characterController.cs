@@ -143,6 +143,7 @@ public class characterController : MonoBehaviour
                     }
                     Debug.Log("hit:" + hit.transform.tag);
                     */
+                    gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
                     gunShotSFX.Play();
                     Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
                     _muzzleFlash.SetActive(true);

@@ -46,7 +46,11 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI gameOverText;
     private bool gameOver = false;
     [SerializeField]
+    private AudioSource restartGameAudio;
+    [SerializeField]
     private GameObject skipTutorialUI;
+    [SerializeField]
+    private bool skipTutorialUIOpen = false;
     [SerializeField]
     private WaveController WC;
     [SerializeField]
@@ -102,19 +106,41 @@ public class GameManager : MonoBehaviour
         {
             GameOverTouches();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ST.SetUsedEscape(true);
+            ST.SetFastSkipMainMenu(false);
+            Time.timeScale = 1f;
+            restartGameAudio.Play();
+            Invoke("RestartGame", 0.8f);
+        }
         /*
         if(playerDead)
         {
             gameOverUI.SetActive(true);
         }
         */
+        /*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if(paused)
+            {
+                Time.timeScale = 1f;
+                pauseMenu.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                pauseMenu.SetActive(true);
+            }
+            /*
             ST.SetUsedEscape(true);
             ST.SetFastSkipMainMenu(false);
             Time.timeScale = 1f;
             SceneManager.LoadScene("MainMenu");
         }
+        */
     }
 
     //This will detect if user touches the screen.
@@ -144,7 +170,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         ST.SetUsedEscape(false);
-        SceneManager.LoadScene("MainMenu");
+        restartGameAudio.Play();
+        Invoke("RestartGame", 0.8f);
     }
 
     //Used to test if raycast is working as intended
@@ -207,12 +234,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //close application
-    private void _Quit()
-    {
-        Application.Quit();
-    }
-
+    
+    /*
     public void RestartGame()
     {
         StartCoroutine(restart());
@@ -233,6 +256,7 @@ public class GameManager : MonoBehaviour
         session.enabled = true;
         Debug.Log("new session");
     }
+    */
     // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
     /// <summary>
     /// Show an Android toast message.
@@ -304,10 +328,25 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         ambientMusic.Stop();
-        gameOverText.text = "Game Over! \n\n" + "You survived\n" + (waveTracker - 1) + "\n" + " waves and killed\n" + numberOfKills + "\n" + "enemies!";
+        if(waveTracker == 2 && numberOfKills == 1)
+        {
+            gameOverText.text = "Game Over! \n\n" + "You survived\n<color=#00C9FF>" + (waveTracker - 1) + "</color>\n" + " wave and killed\n<color=#00C9FF>" + numberOfKills + "</color>\n" + "enemy!";
+        }
+        else if(waveTracker == 2 && numberOfKills != 1)
+        {
+            gameOverText.text = "Game Over! \n\n" + "You survived\n<color=#00C9FF>" + (waveTracker - 1) + "</color>\n" + " wave and killed\n<color=#00C9FF>" + numberOfKills + "</color>\n" + "enemies!";
+        }
+        else if(waveTracker != 2 && numberOfKills == 1)
+        {
+            gameOverText.text = "Game Over! \n\n" + "You survived\n<color=#00C9FF>" + (waveTracker - 1) + "</color>\n" + " waves and killed\n<color=#00C9FF>" + numberOfKills + "</color>\n" + "enemy!";
+        }
+        else
+        {
+            gameOverText.text = "Game Over! \n\n" + "You survived\n<color=#00C9FF>" + (waveTracker - 1) + "</color>\n" + " waves and killed\n<color=#00C9FF>" + numberOfKills + "</color>\n" + "enemies!";
+        }
         gameOverUI.SetActive(true);
         killTrackerText.enabled = false;
-        gameOver = true;
+        Invoke("WaitGameOver", 1f);
     }
 
     private void CheckSkipTutorial()
@@ -315,6 +354,7 @@ public class GameManager : MonoBehaviour
         TM = FindObjectOfType<TutorialManager>();
         WC = FindObjectOfType<WaveController>();
         skipTutorialUI.SetActive(true);
+        skipTutorialUIOpen = true;
         Time.timeScale = 0f;
     }
 
@@ -325,12 +365,38 @@ public class GameManager : MonoBehaviour
         WC.setTutorialOver(true);
         Time.timeScale = 1f;
         skipTutorialUI.SetActive(false);
+        skipTutorialUIOpen = false;
     }
 
     public void DontSkipTutorial()
     {
         Time.timeScale = 1f;
         skipTutorialUI.SetActive(false);
+        skipTutorialUIOpen = false;
         TM.StartTutorial();
+    }
+
+    private void WaitGameOver()
+    {
+        gameOver = true;
+    }
+
+    private void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    //close application
+    public void Quit()
+    {
+        restartGameAudio.Play();
+        Invoke("DelayQuit", 0.8f);
+    }
+
+    private void DelayQuit()
+    {
+        Time.timeScale = 1f;
+        Application.Quit();
     }
 }

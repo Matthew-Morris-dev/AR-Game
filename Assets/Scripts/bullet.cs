@@ -42,14 +42,14 @@ public class bullet : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
-            Instantiate(enemyHitEffect, collision.contacts[0].point, Quaternion.identity);
+            Instantiate(enemyHitEffect, collision.collider.bounds.center, Quaternion.identity);
             Destroy(this.gameObject);
         }
         else if(collision.gameObject.CompareTag("TutorialEnemy"))
         {
             Debug.Log("we hit dummy");
             collision.gameObject.GetComponent<TutorialEnemy>().TakeDamage(damage);
-            Instantiate(enemyHitEffect, collision.contacts[0].point, Quaternion.identity);
+            Instantiate(enemyHitEffect, collision.collider.bounds.center, Quaternion.identity);
             Destroy(this.gameObject);
         }
         else if(collision.gameObject.CompareTag("Arena"))
