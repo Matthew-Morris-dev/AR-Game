@@ -10,6 +10,9 @@ TagManager:
   - TutorialEnemy
   - TutorialWaypoint
   - SceneTracker
+  - BulletSpawnPnt
+  - Bullet
+  - Level Manager
   layers:
   - Default
   - TransparentFX
@@ -22,8 +25,8 @@ TagManager:
   - PostProcessing
   - Ground
   - Raycast
-  - 
-  - 
+  - Weapon
+  - PlayerGeo
   - 
   - 
   - 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/*
 #if UNITY_EDITOR
 // NOTE:
 // - InstantPreviewInput does not support `deltaPosition`.
@@ -20,7 +21,7 @@ using TMPro;
 //   instead.
 //using Input = GoogleARCore.InstantPreviewInput;
 #endif
-
+*/
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI waveAnnouncementText;
     [SerializeField]
     private TextMeshProUGUI killTrackerText;
+    [SerializeField]
+    private TextMeshProUGUI HPTrackerText;
     [SerializeField]
     private int numberOfKills = 0;
     [SerializeField]
@@ -68,6 +71,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private SceneTracker ST;
+
+    [SerializeField]
+    private bool paused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -109,11 +115,25 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (paused)
+            {
+                paused = false;
+                Time.timeScale = 0f;
+                Debug.Log("Launch pause menu");
+            }
+            else
+            {
+                paused = true;
+                Time.timeScale = 1f;
+                Debug.Log("Launch pause menu");
+            }
+            /*
             ST.SetUsedEscape(true);
             ST.SetFastSkipMainMenu(false);
             Time.timeScale = 1f;
             restartGameAudio.Play();
             Invoke("RestartGame", 0.8f);
+            */
         }
         /*
         if(playerDead)
@@ -327,6 +347,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         ambientMusic.Stop();
         if(waveTracker == 2 && numberOfKills == 1)
         {
@@ -387,6 +409,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     //close application
     public void Quit()
     {
@@ -398,5 +426,10 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         Application.Quit();
+    }
+
+    public void UpdateHealth(float health)
+    {
+        HPTrackerText.text = ("Health: " + health);
     }
 }
