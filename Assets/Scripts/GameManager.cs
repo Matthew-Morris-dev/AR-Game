@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleARCore;
-using GoogleARCore.Examples.Common;
+//using GoogleARCore;
+//using GoogleARCore.Examples.Common;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Camera firstPersonCamera;
     private bool _Quitting = false;
-    public DetectedPlane detectedPlane;
+
+    //public DetectedPlane detectedPlane;
+
     private bool planeSet = false;
     [SerializeField]
     private GameObject detectSurfaceUI;
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool skipTutorialUIOpen = false;
     [SerializeField]
+    private GameObject pauseMenuUI;
+    [SerializeField]
     private WaveController WC;
     [SerializeField]
     private TutorialManager TM;
@@ -77,17 +81,31 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        QuitOnConnectionErrors();
+        //QuitOnConnectionErrors();
         ST = FindObjectOfType<SceneTracker>();
+        CheckSkipTutorial();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(ST == null)
+        Debug.Log(Time.timeScale);
+
+        /*
+        //This code debugs which key is pressed
+        foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKey(kcode))
+                Debug.Log("KeyCode down: " + kcode);
+        }
+        */
+
+        if (ST == null)
         {
             ST = FindObjectOfType<SceneTracker>();
         }
+
+        /*
         //session must be tracking in order access the frame
         if (Session.Status != SessionStatus.Tracking)
         {
@@ -107,14 +125,18 @@ public class GameManager : MonoBehaviour
                 OnTogglePlanes(false);
             }
         }
+        */
 
+        /*
         if(gameOver)
         {
             GameOverTouches();
         }
+        */
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && (skipTutorialUIOpen == false))
         {
+            /*
             if (paused)
             {
                 paused = false;
@@ -127,13 +149,8 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1f;
                 Debug.Log("Launch pause menu");
             }
-            /*
-            ST.SetUsedEscape(true);
-            ST.SetFastSkipMainMenu(false);
-            Time.timeScale = 1f;
-            restartGameAudio.Play();
-            Invoke("RestartGame", 0.8f);
             */
+            TogglePause();
         }
         /*
         if(playerDead)
@@ -163,6 +180,7 @@ public class GameManager : MonoBehaviour
         */
     }
 
+    /*
     //This will detect if user touches the screen.
     //if so then cast ray from camera to the touched position and check if it hits a ARCore detected plane
     private void ProcessTouches()
@@ -236,7 +254,9 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
+    */
 
+    /*
     //checks the ARCore session and that ARCore is working in our application
     private void QuitOnConnectionErrors()
     {
@@ -253,7 +273,7 @@ public class GameManager : MonoBehaviour
             Invoke("_Quit()", 0.5f);
         }
     }
-
+    */
     
     /*
     public void RestartGame()
@@ -298,7 +318,7 @@ public class GameManager : MonoBehaviour
             }));
         }
     }
-
+    /*
     public void OnTogglePlanes(bool flag)
     {
         foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
@@ -309,7 +329,7 @@ public class GameManager : MonoBehaviour
             t.enabled = flag;
         }
     }
-
+    */
     public bool GetPlaneSet()
     {
         return planeSet;
@@ -388,6 +408,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         skipTutorialUI.SetActive(false);
         skipTutorialUIOpen = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        _player.GetComponent<Player_Controller_Desktop>().EnableLaserSight();
     }
 
     public void DontSkipTutorial()
@@ -396,6 +419,9 @@ public class GameManager : MonoBehaviour
         skipTutorialUI.SetActive(false);
         skipTutorialUIOpen = false;
         TM.StartTutorial();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        _player.GetComponent<Player_Controller_Desktop>().EnableLaserSight();
     }
 
     private void WaitGameOver()
@@ -431,5 +457,35 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(float health)
     {
         HPTrackerText.text = ("Health: " + health);
+    }
+
+    public void TogglePause()
+    {
+        if (paused)
+        {
+            pauseMenuUI.SetActive(false);
+            paused = false;
+            Time.timeScale = 1f;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            pauseMenuUI.SetActive(true);
+            paused = true;
+            Time.timeScale = 0f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+    public bool GetPaused()
+    {
+        return paused;
+    }
+
+    public bool GetGameOver()
+    {
+        return gameOver;
     }
 }

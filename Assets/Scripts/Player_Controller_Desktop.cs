@@ -37,6 +37,10 @@ public class Player_Controller_Desktop : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 lookDirection;
 
+    //Fps gun
+    [SerializeField]
+    private GameObject playerGun;
+
     //movement
     [SerializeField]
     private float _movementSpeed;
@@ -58,8 +62,13 @@ public class Player_Controller_Desktop : MonoBehaviour
 
     [SerializeField]
     private GameManager _gm;
-    
+
+    private bool cameraRotate = false;
+    [SerializeField]
+    private float cameraRotationSpeed;
     private bool _dead = false;
+
+    public LayerMask camLayerMask;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,9 +77,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth = _maxHealth;
         _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        _laserSight.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -81,76 +88,85 @@ public class Player_Controller_Desktop : MonoBehaviour
         {
             _gm = FindObjectOfType<GameManager>();
         }
-        if (_dead == false)
+        if (Time.timeScale != 0f)
         {
-            _movementX = Input.GetAxis("Horizontal");
-            _movementZ = Input.GetAxis("Vertical");
-            moveDirection = new Vector3(_movementX, 0f, _movementZ);
-            
-            if(Input.GetMouseButton(0))
+            if (_dead == false)
             {
-                setShoot(true);
-            }
-            else
-            {
-                setShoot(false);
-            }
-            /*
-             * insert shooting code here
-             
-            */
-            //Blend animations for moving diagonally
-            float forwardMovement = ((Vector3.Dot(this.transform.forward, _rb.velocity)) / (this.transform.forward.magnitude));
-            float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
-            _animator.SetFloat("Zmovement", forwardMovement);
-            _animator.SetFloat("Xmovement", rightMovement);
+                _movementX = Input.GetAxis("Horizontal");
+                _movementZ = Input.GetAxis("Vertical");
+                moveDirection = new Vector3(_movementX, 0f, _movementZ);
 
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                //Debug.Log("we shoot raycast");
-                shootRaycastHit = hit.point;
-                //Debug.Log(hit.point);
-            }
-            //Debug.Log("hit:" + hit.transform.tag);
-            _laserSight.SetLaserSightEnd(shootRaycastHit);
-
-            if (shoot)
-            {
-                if (_timeSinceLastBullet >= _rateOfFire)
+                if (Input.GetMouseButton(0))
                 {
-                    /*
-                    RaycastHit hit;
-                    if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
-                    {
-                        Debug.Log("we shoot raycast");
-                        shootRaycastHit = hit.point;
-                    }
-                    Debug.Log("hit:" + hit.transform.tag);
-                    */
-                    gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
-                    gunShotSFX.Play();
-                    Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
-                    _muzzleFlash.SetActive(true);
-                    _timeSinceLastBullet = 0;
+                    setShoot(true);
                 }
                 else
                 {
+                    setShoot(false);
+                }
+                /*
+                 * insert shooting code here
+
+                */
+                //Blend animations for moving diagonally
+                float forwardMovement = ((Vector3.Dot(this.transform.forward, _rb.velocity)) / (this.transform.forward.magnitude));
+                float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
+                _animator.SetFloat("Zmovement", forwardMovement);
+                _animator.SetFloat("Xmovement", rightMovement);
+
+                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    //Debug.Log("we shoot raycast");
+                    shootRaycastHit = hit.point;
+                    //Debug.Log(hit.point);
+                }
+                //Debug.Log("hit:" + hit.transform.tag);
+                _laserSight.SetLaserSightEnd(shootRaycastHit);
+
+                if (shoot)
+                {
+                    if (_timeSinceLastBullet >= _rateOfFire)
+                    {
+                        /*
+                        RaycastHit hit;
+                        if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
+                        {
+                            Debug.Log("we shoot raycast");
+                            shootRaycastHit = hit.point;
+                        }
+                        Debug.Log("hit:" + hit.transform.tag);
+                        */
+                        gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
+                        gunShotSFX.Play();
+                        Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
+                        _muzzleFlash.SetActive(true);
+                        _timeSinceLastBullet = 0;
+                    }
+                    else
+                    {
+                        _timeSinceLastBullet += Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    _muzzleFlash.SetActive(false);
                     _timeSinceLastBullet += Time.deltaTime;
                 }
             }
             else
             {
+                _rb.freezeRotation = true;
                 _muzzleFlash.SetActive(false);
-                _timeSinceLastBullet += Time.deltaTime;
             }
         }
-        else
+        if(cameraRotate)
         {
-            _rb.freezeRotation = true;
-            _muzzleFlash.SetActive(false);
+            Camera.main.transform.RotateAround(this.transform.position, Vector3.up, cameraRotationSpeed * Time.deltaTime);
+            Camera.main.transform.LookAt(this.transform.position);
+            //Camera.main.transform.Rotate(0, cameraRotationSpeed, 0f);
         }
     }
 
@@ -160,7 +176,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         {
             if(moveDirection.magnitude >= 0.1f)
             {
-                transform.Translate(moveDirection * _movementSpeed * Time.fixedDeltaTime, Space.Self);
+                transform.Translate(moveDirection * _movementSpeed * Time.deltaTime, Space.Self);
                 _animator.SetTrigger("Walking");
             }
             else
@@ -208,17 +224,24 @@ public class Player_Controller_Desktop : MonoBehaviour
     {
         Debug.Log("Player recieved damage message");
         _currentHealth -= damage;
-        _gm.UpdateHealth(_currentHealth);
         if (_currentHealth <= 0)
         {
+            _currentHealth = 0f;
             _animator.SetFloat("Health", 0f);
+            if(!_dead)
+            {
+                DeathCameraAnimation();
+            }
             _dead = true;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                enemy.GetComponent<EnemyController>().SetPlayerDead(true);
+                enemy.GetComponent<Enemy_Controller_Desktop>().SetPlayerDead(true);
             }
             _gm.SetPlayerDead(true);
+            playerGun.SetActive(false);
+            
         }
+        _gm.UpdateHealth(_currentHealth);
     }
 
     private void CheckGrounded()
@@ -283,5 +306,18 @@ public class Player_Controller_Desktop : MonoBehaviour
         {
             _muzzleFlash.SetActive(false);
         }
+    }
+
+    public void EnableLaserSight()
+    {
+        _laserSight.gameObject.SetActive(true);
+    }
+
+    private void DeathCameraAnimation()
+    {
+        Camera.main.cullingMask += camLayerMask;
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.up + -2*Camera.main.transform.forward, 5f);
+        Camera.main.transform.LookAt(this.transform.position);
+        cameraRotate = true;
     }
 }

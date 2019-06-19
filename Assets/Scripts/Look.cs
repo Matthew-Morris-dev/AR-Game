@@ -18,21 +18,37 @@ public class Look : MonoBehaviour {
     public float xSensitivity = 10.0f;
 
     private float _rotX = 0;
-	
-	// Update is called once per frame
-	void Update () {
-		if(axis == RotationAxis.MouseX)
+
+    private GameManager _gm;
+
+    private void Start()
+    {
+        _gm = FindObjectOfType<GameManager>();
+    }
+    // Update is called once per frame
+    void Update () {
+        if (_gm == null)
         {
-            transform.Rotate(0, Input.GetAxis("Mouse X") * xSensitivity, 0f);
+
         }
-        else if(axis == RotationAxis.MouseY)
+        else
         {
-            _rotX -= Input.GetAxis("Mouse Y") * ySensitivity;
-            _rotX = Mathf.Clamp(_rotX, minYRot, maxYRot);
+            if (Time.timeScale != 0f && _gm.GetGameOver() != true)
+            {
+                if (axis == RotationAxis.MouseX)
+                {
+                    transform.Rotate(0, Input.GetAxis("Mouse X") * xSensitivity, 0f);
+                }
+                else if (axis == RotationAxis.MouseY)
+                {
+                    _rotX -= Input.GetAxis("Mouse Y") * ySensitivity;
+                    _rotX = Mathf.Clamp(_rotX, minYRot, maxYRot);
 
-            float rotY = transform.localEulerAngles.y;
+                    float rotY = transform.localEulerAngles.y;
 
-            transform.localEulerAngles = new Vector3(_rotX, rotY, 0f);
+                    transform.localEulerAngles = new Vector3(_rotX, rotY, 0f);
+                }
+            }
         }
 	}
 }

@@ -92,40 +92,42 @@ public class Enemy_Controller_Desktop : MonoBehaviour
             _attackRange *= _gm.GetGameWorldScale();
             _scaled = true;
         }
-        if (_playerDead == false)
+        if (Time.timeScale != 0f)
         {
-            //Find and move towards target
-            if (_target == null)
+            if (_playerDead == false)
             {
-                _target = FindObjectOfType<Player_Controller_Desktop>().gameObject;
-            }
-            else
-            {
-                Vector3 lookinDirection = new Vector3(_target.transform.position.x, this.transform.position.y, _target.transform.position.z);
-                this.transform.LookAt(lookinDirection);
-                //Debug.Log("Look direction" + lookinDirection);
-                if (Vector3.Distance(this.transform.position, _target.transform.position) <= _attackRange)
+                //Find and move towards target
+                if (_target == null)
                 {
-                    _animator.SetTrigger("Attack");
-                    //_animator.speed = _animationSpeed;
+                    _target = FindObjectOfType<Player_Controller_Desktop>().gameObject;
                 }
                 else
                 {
-                    _animator.SetFloat("Speed", _speed);
+                    Vector3 lookinDirection = new Vector3(_target.transform.position.x, this.transform.position.y, _target.transform.position.z);
+                    this.transform.LookAt(lookinDirection);
+                    //Debug.Log("Look direction" + lookinDirection);
+                    if (Vector3.Distance(this.transform.position, _target.transform.position) <= _attackRange)
+                    {
+                        _animator.SetTrigger("Attack");
+                        //_animator.speed = _animationSpeed;
+                    }
+                    else
+                    {
+                        _animator.SetFloat("Speed", _speed);
+                    }
                 }
+
+                _hpBar.fillAmount = _currentHealth / _maxHealth;
+
+                //Walking animation stuff
+                //_animator.SetFloat("Speed", _rb.velocity.magnitude);
             }
-
-            _hpBar.fillAmount = _currentHealth / _maxHealth;
-
-            //Walking animation stuff
-            //_animator.SetFloat("Speed", _rb.velocity.magnitude);
+            else
+            {
+                _rb.velocity = Vector3.zero;
+                _animator.SetFloat("Speed", 0f);
+            }
         }
-        else
-        {
-            _rb.velocity = Vector3.zero;
-            _animator.SetFloat("Speed", 0f);
-        }
-
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             if (delayTimer >= damageDelay)

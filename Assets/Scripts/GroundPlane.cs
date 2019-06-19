@@ -10,7 +10,7 @@ public class GroundPlane : MonoBehaviour
     {
         _gm = FindObjectOfType<GameManager>();
 
-        this.transform.localScale = new Vector3(_gm.detectedPlane.ExtentX * 0.1f, 1f, _gm.detectedPlane.ExtentZ * 0.1f);
+        //this.transform.localScale = new Vector3(_gm.detectedPlane.ExtentX * 0.1f, 1f, _gm.detectedPlane.ExtentZ * 0.1f);
     }
 
     // Update is called once per frame

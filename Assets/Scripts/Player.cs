@@ -74,17 +74,17 @@ public class Player : MonoBehaviour
             if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
             {
                 //anchor hopefully keeps the players character model in a good place.
-                Anchor anchor = _gm.detectedPlane.CreateAnchor(new Pose(hit.Pose.position, Quaternion.identity));
+                //Anchor anchor = _gm.detectedPlane.CreateAnchor(new Pose(hit.Pose.position, Quaternion.identity));
                 if (_characterToSpawn == Minions[0])
                 {
-                    Instantiate(_characterToSpawn, hit.Pose.position + new Vector3(0f, (_characterToSpawn.transform.localScale.y/2), 0f), Quaternion.identity, anchor.transform);
+                    //Instantiate(_characterToSpawn, hit.Pose.position + new Vector3(0f, (_characterToSpawn.transform.localScale.y/2), 0f), Quaternion.identity, anchor.transform);
                     _ttc.IncrementTutText();
                     OnTogglePlanes(false);
                     //currentMinionText.text = "Current Minion:" + _characterToSpawn.name; //Debugging
                 }
                 else
                 {
-                    Instantiate(_characterToSpawn, hit.Pose.position, Quaternion.identity, anchor.transform);
+                    //Instantiate(_characterToSpawn, hit.Pose.position, Quaternion.identity, anchor.transform);
                 }
                 if(_characterToSpawn == Minions[0])
                 {

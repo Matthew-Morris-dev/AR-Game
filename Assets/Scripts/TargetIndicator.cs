@@ -138,7 +138,6 @@ public class TargetIndicator : MonoBehaviour
         max = vector.x > max ? vector.x : max;
         max = vector.y > max ? vector.y : max;
         max = vector.z > max ? vector.z : max;
-        Debug.Log("Max: " + max);
         if (max == 0f)
         {
             max = 6;
