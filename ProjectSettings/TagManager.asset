@@ -13,6 +13,7 @@ TagManager:
   - BulletSpawnPnt
   - Bullet
   - Level Manager
+  - Button
   layers:
   - Default
   - TransparentFX

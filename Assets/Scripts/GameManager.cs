@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Time.timeScale);
+        //Debug.Log(Time.timeScale);
 
         /*
         //This code debugs which key is pressed
@@ -397,7 +397,7 @@ public class GameManager : MonoBehaviour
         WC = FindObjectOfType<WaveController>();
         skipTutorialUI.SetActive(true);
         skipTutorialUIOpen = true;
-        Time.timeScale = 0f;
+        paused = true;
     }
 
     public void SkipTutorial()
@@ -405,9 +405,9 @@ public class GameManager : MonoBehaviour
         TM.DestroyWaypointIndicator();
         TM.gameObject.SetActive(false);
         WC.setTutorialOver(true);
-        Time.timeScale = 1f;
         skipTutorialUI.SetActive(false);
         skipTutorialUIOpen = false;
+        paused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         _player.GetComponent<Player_Controller_Desktop>().EnableLaserSight();
@@ -415,7 +415,7 @@ public class GameManager : MonoBehaviour
 
     public void DontSkipTutorial()
     {
-        Time.timeScale = 1f;
+        paused = false;
         skipTutorialUI.SetActive(false);
         skipTutorialUIOpen = false;
         TM.StartTutorial();
@@ -431,13 +431,13 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
-        Time.timeScale = 1f;
+        paused = false;
         SceneManager.LoadScene("MainMenu");
     }
 
     public void Restart()
     {
-        Time.timeScale = 1f;
+        paused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -450,7 +450,7 @@ public class GameManager : MonoBehaviour
 
     private void DelayQuit()
     {
-        Time.timeScale = 1f;
+        paused = false;
         Application.Quit();
     }
 
@@ -465,7 +465,6 @@ public class GameManager : MonoBehaviour
         {
             pauseMenuUI.SetActive(false);
             paused = false;
-            Time.timeScale = 1f;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -473,7 +472,6 @@ public class GameManager : MonoBehaviour
         {
             pauseMenuUI.SetActive(true);
             paused = true;
-            Time.timeScale = 0f;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }

@@ -16,7 +16,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     private float _animationSpeed;
     //Target Stuff
     [SerializeField]
-    private GameObject shootRaycastFrom;
+    private Camera shootRaycastFrom;
     [SerializeField]
     private Vector3 shootRaycastHit;
     [SerializeField]
@@ -37,6 +37,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 lookDirection;
 
+    public Transform cameraRef;
     //Fps gun
     [SerializeField]
     private GameObject playerGun;
@@ -88,15 +89,20 @@ public class Player_Controller_Desktop : MonoBehaviour
         {
             _gm = FindObjectOfType<GameManager>();
         }
-        if (Time.timeScale != 0f)
+        if (_gm.GetPaused() == false)
         {
             if (_dead == false)
             {
-                _movementX = Input.GetAxis("Horizontal");
-                _movementZ = Input.GetAxis("Vertical");
+                Vector2 movementXY = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+                if(movementXY.magnitude != 0f)
+                {
+                    Debug.Log(movementXY);
+                }
+                _movementX = movementXY.x;
+                _movementZ = movementXY.y;
                 moveDirection = new Vector3(_movementX, 0f, _movementZ);
 
-                if (Input.GetMouseButton(0))
+                if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
                 {
                     setShoot(true);
                 }
@@ -117,7 +123,7 @@ public class Player_Controller_Desktop : MonoBehaviour
                 //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(_bulletEmitter.transform.position, -_bulletEmitter.transform.right ,out hit))
                 {
                     //Debug.Log("we shoot raycast");
                     shootRaycastHit = hit.point;
@@ -168,6 +174,8 @@ public class Player_Controller_Desktop : MonoBehaviour
             Camera.main.transform.LookAt(this.transform.position);
             //Camera.main.transform.Rotate(0, cameraRotationSpeed, 0f);
         }
+
+        cameraRef.transform.rotation = this.transform.rotation;
     }
 
     private void FixedUpdate()
@@ -177,6 +185,7 @@ public class Player_Controller_Desktop : MonoBehaviour
             if(moveDirection.magnitude >= 0.1f)
             {
                 transform.Translate(moveDirection * _movementSpeed * Time.deltaTime, Space.Self);
+                cameraRef.position = new Vector3(this.transform.position.x, cameraRef.transform.position.y, this.transform.position.z);
                 _animator.SetTrigger("Walking");
             }
             else

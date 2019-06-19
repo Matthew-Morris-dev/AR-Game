@@ -542,6 +542,7 @@
     <Compile Include="Assets\Scripts\BillboardHealthBars.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet_Desktop.cs" />
+    <Compile Include="Assets\Scripts\ButtonEnable.cs" />
     <Compile Include="Assets\Scripts\characterController.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneGenerator.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneVisualizer.cs" />
@@ -583,6 +584,7 @@
     <Compile Include="Assets\Scripts\TutorialTextController.cs" />
     <Compile Include="Assets\Scripts\TutorialWaypoint.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\UIInteraction.cs" />
     <Compile Include="Assets\Scripts\WallEffect.cs" />
     <Compile Include="Assets\Scripts\WaveController.cs" />
     <Compile Include="Assets\Scripts\WorldScale.cs" />
