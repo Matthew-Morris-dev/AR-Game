@@ -58,12 +58,14 @@ public class TargetIndicator : MonoBehaviour
     private void UpdateTargetIconPosition()
     {
         Vector3 newPos = transform.position;
+        
         newPos = mainCamera.WorldToViewportPoint(newPos);
         //Simple check if the target object is out of the screen or inside
-        if (newPos.x > 1 || newPos.y > 1 || newPos.x < 0 || newPos.y < 0)
+        if (newPos.x > 1 || newPos.y > 1 || newPos.x < 0 || newPos.y < 0 || newPos.z <0)
             m_outOfScreen = true;
         else
             m_outOfScreen = false;
+        
         if (newPos.z < 0)
         {
             newPos.x = 1f - newPos.x;
@@ -71,9 +73,24 @@ public class TargetIndicator : MonoBehaviour
             newPos.z = 0;
             newPos = Vector3Maxamize(newPos);
         }
-        newPos = mainCamera.ViewportToScreenPoint(newPos);
+
+        //newPos = mainCamera.ViewportToScreenPoint(newPos);
+        newPos = mainCamera.WorldToScreenPoint(transform.position);
         newPos.x = Mathf.Clamp(newPos.x, m_edgeBuffer, Screen.width - m_edgeBuffer);
         newPos.y = Mathf.Clamp(newPos.y, m_edgeBuffer, Screen.height - m_edgeBuffer);
+        if (newPos.z < 0)
+        {
+            if (newPos.y >= Screen.height/2)
+            {
+                newPos.x = Screen.width - newPos.x;
+                newPos.y = m_edgeBuffer;
+            }
+            else
+            {
+                newPos.x = Screen.width - newPos.x;
+                newPos.y = Screen.height - m_edgeBuffer;
+            }
+        }
         m_icon.transform.position = newPos;
         //Operations if the object is out of the screen
         if (m_outOfScreen)
@@ -121,6 +138,10 @@ public class TargetIndicator : MonoBehaviour
         max = vector.x > max ? vector.x : max;
         max = vector.y > max ? vector.y : max;
         max = vector.z > max ? vector.z : max;
+        if (max == 0f)
+        {
+            max = 6;
+        }
         returnVector /= max;
         return returnVector;
     }
