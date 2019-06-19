@@ -61,3 +61,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.ide
+.vs/AR-Game/v15/Server/sqlite3/storage.ide-shm
+.vs/AR-Game/v15/Server/sqlite3/storage.ide-wal
