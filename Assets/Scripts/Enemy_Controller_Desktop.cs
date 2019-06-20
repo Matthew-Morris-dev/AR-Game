@@ -92,7 +92,7 @@ public class Enemy_Controller_Desktop : MonoBehaviour
             _attackRange *= _gm.GetGameWorldScale();
             _scaled = true;
         }
-        if (Time.timeScale != 0f)
+        if (_gm.GetPaused() == false)
         {
             if (_playerDead == false)
             {
@@ -153,8 +153,9 @@ public class Enemy_Controller_Desktop : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_playerDead == false)
+        if (_playerDead == false && _gm.GetPaused() == false)
         {
+            _animator.speed = _animationSpeed;
             if (_target != null)
             {
                 if ((Vector3.Distance(this.transform.position, _target.transform.position) <= _stoppingDistance) || this._animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
@@ -168,6 +169,14 @@ public class Enemy_Controller_Desktop : MonoBehaviour
                     this.transform.Translate(movDir * _speed * Time.fixedDeltaTime, Space.World);
                 }
             }
+        }
+        else if(_gm.GetPaused() && _playerDead == false)
+        {
+            _animator.speed = 0f;
+        }
+        else if (_gm.GetPaused() && _playerDead)
+        {
+            _animator.speed = 1f;
         }
     }
 
@@ -202,14 +211,18 @@ public class Enemy_Controller_Desktop : MonoBehaviour
     private IEnumerator Die()
     {
         _animator.SetFloat("Health", _currentHealth);
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        Debug.LogWarning("<color=red>We Execute here 1</color>");
+        yield return new WaitForSeconds(2.5f);
+
         if (WC != null)
         {
             //WC.increamentEnemiesDead();
             WC.decrementEnemiesAlive();
         }
-        this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
+        //this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
+        Debug.LogWarning("We Execute here 2");
         _gm.IncrementKills();
+        Debug.LogWarning(this.gameObject.name);
         Destroy(this.gameObject);
     }
 

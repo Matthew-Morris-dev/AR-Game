@@ -71,4 +71,11 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("FightingScene");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+
 }

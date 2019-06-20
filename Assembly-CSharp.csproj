@@ -560,6 +560,7 @@
     <Compile Include="Assets\Scripts\LaserSight_Desktop.cs" />
     <Compile Include="Assets\Scripts\Look.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenuUIInteraction.cs" />
     <Compile Include="Assets\Scripts\MobileJoystickController.cs" />
     <Compile Include="Assets\Scripts\PlaneDiscoveryGuide.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />

@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         }
         */
 
-        if (Input.GetKeyDown(KeyCode.Escape) && (skipTutorialUIOpen == false))
+        if (OVRInput.GetDown(OVRInput.Button.Start) && (skipTutorialUIOpen == false) && (gameOver == false))
         {
             /*
             if (paused)
@@ -388,6 +388,7 @@ public class GameManager : MonoBehaviour
         }
         gameOverUI.SetActive(true);
         killTrackerText.enabled = false;
+        paused = true;
         Invoke("WaitGameOver", 1f);
     }
 
@@ -485,5 +486,10 @@ public class GameManager : MonoBehaviour
     public bool GetGameOver()
     {
         return gameOver;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -89,6 +89,26 @@ public class Player_Controller_Desktop : MonoBehaviour
         {
             _gm = FindObjectOfType<GameManager>();
         }
+
+        if (_dead == false)
+        {
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
+            RaycastHit hit;
+            if (Physics.Raycast(_bulletEmitter.transform.position, _bulletEmitter.transform.forward, out hit))
+            {
+                //Debug.Log("we shoot raycast");
+                shootRaycastHit = hit.point;
+                //Debug.Log(hit.point);
+            }
+            else
+            {
+                shootRaycastHit = Vector3.zero;
+            }
+            //Debug.Log("hit:" + hit.transform.tag);
+            _laserSight.SetLaserSightEnd(shootRaycastHit);
+        }
+
         if (_gm.GetPaused() == false)
         {
             if (_dead == false)
@@ -100,7 +120,9 @@ public class Player_Controller_Desktop : MonoBehaviour
                 }
                 _movementX = movementXY.x;
                 _movementZ = movementXY.y;
-                moveDirection = new Vector3(_movementX, 0f, _movementZ);
+                //moveDirection = new Vector3(_movementX, 0f, _movementZ);
+                moveDirection = (movementXY.y * Camera.main.transform.forward + movementXY.x * Camera.main.transform.right);
+                moveDirection.y = 0f;
 
                 if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
                 {
@@ -120,17 +142,7 @@ public class Player_Controller_Desktop : MonoBehaviour
                 _animator.SetFloat("Zmovement", forwardMovement);
                 _animator.SetFloat("Xmovement", rightMovement);
 
-                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDirection), _rotationSpeed * Time.deltaTime);
-                Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
-                RaycastHit hit;
-                if (Physics.Raycast(_bulletEmitter.transform.position, -_bulletEmitter.transform.right ,out hit))
-                {
-                    //Debug.Log("we shoot raycast");
-                    shootRaycastHit = hit.point;
-                    //Debug.Log(hit.point);
-                }
-                //Debug.Log("hit:" + hit.transform.tag);
-                _laserSight.SetLaserSightEnd(shootRaycastHit);
+                
 
                 if (shoot)
                 {
@@ -174,13 +186,11 @@ public class Player_Controller_Desktop : MonoBehaviour
             Camera.main.transform.LookAt(this.transform.position);
             //Camera.main.transform.Rotate(0, cameraRotationSpeed, 0f);
         }
-
-        cameraRef.transform.rotation = this.transform.rotation;
     }
 
     private void FixedUpdate()
     {
-        if (_dead == false)
+        if (_dead == false && _gm.GetPaused() == false)
         {
             if(moveDirection.magnitude >= 0.1f)
             {
@@ -248,7 +258,7 @@ public class Player_Controller_Desktop : MonoBehaviour
             }
             _gm.SetPlayerDead(true);
             playerGun.SetActive(false);
-            
+            this.gameObject.GetComponent<Collider>().enabled = false;
         }
         _gm.UpdateHealth(_currentHealth);
     }

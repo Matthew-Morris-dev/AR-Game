@@ -509,7 +509,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901056571890879828}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c58913e692646b24289e4874d091e0cc, type: 3}
   m_Name: 
@@ -844,6 +844,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1901056571891110260}
     m_Modifications:
+    - target: {fileID: 6321395455311316045, guid: 970274476de969d459ac45bc9c3d4ba0,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnParticleEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321395455311316045, guid: 970274476de969d459ac45bc9c3d4ba0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6318932380619838281, guid: 970274476de969d459ac45bc9c3d4ba0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -897,16 +907,6 @@ PrefabInstance:
     - target: {fileID: 6318932380619838281, guid: 970274476de969d459ac45bc9c3d4ba0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6321395455311316045, guid: 970274476de969d459ac45bc9c3d4ba0,
-        type: 3}
-      propertyPath: m_Name
-      value: SpawnParticleEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 6321395455311316045, guid: 970274476de969d459ac45bc9c3d4ba0,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

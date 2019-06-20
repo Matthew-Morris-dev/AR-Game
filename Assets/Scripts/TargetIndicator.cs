@@ -35,6 +35,11 @@ public class TargetIndicator : MonoBehaviour
         //Debug.Log(mainCanvas);
         Debug.Assert((mainCanvas != null), "There needs to be a Canvas object in the scene for the OTI to display");
         InstainateTargetIcon();
+
+        Debug.LogWarning(mainCanvas.GetComponent<RectTransform>().rect.width);
+        Debug.LogWarning(Screen.width);
+        Debug.LogWarning(mainCanvas.GetComponent<RectTransform>().rect.height);
+        Debug.LogWarning(Screen.height);
     }
 
     void Update()
@@ -47,8 +52,12 @@ public class TargetIndicator : MonoBehaviour
     private void InstainateTargetIcon()
     {
         m_icon = new GameObject().AddComponent<RectTransform>();
+        m_icon.anchorMin = new Vector2(0f, 0f);
+        m_icon.anchorMax = new Vector2(0f, 0f);
+        m_icon.pivot = new Vector2(0f, 0f);
         thisIcon = m_icon.gameObject;
         m_icon.transform.SetParent(mainCanvas.transform);
+        thisIcon.GetComponent<RectTransform>().position = mainCanvas.GetComponent<RectTransform>().position;
         m_icon.localScale = m_targetIconScale;
         m_icon.name = name + ": OTI icon";
         m_iconImage = m_icon.gameObject.AddComponent<Image>();
@@ -61,7 +70,7 @@ public class TargetIndicator : MonoBehaviour
         
         newPos = mainCamera.WorldToViewportPoint(newPos);
         //Simple check if the target object is out of the screen or inside
-        if (newPos.x > 1 || newPos.y > 1 || newPos.x < 0 || newPos.y < 0 || newPos.z <0)
+        if (newPos.x > 0.8 || newPos.y > 0.8 || newPos.x < 0.2 || newPos.y < 0.3 || newPos.z <0)
             m_outOfScreen = true;
         else
             m_outOfScreen = false;
@@ -76,6 +85,7 @@ public class TargetIndicator : MonoBehaviour
 
         //newPos = mainCamera.ViewportToScreenPoint(newPos);
         newPos = mainCamera.WorldToScreenPoint(transform.position);
+        Debug.LogWarning(mainCamera.WorldToViewportPoint(transform.position));
         newPos.x = Mathf.Clamp(newPos.x, m_edgeBuffer, Screen.width - m_edgeBuffer);
         newPos.y = Mathf.Clamp(newPos.y, m_edgeBuffer, Screen.height - m_edgeBuffer);
         if (newPos.z < 0)
@@ -91,7 +101,10 @@ public class TargetIndicator : MonoBehaviour
                 newPos.y = Screen.height - m_edgeBuffer;
             }
         }
-        m_icon.transform.position = newPos;
+        
+        //convert to canvas size
+        Vector3 tempNewPost = new Vector3 (newPos.x * (mainCanvas.GetComponent<RectTransform>().rect.width / Screen.width), newPos.y * (mainCanvas.GetComponent<RectTransform>().rect.height / Screen.height), 0f);
+        thisIcon.GetComponent<RectTransform>().anchoredPosition = tempNewPost;
         //Operations if the object is out of the screen
         if (m_outOfScreen)
         {

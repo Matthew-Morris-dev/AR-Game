@@ -32,6 +32,14 @@ public class LaserSight_Desktop : MonoBehaviour
 
     public void SetLaserSightEnd(Vector3 destination)
     {
-        lineRender.SetPosition(1, destination);
+        //Debug.LogWarning(destination);
+        if (destination.magnitude != 0f)
+        {
+            lineRender.SetPosition(1, destination);
+        }
+        else
+        {
+            lineRender.SetPosition(1, this.transform.position + this.transform.forward * 50);
+        }
     }
 }

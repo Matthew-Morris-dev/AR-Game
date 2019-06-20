@@ -33,6 +33,8 @@ public class Look : MonoBehaviour {
         }
         else
         {
+            if (_gm.GetPaused() == false)
+            {
                 if (axis == RotationAxis.MouseX)
                 {
                     Vector2 movementXY = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
@@ -47,6 +49,7 @@ public class Look : MonoBehaviour {
 
                     transform.localEulerAngles = new Vector3(_rotX, rotY, 0f);
                 }
+            }
         }
 	}
 }

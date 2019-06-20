@@ -32,8 +32,16 @@ public class LaserSight : MonoBehaviour
 
     public void SetLaserSightEnd(Vector3 destination)
     {
-        Vector3 temp = new Vector3(destination.x, lineRender.GetPosition(0).y, destination.z); //since gun and raycast are at different levels make laser stay at the same height.
-        //Debug.Log(temp);
-        lineRender.SetPosition(1, temp);
+        Debug.LogWarning(destination);
+        if (destination.magnitude != 0f)
+        {
+            Vector3 temp = new Vector3(destination.x, lineRender.GetPosition(0).y, destination.z); //since gun and raycast are at different levels make laser stay at the same height.
+                                                                                                   //Debug.Log(temp);
+            lineRender.SetPosition(1, temp);
+        }
+        else
+        {
+            lineRender.SetPosition(1, this.transform.position + this.transform.forward * 50);
+        }
     }
 }
