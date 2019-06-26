@@ -329,12 +329,10 @@
     <Compile Include="Assets\Scripts\characterController.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneGenerator.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneVisualizer.cs" />
-    <Compile Include="Assets\Scripts\DontSkipTutorialButton.cs" />
     <Compile Include="Assets\Scripts\Enemy_Controller_Desktop.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GameManager_AR.cs" />
     <Compile Include="Assets\Scripts\GameWorldController.cs" />
     <Compile Include="Assets\Scripts\GroundPlane.cs" />
     <Compile Include="Assets\Scripts\HitWallEffect.cs" />
@@ -352,8 +350,9 @@
     <Compile Include="Assets\Scripts\Networks\PlayerNetwork.cs" />
     <Compile Include="Assets\Scripts\OldcharacterController.cs" />
     <Compile Include="Assets\Scripts\OldEnemyController.cs" />
+    <Compile Include="Assets\Scripts\PhotonViewControllers\DesktopBulletPhotonViewController.cs" />
+    <Compile Include="Assets\Scripts\PhotonViewControllers\DesktopPlayerPhotonViewController.cs" />
     <Compile Include="Assets\Scripts\PlaneDiscoveryGuide.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Player_Controller_Desktop.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerSpawner.cs" />
@@ -361,7 +360,6 @@
     <Compile Include="Assets\Scripts\SceneTracker.cs" />
     <Compile Include="Assets\Scripts\ScreenLoadTracker.cs" />
     <Compile Include="Assets\Scripts\ShrapnelEffect.cs" />
-    <Compile Include="Assets\Scripts\SkipTutorialButton.cs" />
     <Compile Include="Assets\Scripts\spawnEffect.cs" />
     <Compile Include="Assets\Scripts\Sword.cs" />
     <Compile Include="Assets\Scripts\Sword_Desktop.cs" />
@@ -371,11 +369,6 @@
     <Compile Include="Assets\Scripts\TestPrefabScript.cs" />
     <Compile Include="Assets\Scripts\TotemCollision.cs" />
     <Compile Include="Assets\Scripts\TrainingTotem.cs" />
-    <Compile Include="Assets\Scripts\TutorialEnemy.cs" />
-    <Compile Include="Assets\Scripts\TutorialManager.cs" />
-    <Compile Include="Assets\Scripts\TutorialTextController.cs" />
-    <Compile Include="Assets\Scripts\TutorialWaypoint.cs" />
-    <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\WallEffect.cs" />
     <Compile Include="Assets\Scripts\WaveController.cs" />
     <Compile Include="Assets\Scripts\WorldScale.cs" />

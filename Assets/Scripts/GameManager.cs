@@ -61,8 +61,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private WaveController WC;
     [SerializeField]
-    private TutorialManager TM;
-    [SerializeField]
     private GameObject _player;
     [SerializeField]
     private bool playerDead = false;
@@ -81,255 +79,24 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //QuitOnConnectionErrors();
-        ST = FindObjectOfType<SceneTracker>();
-        CheckSkipTutorial();
+        PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Time.timeScale);
-
-        /*
-        //This code debugs which key is pressed
-        foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
-        {
-            if (Input.GetKey(kcode))
-                Debug.Log("KeyCode down: " + kcode);
-        }
-        */
 
         if (ST == null)
         {
             ST = FindObjectOfType<SceneTracker>();
         }
-
-        /*
-        //session must be tracking in order access the frame
-        if (Session.Status != SessionStatus.Tracking)
-        {
-            int lostTrackingSleepTimeout = 15;
-            Screen.sleepTimeout = lostTrackingSleepTimeout;
-            return;
-        }
-        //if we are tracking check if screen is touched
-        if (!planeSet)
-        {
-            ProcessTouches();
-        }
-        else
-        {
-            if(GameObject.FindGameObjectsWithTag("Plane").Length > 0)
-            {
-                OnTogglePlanes(false);
-            }
-        }
-        */
-
-        /*
-        if(gameOver)
-        {
-            GameOverTouches();
-        }
-        */
-
+        
         if (Input.GetKeyDown(KeyCode.Escape) && (skipTutorialUIOpen == false))
         {
-            /*
-            if (paused)
-            {
-                paused = false;
-                Time.timeScale = 0f;
-                Debug.Log("Launch pause menu");
-            }
-            else
-            {
-                paused = true;
-                Time.timeScale = 1f;
-                Debug.Log("Launch pause menu");
-            }
-            */
             TogglePause();
         }
-        /*
-        if(playerDead)
-        {
-            gameOverUI.SetActive(true);
-        }
-        */
-        /*
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(paused)
-            {
-                Time.timeScale = 1f;
-                pauseMenu.SetActive(false);
-            }
-            else
-            {
-                Time.timeScale = 0f;
-                pauseMenu.SetActive(true);
-            }
-            /*
-            ST.SetUsedEscape(true);
-            ST.SetFastSkipMainMenu(false);
-            Time.timeScale = 1f;
-            SceneManager.LoadScene("MainMenu");
-        }
-        */
     }
 
-    /*
-    //This will detect if user touches the screen.
-    //if so then cast ray from camera to the touched position and check if it hits a ARCore detected plane
-    private void ProcessTouches()
-    {
-        Touch touch;
-        if ((Input.touchCount != 1) || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
-        {
-            return;
-        }
-
-        TrackableHit hit;
-        TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinBounds | TrackableHitFlags.PlaneWithinPolygon;
-
-        if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
-        {
-            SetSelectedPlane(hit.Trackable as DetectedPlane);
-        }
-    }
-
-    private void GameOverTouches()
-    {
-        Touch touch;
-        if ((Input.touchCount != 1) || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
-        {
-            return;
-        }
-        ST.SetUsedEscape(false);
-        restartGameAudio.Play();
-        Invoke("RestartGame", 0.8f);
-    }
-
-    //Used to test if raycast is working as intended
-    private void SetSelectedPlane(DetectedPlane selectedPlane)
-    {
-        if (selectedPlane.PlaneType == DetectedPlaneType.HorizontalUpwardFacing)
-        {
-            Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
-            detectedPlane = selectedPlane;
-            
-            if (detectedPlane.ExtentX <= detectedPlane.ExtentZ)
-            {
-                //_arenaScale = detectedPlane.ExtentX;
-                _gameWorldScale = detectedPlane.ExtentX;
-            }
-            else
-            {
-                //_arenaScale = detectedPlane.ExtentZ;
-                _gameWorldScale = detectedPlane.ExtentZ;
-            }
-
-            //Anchor anchor = this.detectedPlane.CreateAnchor(new Pose(detectedPlane.CenterPose.position, Quaternion.identity));
-            Instantiate(_gameWorld, detectedPlane.CenterPose.position, Quaternion.identity);
-            Instantiate(_player, detectedPlane.CenterPose.position, Quaternion.identity);
-            firstPersonCamera.GetComponentInParent<ARCoreSession>().SessionConfig.PlaneFindingMode = GoogleARCore.DetectedPlaneFindingMode.Disabled;
-            OnTogglePlanes(false);
-            planeSet = true;
-            detectSurfaceUI.SetActive(false);
-            if(ST.GetFastSkipMainMenu())
-            {
-                CheckSkipTutorial();
-                SkipTutorial();
-                ST.SetFastSkipMainMenu(false);
-            }
-            else
-            {
-                CheckSkipTutorial();
-            }
-        }
-        else
-        {
-            return;
-        }
-    }
-    */
-
-    /*
-    //checks the ARCore session and that ARCore is working in our application
-    private void QuitOnConnectionErrors()
-    {
-        if (Session.Status == SessionStatus.ErrorPermissionNotGranted)
-        {
-            _ShowAndroidToastMessage("Camera permission is needed to run this application.");
-            _Quitting = true;
-            Invoke("_Quit()", 0.5f);
-        }
-        else if (Session.Status.IsError())
-        {
-            _ShowAndroidToastMessage("ARCore encountered a problem connecting.  Please start the app again.");
-            _Quitting = true;
-            Invoke("_Quit()", 0.5f);
-        }
-    }
-    */
-    
-    /*
-    public void RestartGame()
-    {
-        StartCoroutine(restart());
-        OnTogglePlanes(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public IEnumerator restart()
-    {
-        ARCoreSession session = ARCoreDevice.GetComponent<ARCoreSession>();
-        ARCoreSessionConfig myConfig = session.SessionConfig;
-        DestroyImmediate(session);
-        // Destroy(session);
-        Debug.Log("destroyed session");
-        yield return null;
-        session = ARCoreDevice.AddComponent<ARCoreSession>();
-        session.SessionConfig = myConfig;
-        session.enabled = true;
-        Debug.Log("new session");
-    }
-    */
-    // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
-    /// <summary>
-    /// Show an Android toast message.
-    /// </summary>
-    /// <param name="message">Message string to show in the toast.</param>
-    private void _ShowAndroidToastMessage(string message)
-    {
-        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-
-        if (unityActivity != null)
-        {
-            AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
-            unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
-            {
-                AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity,
-                    message, 0);
-                toastObject.Call("show");
-            }));
-        }
-    }
-    /*
-    public void OnTogglePlanes(bool flag)
-    {
-        foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
-        {
-            Renderer r = plane.GetComponent<Renderer>();
-            DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
-            r.enabled = flag;
-            t.enabled = flag;
-        }
-    }
-    */
     public bool GetPlaneSet()
     {
         return planeSet;
@@ -389,39 +156,6 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
         killTrackerText.enabled = false;
         Invoke("WaitGameOver", 1f);
-    }
-
-    private void CheckSkipTutorial()
-    {
-        TM = FindObjectOfType<TutorialManager>();
-        WC = FindObjectOfType<WaveController>();
-        skipTutorialUI.SetActive(true);
-        skipTutorialUIOpen = true;
-        Time.timeScale = 0f;
-    }
-
-    public void SkipTutorial()
-    {
-        TM.DestroyWaypointIndicator();
-        TM.gameObject.SetActive(false);
-        WC.setTutorialOver(true);
-        Time.timeScale = 1f;
-        skipTutorialUI.SetActive(false);
-        skipTutorialUIOpen = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        _player.GetComponent<Player_Controller_Desktop>().EnableLaserSight();
-    }
-
-    public void DontSkipTutorial()
-    {
-        Time.timeScale = 1f;
-        skipTutorialUI.SetActive(false);
-        skipTutorialUIOpen = false;
-        TM.StartTutorial();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        _player.GetComponent<Player_Controller_Desktop>().EnableLaserSight();
     }
 
     private void WaitGameOver()

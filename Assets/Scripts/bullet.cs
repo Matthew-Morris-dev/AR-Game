@@ -45,13 +45,6 @@ public class bullet : MonoBehaviour
             Instantiate(enemyHitEffect, collision.collider.bounds.center, Quaternion.identity);
             Destroy(this.gameObject);
         }
-        else if(collision.gameObject.CompareTag("TutorialEnemy"))
-        {
-            Debug.Log("we hit dummy");
-            collision.gameObject.GetComponent<TutorialEnemy>().TakeDamage(damage);
-            Instantiate(enemyHitEffect, collision.collider.bounds.center, Quaternion.identity);
-            Destroy(this.gameObject);
-        }
         else if(collision.gameObject.CompareTag("Arena"))
         {
             Vector3 collisionNormal = collision.contacts[0].normal;

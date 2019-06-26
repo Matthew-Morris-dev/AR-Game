@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player_Controller_Desktop : MonoBehaviour
 {
     [SerializeField]
+    private Camera myCamera;
+    [SerializeField]
     private Rigidbody _rb;
     [SerializeField]
     private Animator _animator;
@@ -119,29 +121,18 @@ public class Player_Controller_Desktop : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-                    //Debug.Log("we shoot raycast");
+                    Debug.LogError("WE DO HIT RAYCAST: " + hit.point);
                     shootRaycastHit = hit.point;
-                    //Debug.Log(hit.point);
                 }
-                //Debug.Log("hit:" + hit.transform.tag);
                 _laserSight.SetLaserSightEnd(shootRaycastHit);
 
                 if (shoot)
                 {
                     if (_timeSinceLastBullet >= _rateOfFire)
                     {
-                        /*
-                        RaycastHit hit;
-                        if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
-                        {
-                            Debug.Log("we shoot raycast");
-                            shootRaycastHit = hit.point;
-                        }
-                        Debug.Log("hit:" + hit.transform.tag);
-                        */
                         gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
                         gunShotSFX.Play();
-                        Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
+                        PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
                         _muzzleFlash.SetActive(true);
                         _timeSinceLastBullet = 0;
                     }
@@ -166,7 +157,6 @@ public class Player_Controller_Desktop : MonoBehaviour
         {
             Camera.main.transform.RotateAround(this.transform.position, Vector3.up, cameraRotationSpeed * Time.deltaTime);
             Camera.main.transform.LookAt(this.transform.position);
-            //Camera.main.transform.Rotate(0, cameraRotationSpeed, 0f);
         }
     }
 
@@ -183,40 +173,10 @@ public class Player_Controller_Desktop : MonoBehaviour
             {
                 _animator.SetTrigger("Idle");
             }
-            /*
-            if (canMove == true)
-            {
-                //_rb.velocity = moveDirection * _speed * Time.fixedDeltaTime;
-                transform.Translate(moveDirection * _movementSpeed * Time.fixedDeltaTime, Space.World);
-                _animator.SetTrigger("Walking");
-            }
-            else
-            {
-                _rb.velocity = Vector3.zero;
-                if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
-                {
-                    _animator.SetTrigger("Idle");
-                }
-            }
-            */
             if (!shoot)
             {
                 canMove = true;
             }
-            /*
-            else if (_jsc.GetJoystickActive())
-            {
-                Vector3 camForward = _ARCamera.transform.forward;
-                Vector3 camRight = _ARCamera.transform.right;
-                camForward.y = 0f;
-                camRight.y = 0f;
-                camForward = camForward.normalized;
-                camRight = camRight.normalized;
-
-                moveDirection = ((camForward * _jsc.inputDirection.y + camRight * _jsc.inputDirection.x) * _speed * Time.deltaTime);
-                _rb.velocity = moveDirection;
-            }
-            */
         }
     }
 
@@ -319,5 +279,10 @@ public class Player_Controller_Desktop : MonoBehaviour
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.up + -2*Camera.main.transform.forward, 5f);
         Camera.main.transform.LookAt(this.transform.position);
         cameraRotate = true;
+    }
+
+    public void DisableMyCamera()
+    {
+        myCamera.gameObject.SetActive(false);
     }
 }
