@@ -367,8 +367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3622116663001212482}
-  - component: {fileID: 2887570668716320061}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,33 +389,6 @@ Transform:
   m_Father: {fileID: 3622116663765185232}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 47.268, y: -90.179, z: -47.4}
---- !u!114 &2887570668716320061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3622116663001212485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!1 &3622116663012316972
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +403,8 @@ GameObject:
   - component: {fileID: 3622116663012316970}
   - component: {fileID: 2794896202451262352}
   - component: {fileID: 3294070261551660656}
-  m_Layer: 11
+  - component: {fileID: 6793928158531468951}
+  m_Layer: 12
   m_Name: MuzzleFlash_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,6 +511,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 3294070261551660656}
+  - {fileID: 6793928158531468951}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -564,6 +538,84 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &6793928158531468951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622116663012316972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 4
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 10
+    InterpolateMoveTowardsAcceleration: 2
+    InterpolateMoveTowardsDeceleration: 2
+    InterpolateSpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 0
+        inSlope: 0
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 4
+        value: 4
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+    DrawErrorGizmo: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &3622116663037489222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,13 +1507,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3622116663765185232}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3622116663765185232
 Transform:
   m_ObjectHideFlags: 0
@@ -2236,12 +2288,12 @@ MonoBehaviour:
   _rb: {fileID: 3622116664354533742}
   _animator: {fileID: 3622116664354533743}
   _muzzleFlash: {fileID: 6416357922739391820}
-  _muzzleFlash2: {fileID: 3622116663001212485}
+  _muzzleFlash2: {fileID: 3622116663765185235}
   _animationSpeed: 1
   shootRaycastFrom: {fileID: 3622116662995482648}
   shootRaycastHit: {x: 0, y: 0, z: 0}
   _bulletEmitter: {fileID: 6416357923362935409}
-  _bullet: {fileID: 7795648948589393354, guid: d55a89ee12304dc4dbfc8b2b7f820dd3, type: 3}
+  _bullet: {fileID: 3145883551332174201, guid: 44bfd803e6f7fc242970b9cbc213a0a2, type: 3}
   gunShotSFX: {fileID: 3622116664354533714}
   _attackDamage: 10
   _rateOfFire: 0.5

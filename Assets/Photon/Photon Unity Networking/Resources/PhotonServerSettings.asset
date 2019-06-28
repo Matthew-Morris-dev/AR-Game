@@ -48,4 +48,5 @@ MonoBehaviour:
   - UpdateWaveTrackerRPC
   - SetTargetPosition
   - UpdateName
+  - ToggleShootAnimation
   DisableAutoOpenWizard: 1

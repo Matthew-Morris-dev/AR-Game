@@ -54,7 +54,8 @@ public class Bullet_Desktop : MonoBehaviour
             Vector3 collisionNormal = collision.contacts[0].normal;
             Debug.Log("Collision normal: " + collisionNormal);
             Quaternion hitWallEffectRotation = Quaternion.LookRotation(collisionNormal);
-            PhotonNetwork.Instantiate("HitWallEffect", collision.contacts[0].point, hitWallEffectRotation,0);
+            //PhotonNetwork.Instantiate("HitWallEffect", collision.contacts[0].point, hitWallEffectRotation,0);
+            Instantiate(wallHitEffect, collision.contacts[0].point, hitWallEffectRotation);
             Destroy(this.gameObject);
         }
         else

@@ -79,7 +79,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
+
+       GameObject temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
+        temp.name = PlayerNetwork.Instance.GetName();
     }
 
     // Update is called once per frame

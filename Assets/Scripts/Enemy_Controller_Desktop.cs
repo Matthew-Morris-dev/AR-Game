@@ -164,14 +164,14 @@ public class Enemy_Controller_Desktop : MonoBehaviour
             }
         }
     }
-
+    /*
     public void TakeDamage(float damage)
     {
         photonView.RPC("TellAllITakeDamage", PhotonTargets.All, damage);
     }
 
-    [PunRPC]
-    public void TellAllITakeDamage(float damage)
+    [PunRPC]*/
+    public void TakeDamage(float damage)
     {
         _animator.SetTrigger("TakeDamage");
         if (hitSFX.isPlaying == false)

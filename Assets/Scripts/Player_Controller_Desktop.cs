@@ -70,7 +70,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     [SerializeField]
     private float cameraRotationSpeed;
     private bool _dead = false;
-
+    
     public LayerMask camLayerMask;
     // Start is called before the first frame update
     void Start()
@@ -80,7 +80,13 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth = _maxHealth;
         _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
-        photonView.RPC("UpdateName", PhotonTargets.All, PlayerNetwork.Instance.GetName());
+        gameObject.name = photonView.owner.NickName;
+        /*
+        if (photonView.isMine)
+        {
+            UpdateName(PlayerNetwork.Instance.GetName());
+        }*/
+        //photonView.RPC("UpdateName", PhotonTargets.All, PlayerNetwork.Instance.GetName());
     }
 
     // Update is called once per frame
@@ -292,7 +298,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         myCamera.gameObject.GetComponent<AudioListener>().enabled = false;
         myCamera.enabled = false;
     }
-
+    
     [PunRPC]
     private void UpdateName(string name)
     {
