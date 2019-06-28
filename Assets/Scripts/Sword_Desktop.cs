@@ -19,7 +19,10 @@ public class Sword_Desktop : MonoBehaviour
         //Debug.Log("we enter here");
         if(canDoDamage == true && other.gameObject.tag == "Player")
         {
-            other.GetComponent<Player_Controller_Desktop>().TakeDamage(_attackDamage);
+            if(other.GetComponent<Player_Controller_Desktop>() != null)
+            {
+                other.GetComponent<Player_Controller_Desktop>().TakeDamage(_attackDamage);
+            }
             canDoDamage = false;
             playerHitSFX.Play();
             Instantiate(playerDamageEffect, other.ClosestPointOnBounds(this.transform.position), Quaternion.identity);

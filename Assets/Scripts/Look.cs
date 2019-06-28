@@ -33,8 +33,6 @@ public class Look : MonoBehaviour {
         }
         else
         {
-            if (Time.timeScale != 0f && _gm.GetGameOver() != true)
-            {
                 if (axis == RotationAxis.MouseX)
                 {
                     transform.Rotate(0, Input.GetAxis("Mouse X") * xSensitivity, 0f);
@@ -48,7 +46,6 @@ public class Look : MonoBehaviour {
 
                     transform.localEulerAngles = new Vector3(_rotX, rotY, 0f);
                 }
-            }
         }
 	}
 }

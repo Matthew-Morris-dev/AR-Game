@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 1570975601194285078}
   - component: {fileID: 2310021770570926684}
   - component: {fileID: 5213834619499907570}
+  - component: {fileID: 7095938536806611942}
+  - component: {fileID: 8655699508493101017}
   m_Layer: 0
   m_Name: bullet_desktop
   m_TagString: Untagged
@@ -132,6 +134,7 @@ MonoBehaviour:
   enemyHitEffect: {fileID: 1585529669254476, guid: f415f133978c90d4696694645f94d2ae,
     type: 3}
   scaleFactor: 1
+  myPlayer: {fileID: 0}
 --- !u!114 &1570975601194285078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,8 +156,8 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 2310021770570926684}
   - {fileID: 5213834619499907570}
+  - {fileID: 8655699508493101017}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -251,3 +254,31 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &7095938536806611942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3145883551332174201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bb00045d557424479b0f0ef2c38590f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 0
+  delayTime: 5
+--- !u!114 &8655699508493101017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3145883551332174201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1

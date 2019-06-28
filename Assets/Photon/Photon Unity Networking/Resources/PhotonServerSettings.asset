@@ -38,4 +38,14 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - PlayerJoinedRoom
+  - AnnounceWaveToAllClients
+  - TellAllITakeDamage
+  - SetTarget
+  - setShoot
+  - SetLookDir
+  - IncWaveTracker
+  - UpdateWaveStarted
+  - UpdateWaveTrackerRPC
+  - SetTargetPosition
+  - UpdateName
   DisableAutoOpenWizard: 1

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Enemy_Controller_Desktop : MonoBehaviour
 {
     [SerializeField]
+    private PhotonView photonView;
+    [SerializeField]
     private float _speed;
     [SerializeField]
     private float _stoppingDistance;
@@ -92,14 +94,15 @@ public class Enemy_Controller_Desktop : MonoBehaviour
             _attackRange *= _gm.GetGameWorldScale();
             _scaled = true;
         }
-        if (Time.timeScale != 0f)
-        {
-            if (_playerDead == false)
-            {
-                //Find and move towards target
+        MakeMeATarget[] listOfPossibleTargets = FindObjectsOfType<MakeMeATarget>();
+        //Find and move towards target
                 if (_target == null)
                 {
-                    _target = FindObjectOfType<Player_Controller_Desktop>().gameObject;
+                    if (PhotonNetwork.isMasterClient)
+                    {
+                        string theTarget = listOfPossibleTargets[Mathf.FloorToInt(Random.Range(0, listOfPossibleTargets.Length))].gameObject.name;
+                        photonView.RPC("SetTarget", PhotonTargets.All, theTarget);
+                    }
                 }
                 else
                 {
@@ -119,15 +122,6 @@ public class Enemy_Controller_Desktop : MonoBehaviour
 
                 _hpBar.fillAmount = _currentHealth / _maxHealth;
 
-                //Walking animation stuff
-                //_animator.SetFloat("Speed", _rb.velocity.magnitude);
-            }
-            else
-            {
-                _rb.velocity = Vector3.zero;
-                _animator.SetFloat("Speed", 0f);
-            }
-        }
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             if (delayTimer >= damageDelay)
@@ -171,19 +165,14 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         }
     }
 
-    /*
-    private void LateUpdate()
-    {
-        if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("TakeDamage"))
-        {
-            _animator.speed = _animationSpeed;
-        }
-    }
-    */
-
     public void TakeDamage(float damage)
     {
-        //_animator.speed = _animationSpeed;
+        photonView.RPC("TellAllITakeDamage", PhotonTargets.All, damage);
+    }
+
+    [PunRPC]
+    public void TellAllITakeDamage(float damage)
+    {
         _animator.SetTrigger("TakeDamage");
         if (hitSFX.isPlaying == false)
         {
@@ -211,6 +200,18 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
         _gm.IncrementKills();
         Destroy(this.gameObject);
+    }
+
+    [PunRPC]
+    private void SetTarget(string obj)
+    {
+        _target = GameObject.Find(obj);
+    }
+
+    [PunRPC]
+    private void SetLookDir(Vector3 lookDir)
+    {
+        this.transform.LookAt(lookDir);
     }
 
     public void SetPlayerDead(bool value)

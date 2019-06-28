@@ -90,11 +90,6 @@ public class GameManager : MonoBehaviour
         {
             ST = FindObjectOfType<SceneTracker>();
         }
-        
-        if (Input.GetKeyDown(KeyCode.Escape) && (skipTutorialUIOpen == false))
-        {
-            TogglePause();
-        }
     }
 
     public bool GetPlaneSet()
@@ -163,18 +158,6 @@ public class GameManager : MonoBehaviour
         gameOver = true;
     }
 
-    private void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
     //close application
     public void Quit()
     {
@@ -191,35 +174,5 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(float health)
     {
         HPTrackerText.text = ("Health: " + health);
-    }
-
-    public void TogglePause()
-    {
-        if (paused)
-        {
-            pauseMenuUI.SetActive(false);
-            paused = false;
-            Time.timeScale = 1f;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            pauseMenuUI.SetActive(true);
-            paused = true;
-            Time.timeScale = 0f;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-    }
-
-    public bool GetPaused()
-    {
-        return paused;
-    }
-
-    public bool GetGameOver()
-    {
-        return gameOver;
     }
 }

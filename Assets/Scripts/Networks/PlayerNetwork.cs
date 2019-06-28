@@ -17,4 +17,9 @@ public class PlayerNetwork : MonoBehaviour
     {
         playerName = text;
     }
+
+    public string GetName()
+    {
+        return playerName;
+    }
 }

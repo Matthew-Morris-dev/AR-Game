@@ -326,6 +326,7 @@
     <Compile Include="Assets\Scripts\BillboardHealthBars.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet_Desktop.cs" />
+    <Compile Include="Assets\Scripts\BulletDestroySelf.cs" />
     <Compile Include="Assets\Scripts\characterController.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneGenerator.cs" />
     <Compile Include="Assets\Scripts\DetectedPlaneVisualizer.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Assets\Scripts\MainMenu\PlayerLayoutGroup.cs" />
     <Compile Include="Assets\Scripts\MainMenu\PlayerListing.cs" />
     <Compile Include="Assets\Scripts\MainMenu\PlayerNameInputField.cs" />
+    <Compile Include="Assets\Scripts\MakeMeATarget.cs" />
     <Compile Include="Assets\Scripts\MobileJoystickController.cs" />
     <Compile Include="Assets\Scripts\Networks\MenuNetwork.cs" />
     <Compile Include="Assets\Scripts\Networks\PlayerNetwork.cs" />

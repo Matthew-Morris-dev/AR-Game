@@ -2553,7 +2553,6 @@ MonoBehaviour:
   skipTutorialUIOpen: 0
   pauseMenuUI: {fileID: 492668211}
   WC: {fileID: 0}
-  TM: {fileID: 0}
   _player: {fileID: 0}
   playerDead: 0
   _gameWorld: {fileID: 781565861531019709, guid: 6373217e9b1910d48858808783b70b8e,
@@ -3146,6 +3145,11 @@ PrefabInstance:
       propertyPath: tutorialOver
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 781565861531019706, guid: 0dfe7d0d6d3b54349868509d51eb1933,
+        type: 3}
+      propertyPath: photonView
+      value: 
+      objectReference: {fileID: 1619933421}
     - target: {fileID: 781565861765151203, guid: 0dfe7d0d6d3b54349868509d51eb1933,
         type: 3}
       propertyPath: m_IsActive
@@ -3169,6 +3173,39 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 781565861531019707, guid: 0dfe7d0d6d3b54349868509d51eb1933, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0dfe7d0d6d3b54349868509d51eb1933, type: 3}
+--- !u!1 &1619933419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 781565861531019709, guid: 0dfe7d0d6d3b54349868509d51eb1933,
+    type: 3}
+  m_PrefabInstance: {fileID: 1619933418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1619933421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619933419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 1
+  instantiationId: 1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &1802568611
 GameObject:
   m_ObjectHideFlags: 0

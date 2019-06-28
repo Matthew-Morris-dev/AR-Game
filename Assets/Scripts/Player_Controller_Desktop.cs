@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_Controller_Desktop : MonoBehaviour
 {
+    public PhotonView photonView;
     [SerializeField]
     private Camera myCamera;
     [SerializeField]
@@ -13,7 +14,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     [SerializeField]
     private GameObject _muzzleFlash;
     [SerializeField]
-    private LaserSight_Desktop _laserSight;
+    private GameObject _muzzleFlash2;
     [SerializeField]
     private float _animationSpeed;
     //Target Stuff
@@ -79,7 +80,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth = _maxHealth;
         _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
-        _laserSight.gameObject.SetActive(false);
+        photonView.RPC("UpdateName", PhotonTargets.All, PlayerNetwork.Instance.GetName());
     }
 
     // Update is called once per frame
@@ -121,10 +122,8 @@ public class Player_Controller_Desktop : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-                    Debug.LogError("WE DO HIT RAYCAST: " + hit.point);
                     shootRaycastHit = hit.point;
                 }
-                _laserSight.SetLaserSightEnd(shootRaycastHit);
 
                 if (shoot)
                 {
@@ -134,6 +133,7 @@ public class Player_Controller_Desktop : MonoBehaviour
                         gunShotSFX.Play();
                         PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
                         _muzzleFlash.SetActive(true);
+                        _muzzleFlash2.SetActive(true);
                         _timeSinceLastBullet = 0;
                     }
                     else
@@ -144,6 +144,7 @@ public class Player_Controller_Desktop : MonoBehaviour
                 else
                 {
                     _muzzleFlash.SetActive(false);
+                    _muzzleFlash2.SetActive(false);
                     _timeSinceLastBullet += Time.deltaTime;
                 }
             }
@@ -151,6 +152,7 @@ public class Player_Controller_Desktop : MonoBehaviour
             {
                 _rb.freezeRotation = true;
                 _muzzleFlash.SetActive(false);
+                _muzzleFlash2.SetActive(false);
             }
         }
         if(cameraRotate)
@@ -186,19 +188,26 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
-            _currentHealth = 0f;
-            _animator.SetFloat("Health", 0f);
-            if(!_dead)
-            {
-                DeathCameraAnimation();
-            }
-            _dead = true;
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-            {
-                enemy.GetComponent<Enemy_Controller_Desktop>().SetPlayerDead(true);
-            }
-            _gm.SetPlayerDead(true);
-            playerGun.SetActive(false);
+            //if (PhotonNetwork.isMasterClient)
+            //{
+            //    int wave = FindObjectOfType<WaveController>().CurrentWave();
+            //    FindObjectOfType<WaveController>().UpdateWaveTracker(wave);
+            //}
+            PhotonNetwork.Disconnect();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            //_currentHealth = 0f;
+            //_animator.SetFloat("Health", 0f);
+            //if(!_dead)
+            //{
+            //    DeathCameraAnimation();
+            //}
+            //_dead = true;
+            //foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            //{
+            //    enemy.GetComponent<Enemy_Controller_Desktop>().SetPlayerDead(true);
+            //}
+            //_gm.SetPlayerDead(true);
+            //playerGun.SetActive(false);
             
         }
         _gm.UpdateHealth(_currentHealth);
@@ -265,12 +274,8 @@ public class Player_Controller_Desktop : MonoBehaviour
         if (value == false)
         {
             _muzzleFlash.SetActive(false);
+            _muzzleFlash2.SetActive(false);
         }
-    }
-
-    public void EnableLaserSight()
-    {
-        _laserSight.gameObject.SetActive(true);
     }
 
     private void DeathCameraAnimation()
@@ -283,6 +288,14 @@ public class Player_Controller_Desktop : MonoBehaviour
 
     public void DisableMyCamera()
     {
-        myCamera.gameObject.SetActive(false);
+        myCamera.gameObject.GetComponent<Look>().enabled = false;
+        myCamera.gameObject.GetComponent<AudioListener>().enabled = false;
+        myCamera.enabled = false;
+    }
+
+    [PunRPC]
+    private void UpdateName(string name)
+    {
+        this.gameObject.name = name;
     }
 }

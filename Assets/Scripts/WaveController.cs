@@ -5,6 +5,9 @@ using UnityEngine;
 public class WaveController : MonoBehaviour
 {
     [SerializeField]
+    private PhotonView photonView;
+
+    [SerializeField]
     private EnemySpawner[] _spawners;
 
     [SerializeField]
@@ -38,15 +41,14 @@ public class WaveController : MonoBehaviour
         {
             _gm = FindObjectOfType<GameManager>();
         }
-        else if (tutorialOver)
-        {
             if((enemiesAlive == 0) && waveTracker == 0 && waveStarted == false)
             {
                 waveStarted = true;
                 spawnSFX.Play();
                 StartCoroutine(StartWave(1, waveDelay));
                 waveTracker++;
-                _gm.AnnounceWave(waveTracker);
+                photonView.RPC("AnnounceWaveToAllClients", PhotonTargets.All, waveTracker);
+                //_gm.AnnounceWave(waveTracker);
             }
             else if((enemiesAlive == 0 && waveTracker == 1) && waveStarted == false)
             {
@@ -54,7 +56,8 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(2, waveDelay));
                 waveTracker++;
-                _gm.AnnounceWave(waveTracker);
+                photonView.RPC("AnnounceWaveToAllClients", PhotonTargets.All, waveTracker);
+                //_gm.AnnounceWave(waveTracker);
             }
             else if((enemiesAlive == 0 && waveTracker == 2) && waveStarted == false)
             {
@@ -62,7 +65,8 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(3, waveDelay));
                 waveTracker++;
-                _gm.AnnounceWave(waveTracker);
+                photonView.RPC("AnnounceWaveToAllClients", PhotonTargets.All, waveTracker);
+                //_gm.AnnounceWave(waveTracker);
             }
             else if ((enemiesAlive == 0 && waveTracker == 3) && waveStarted == false)
             {
@@ -70,7 +74,8 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(4, waveDelay));
                 waveTracker++;
-                _gm.AnnounceWave(waveTracker);
+                photonView.RPC("AnnounceWaveToAllClients", PhotonTargets.All, waveTracker);
+                //_gm.AnnounceWave(waveTracker);
             }
             else if ((enemiesAlive == 0 && waveTracker == 4) && waveStarted == false)
             {
@@ -78,7 +83,8 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(5, waveDelay));
                 waveTracker++;
-                _gm.AnnounceWave(waveTracker);
+                photonView.RPC("AnnounceWaveToAllClients", PhotonTargets.All, waveTracker);
+                //_gm.AnnounceWave(waveTracker);
             }
             else if ((enemiesAlive == 0 && waveTracker >= 5) && waveStarted == false)
             {
@@ -86,14 +92,16 @@ public class WaveController : MonoBehaviour
                 spawnSFX.Play();
                 StartCoroutine(StartWave(6, waveDelay));
                 waveTracker++;
-                _gm.AnnounceWave(waveTracker);
+                photonView.RPC("AnnounceWaveToAllClients", PhotonTargets.All, waveTracker);
+                //_gm.AnnounceWave(waveTracker);
             }
             else if(enemiesAlive > 0)
             {
                 waveStarted = false;
             }
-        }
     }
+
+
 
     public void setTutorialOver(bool value)
     {
@@ -158,5 +166,22 @@ public class WaveController : MonoBehaviour
             _spawners[5].SpawnEnemy();
             enemiesAlive = 6;
         }
+    }
+
+    [PunRPC]
+    public void AnnounceWaveToAllClients(int wave)
+    {
+        _gm.AnnounceWave(wave);
+    }
+
+    public void UpdateWaveTracker(int currentWave)
+    {
+        photonView.RPC("UpdateWaveTrackerRPC", PhotonTargets.All, currentWave);
+    }
+
+    [PunRPC]
+    private void UpdateWaveTrackerRPC(int value)
+    {
+        waveTracker = value;
     }
 }
