@@ -22,6 +22,9 @@ public class Sword_Desktop : MonoBehaviour
             if(other.GetComponent<Player_Controller_Desktop>() != null)
             {
                 other.GetComponent<Player_Controller_Desktop>().TakeDamage(_attackDamage);
+            }else if(other.GetComponent<VR_Player_Controller>() != null)
+            {
+                other.GetComponent<VR_Player_Controller>().TakeDamage(_attackDamage);
             }
             canDoDamage = false;
             playerHitSFX.Play();

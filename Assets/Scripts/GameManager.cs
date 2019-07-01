@@ -184,4 +184,9 @@ public class GameManager : MonoBehaviour
     {
         HPTrackerText.text = ("Health: " + health);
     }
+
+    public int GetKills()
+    {
+        return numberOfKills;
+    }
 }

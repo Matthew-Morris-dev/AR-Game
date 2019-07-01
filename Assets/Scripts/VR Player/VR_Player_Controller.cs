@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class VR_Player_Controller : MonoBehaviour
 {
@@ -39,9 +40,6 @@ public class VR_Player_Controller : MonoBehaviour
     private Vector3 lookDirection;
 
     public Transform cameraRef;
-    //Fps gun
-    [SerializeField]
-    private GameObject playerGun;
 
     //movement
     [SerializeField]
@@ -66,6 +64,10 @@ public class VR_Player_Controller : MonoBehaviour
 
     [SerializeField]
     private GameManager _gm;
+    [SerializeField]
+    private TMP_Text HealthText;
+    [SerializeField]
+    private TMP_Text KillsText;
 
     public LayerMask camLayerMask;
     // Start is called before the first frame update
@@ -74,9 +76,9 @@ public class VR_Player_Controller : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _gm = FindObjectOfType<GameManager>();
         _currentHealth = _maxHealth;
-        _gm.UpdateHealth(_currentHealth);
+        UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
-        _laserSight.gameObject.SetActive(false);
+        _laserSight.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -87,8 +89,10 @@ public class VR_Player_Controller : MonoBehaviour
         {
             _gm = FindObjectOfType<GameManager>();
         }
-        
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
+        else
+        {
+            UpdateKills(_gm.GetKills());
+        }
             RaycastHit hit;
             if (Physics.Raycast(_bulletEmitter.transform.position, _bulletEmitter.transform.forward, out hit))
             {
@@ -113,7 +117,6 @@ public class VR_Player_Controller : MonoBehaviour
             Debug.LogError(rotationXY.x * rotationSpeed);
         }
         transform.Rotate(Vector3.up, rotationXY.x * rotationSpeed);
-        Camera.main.transform.rotation = transform.rotation;
 
             if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
             {
@@ -136,7 +139,7 @@ public class VR_Player_Controller : MonoBehaviour
                     gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
                     gunShotSFX.Play();
                     PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
-                    _muzzleFlash.SetActive(true);
+                    _muzzleFlash.SetActive(false);
                     _timeSinceLastBullet = 0;
                 }
                 else
@@ -155,7 +158,7 @@ public class VR_Player_Controller : MonoBehaviour
     {
             if (moveDirection.magnitude >= 0.1f)
             {
-                transform.Translate(moveDirection * _movementSpeed * Time.deltaTime, Space.Self);
+                transform.Translate(moveDirection * _movementSpeed * Time.deltaTime, Space.World);
                 cameraRef.position = new Vector3(this.transform.position.x, cameraRef.transform.position.y, this.transform.position.z);
                 _animator.SetTrigger("Walking");
             }
@@ -179,7 +182,7 @@ public class VR_Player_Controller : MonoBehaviour
             PhotonNetwork.Disconnect();
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
-        _gm.UpdateHealth(_currentHealth);
+        UpdateHealth(_currentHealth);
     }
 
     private void CheckGrounded()
@@ -256,5 +259,15 @@ public class VR_Player_Controller : MonoBehaviour
         Camera.main.cullingMask += camLayerMask;
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.up + -2 * Camera.main.transform.forward, 5f);
         Camera.main.transform.LookAt(this.transform.position);
+    }
+
+    private void UpdateHealth(float hp)
+    {
+        HealthText.text = "Health: " + hp;
+    }
+
+    private void UpdateKills(int kills)
+    {
+        KillsText.text = "Kills: " + kills;
     }
 }

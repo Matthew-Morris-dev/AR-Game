@@ -11,7 +11,17 @@ public class LaserSight_Desktop : MonoBehaviour
     [SerializeField]
     private GameManager _gm;
 
+    [SerializeField]
+    private GameObject barrel;
+
     private bool _scaled = false;
+
+    private void Start()
+    {
+        lineRender.SetPosition(0, barrel.transform.position);
+    }
+
+    /*
     // Start is called before the first frame update
     void Update()
     {
@@ -29,6 +39,7 @@ public class LaserSight_Desktop : MonoBehaviour
         lineRender.SetPosition(0, (this.GetComponentInParent<Transform>().position + new Vector3(0f, -1f, -1.1f) * _scaleFactor * _gm.GetGameWorldScale()));
         //Debug.Log(lineRender.GetPosition(0));
     }
+    */
 
     public void SetLaserSightEnd(Vector3 destination)
     {
