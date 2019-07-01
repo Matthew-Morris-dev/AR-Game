@@ -18,20 +18,35 @@ public class Bullet_Desktop : MonoBehaviour
     private float scaleFactor;
 
     public Player_Controller_Desktop myPlayer;
-
+    public VR_Player_Controller myVRPlayer;
     private Vector3 target;
     // Start is called before the first frame update
     void Start()
     {
-        myPlayer = FindObjectOfType<Player_Controller_Desktop>();
-        //this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
-        this.transform.Rotate(90f, 0f, 0f);
-        Vector3 endDestination = myPlayer.getLatestRaycastHit();
-        //Debug.Log("endDestination: " + endDestination);
-        Vector3 temp = endDestination - this.transform.position;
-        // Vector3 dir = new Vector3(temp.x, 0f, temp.z);
-        Vector3 dir = endDestination - this.transform.position;
-        rb.AddForce(dir * initialForce);
+        if (OVRManager.isHmdPresent)
+        {
+            myVRPlayer = FindObjectOfType<VR_Player_Controller>();
+            //this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
+            this.transform.Rotate(90f, 0f, 0f);
+            Vector3 endDestination = myVRPlayer.getLatestRaycastHit();
+            //Debug.Log("endDestination: " + endDestination);
+            Vector3 temp = endDestination - this.transform.position;
+            // Vector3 dir = new Vector3(temp.x, 0f, temp.z);
+            Vector3 dir = endDestination - this.transform.position;
+            rb.AddForce(dir * initialForce);
+        }
+        else
+        {
+            myPlayer = FindObjectOfType<Player_Controller_Desktop>();
+            //this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
+            this.transform.Rotate(90f, 0f, 0f);
+            Vector3 endDestination = myPlayer.getLatestRaycastHit();
+            //Debug.Log("endDestination: " + endDestination);
+            Vector3 temp = endDestination - this.transform.position;
+            // Vector3 dir = new Vector3(temp.x, 0f, temp.z);
+            Vector3 dir = endDestination - this.transform.position;
+            rb.AddForce(dir * initialForce);
+        }
     }
 
     // Update is called once per frame

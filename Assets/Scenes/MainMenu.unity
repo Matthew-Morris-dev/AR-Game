@@ -481,6 +481,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 17076344}
+    - target: {fileID: 2609658239409944489, guid: cc705dc390312fe4fb2bdad69d63f1f7,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2609658240007895267, guid: cc705dc390312fe4fb2bdad69d63f1f7,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -531,6 +536,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2609658239539933477, guid: cc705dc390312fe4fb2bdad69d63f1f7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000053273943
+      objectReference: {fileID: 0}
     - target: {fileID: 2609658239539933481, guid: cc705dc390312fe4fb2bdad69d63f1f7,
         type: 3}
       propertyPath: viewIdField
@@ -555,6 +565,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuNetwork
       objectReference: {fileID: 0}
+    - target: {fileID: 6216254195580109814, guid: 317553914dc62a941af01fad9c19d2f9,
+        type: 3}
+      propertyPath: LoginPanel
+      value: 
+      objectReference: {fileID: 1262323814}
+    - target: {fileID: 6216254195580109814, guid: 317553914dc62a941af01fad9c19d2f9,
+        type: 3}
+      propertyPath: LobbyPanel
+      value: 
+      objectReference: {fileID: 2053994007}
+    - target: {fileID: 6216254195580109814, guid: 317553914dc62a941af01fad9c19d2f9,
+        type: 3}
+      propertyPath: StartButton
+      value: 
+      objectReference: {fileID: 285480761}
     - target: {fileID: 6216254195580109813, guid: 317553914dc62a941af01fad9c19d2f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -610,20 +635,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216254195580109814, guid: 317553914dc62a941af01fad9c19d2f9,
-        type: 3}
-      propertyPath: LoginPanel
-      value: 
-      objectReference: {fileID: 1262323814}
-    - target: {fileID: 6216254195580109814, guid: 317553914dc62a941af01fad9c19d2f9,
-        type: 3}
-      propertyPath: LobbyPanel
-      value: 
-      objectReference: {fileID: 2053994007}
-    - target: {fileID: 6216254195580109814, guid: 317553914dc62a941af01fad9c19d2f9,
-        type: 3}
-      propertyPath: StartButton
-      value: 
-      objectReference: {fileID: 285480761}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 317553914dc62a941af01fad9c19d2f9, type: 3}

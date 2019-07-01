@@ -194,27 +194,8 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
-            //if (PhotonNetwork.isMasterClient)
-            //{
-            //    int wave = FindObjectOfType<WaveController>().CurrentWave();
-            //    FindObjectOfType<WaveController>().UpdateWaveTracker(wave);
-            //}
             PhotonNetwork.Disconnect();
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-            //_currentHealth = 0f;
-            //_animator.SetFloat("Health", 0f);
-            //if(!_dead)
-            //{
-            //    DeathCameraAnimation();
-            //}
-            //_dead = true;
-            //foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-            //{
-            //    enemy.GetComponent<Enemy_Controller_Desktop>().SetPlayerDead(true);
-            //}
-            //_gm.SetPlayerDead(true);
-            //playerGun.SetActive(false);
-            
         }
         _gm.UpdateHealth(_currentHealth);
     }
