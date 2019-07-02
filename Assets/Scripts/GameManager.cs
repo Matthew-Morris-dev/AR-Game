@@ -84,13 +84,14 @@ public class GameManager : MonoBehaviour
         if (OVRManager.isHmdPresent)
         {
             temp = PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0);
-           
+            waveAnnouncementText = FindObjectOfType<WaveTextFinder>().GetComponent<TextMeshProUGUI>();
         }
         else
         {
             temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
         }
         temp.name = PlayerNetwork.Instance.GetName();
+        Debug.LogError($"GameObject name: {temp.name}");
     }
 
     // Update is called once per frame

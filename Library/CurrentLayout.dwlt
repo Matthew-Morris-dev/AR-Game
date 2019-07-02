@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 781
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 130
+  controlID: 125
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 85
+  controlID: 57
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -386,20 +386,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 08410000
       m_LastClickedID: 0
-      m_ExpandedIDs: ce39feffee3efeffe83ffeff0440feff6643feff7843feff244cfeffc04dfeff424ffeff5e4ffeff764ffeff884ffeffe84ffeff0450feff5053feff6253feffd673feffd274feffee74feff5478feff6a78fefffc7efeffce7ffeffae8dfeff288efefff6a0feff90a2feff6e01ffff7803ffff8a03ffffdc1cffffea53ffff6aaeffff74aeffffd8afffffe8afffffd6eeffff70f0ffff4ef1ffff6af1ffffd0f4ffffe6f4ffffd6f6fffff2f6ffff58faffff6afaffffd6fbffff00c50000
+      m_ExpandedIDs: 90ccffff14d4ffff9edaffff10e2fffff6e7ffffb2efffffa6f7ffff40f9ffffc8fbffffd6fbffffb0470000185f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Arm1
-        m_OriginalName: Arm1
+        m_Name: dffiaNt
+        m_OriginalName: dffiaNt
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 27752
+        m_UserData: -7680
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -734,19 +734,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\3rd Year\WSOA3003 (DG)\AR-Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 815}
-    m_SelectedIDs: ec2f0000
-    m_LastClickedID: 12268
+    scrollPos: {x: 0, y: 887}
+    m_SelectedIDs: f4410000
+    m_LastClickedID: 16884
     m_ExpandedIDs: 00000000182f00009c300000cc300000bc31000074340000983400004a3600009e360000b0360000b6360000a4390000243b0000943b0000e43d0000243f0000723f00002e410000f441000084420000444300004e4400002a4900002c4900002e49000030490000324900003449000036490000384900003a49000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 50562
+  m_LastSelectedObjectID: 24536
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
