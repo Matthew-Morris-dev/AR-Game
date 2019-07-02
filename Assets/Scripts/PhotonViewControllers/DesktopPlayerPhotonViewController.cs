@@ -22,11 +22,21 @@ public class DesktopPlayerPhotonViewController : Photon.PunBehaviour
     {
         if (!photonView.isMine)
         {
-            this.gameObject.GetComponent<Look>().enabled = false;
-            this.gameObject.GetComponent<AudioSource>().enabled = false;
-            this.gameObject.GetComponent<Player_Controller_Desktop>().DisableMyCamera();
-            SetLayerRecursively(this.gameObject, defaultLayer);
-            Destroy(this.gameObject.GetComponent<Player_Controller_Desktop>());
+            if (this.gameObject.GetComponent<Player_Controller_Desktop>())
+            {
+                this.gameObject.GetComponent<Look>().enabled = false;
+                this.gameObject.GetComponent<AudioSource>().enabled = false;
+                this.gameObject.GetComponent<Player_Controller_Desktop>().DisableMyCamera();
+                SetLayerRecursively(this.gameObject, defaultLayer);
+                Destroy(this.gameObject.GetComponent<Player_Controller_Desktop>());
+            }
+            else if(this.gameObject.GetComponent<VR_Player_Controller>())
+            {
+                this.gameObject.transform.GetChild(this.gameObject.transform.childCount - 1).gameObject.SetActive(false);
+                this.gameObject.GetComponent<AudioSource>().enabled = false;
+                SetLayerRecursively(this.gameObject, defaultLayer);
+                Destroy(this.gameObject.GetComponent<VR_Player_Controller>());
+            }
         }
 
         //test

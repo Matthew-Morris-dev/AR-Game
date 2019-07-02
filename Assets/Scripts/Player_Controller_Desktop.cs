@@ -194,6 +194,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
+            PhotonNetwork.Destroy(this.gameObject);
             PhotonNetwork.Disconnect();
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }

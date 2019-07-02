@@ -79,17 +79,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject temp;
         Debug.Log("OVR HEADSET: " + OVRManager.isHmdPresent);
         if (OVRManager.isHmdPresent)
         {
-            GameObject temp = PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0);
-            temp.name = PlayerNetwork.Instance.GetName();
+            temp = PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0);
+           
         }
         else
         {
-            GameObject temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
-            temp.name = PlayerNetwork.Instance.GetName();
+            temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
         }
+        temp.name = PlayerNetwork.Instance.GetName();
     }
 
     // Update is called once per frame

@@ -167,6 +167,7 @@ public class Enemy_Controller_Desktop : MonoBehaviour
     /*
     public void TakeDamage(float damage)
     {
+        Debug.LogError("We enter here");
         photonView.RPC("TellAllITakeDamage", PhotonTargets.All, damage);
     }
 
@@ -194,12 +195,11 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         if (WC != null)
         {
-            //WC.increamentEnemiesDead();
             WC.decrementEnemiesAlive();
         }
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
         _gm.IncrementKills();
-        Destroy(this.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
     }
 
     [PunRPC]

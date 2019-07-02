@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 2722081346665908763}
   - component: {fileID: 2722081346665908761}
   - component: {fileID: 2722081346665908760}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LaserSight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 2722081347357035311}
   - component: {fileID: 2722081347357035309}
   - component: {fileID: 1958305124082475346}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HPTrackerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 2722081347451270871}
   - component: {fileID: 2722081347451270869}
   - component: {fileID: 1958305124449328298}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: KillTrackerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,7 +1023,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3895
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1044,7 +1044,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2722081347700974458}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 2722081347982686625}
   - component: {fileID: 2722081347982686624}
   - component: {fileID: 1958305126050747347}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: WaveAnouncementText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1312,7 +1312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2722081348281203781}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 2722081348303717380}
   - component: {fileID: 2722081348303717381}
   - component: {fileID: 2722081348303717382}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: MainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1448,7 +1448,7 @@ GameObject:
   - component: {fileID: 2722081348422369263}
   - component: {fileID: 2722081348422369248}
   - component: {fileID: 2722081348422369249}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: MuzzleFlash_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1544,7 +1544,7 @@ GameObject:
   - component: {fileID: 2722081348637349661}
   - component: {fileID: 2722081348637349659}
   - component: {fileID: 2722081348637349660}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2053,7 +2053,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8098140914727561953}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2190,7 +2190,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8098140914735252632}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2604,7 +2604,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8098140915010651818}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2784,6 +2784,7 @@ GameObject:
   - component: {fileID: 2724836656091436876}
   - component: {fileID: 6069621971803088583}
   - component: {fileID: 8092080601721365170}
+  - component: {fileID: 1250550187014372351}
   m_Layer: 12
   m_Name: Player_VR
   m_TagString: Player
@@ -2800,7 +2801,7 @@ Transform:
   m_GameObject: {fileID: 8098140915043513630}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 8098140916358153526}
   - {fileID: 8098140914735252635}
@@ -2998,7 +2999,7 @@ MonoBehaviour:
   KillsText: {fileID: 1958305124449328298}
   camLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!114 &3042135144017255374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3153,6 +3154,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67ddd0d46423b5438fb45d2eaf542b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1250550187014372351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098140915043513630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0370f1eaa7ca55c468ed3d3a825a50db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 3042135144017255374}
+  defaultLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  fpsBarrel: {fileID: 2722081348281203782}
+  fpsGun: {fileID: 2722081348051293346}
+  tpsBarrel: {fileID: 8098140915632797336}
+  tpsGun: {fileID: 8098140916310829456}
 --- !u!1 &8098140915084754611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,7 +3736,7 @@ GameObject:
   - component: {fileID: 8098140915598788539}
   - component: {fileID: 8098140915598788538}
   - component: {fileID: 8098140915598788421}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: LaserSight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3917,7 +3938,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8098140915632797339}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4172,7 +4193,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8098140915943088526}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4526,13 +4547,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8098140916310829459}
   - component: {fileID: 8098140916310829458}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: AssaultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8098140916310829459
 Transform:
   m_ObjectHideFlags: 0
@@ -4691,7 +4712,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8098140916358153527}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4834,7 +4855,7 @@ GameObject:
   - component: {fileID: 8098140916385649507}
   - component: {fileID: 8098140916385649504}
   - component: {fileID: 8098140916385649505}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: MuzzleFlash_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4928,7 +4949,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8098140916395778569}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4960,8 +4981,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8098140916402371676}
   - component: {fileID: 8098140916402371677}
-  - component: {fileID: 8098140916402371666}
-  - component: {fileID: 8098140916402371679}
   m_Layer: 12
   m_Name: Camera
   m_TagString: MainCamera
@@ -5026,31 +5045,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8098140916402371666
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8098140916402371667}
-  m_Enabled: 0
---- !u!114 &8098140916402371679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8098140916402371667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267c8fbfd3d01f640a6f2e701261df16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axis: 1
-  minYRot: -45
-  maxYRot: 45
-  ySensitivity: 10
-  xSensitivity: 10
 --- !u!1 &8098140916440408265
 GameObject:
   m_ObjectHideFlags: 0
