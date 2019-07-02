@@ -54,6 +54,8 @@ public class Enemy_Controller_Desktop : MonoBehaviour
     private bool _scaled = false;
     private bool _playerDead = false;
 
+
+    public PhotonGameManager PGM;
     //Wave Spawning Stuff
     [SerializeField]
     private WaveController WC;
@@ -74,6 +76,10 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         if (WC == null)
         {
             WC = FindObjectOfType<WaveController>();
+        }
+        if(PGM == null)
+        {
+            PGM = FindObjectOfType<PhotonGameManager>();
         }
 
         //Find GM or scale
@@ -198,6 +204,10 @@ public class Enemy_Controller_Desktop : MonoBehaviour
             WC.decrementEnemiesAlive();
         }
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
+        if (PGM != null)
+        {
+            PGM.IncrementKills();
+        }
         _gm.IncrementKills();
         PhotonNetwork.Destroy(this.gameObject);
     }

@@ -601,6 +601,7 @@
     <Compile Include="Assets\Photon\PhotonChatApi\IChatClientListener.cs" />
     <Compile Include="Assets\Photon\Plugins\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\Photon\Plugins\WebSocket\WebSocket.cs" />
+    <Compile Include="Assets\PhotonGameManager.cs" />
     <Compile Include="Assets\Scripts\ArenaController.cs" />
     <Compile Include="Assets\Scripts\BillboardHealthBars.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
@@ -634,6 +635,7 @@
     <Compile Include="Assets\Scripts\OldEnemyController.cs" />
     <Compile Include="Assets\Scripts\PhotonViewControllers\DesktopBulletPhotonViewController.cs" />
     <Compile Include="Assets\Scripts\PhotonViewControllers\DesktopPlayerPhotonViewController.cs" />
+    <Compile Include="Assets\Scripts\PhotonViewControllers\PlayerInstantiationData.cs" />
     <Compile Include="Assets\Scripts\PlaneDiscoveryGuide.cs" />
     <Compile Include="Assets\Scripts\Player_Controller_Desktop.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />

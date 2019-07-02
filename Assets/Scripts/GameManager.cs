@@ -75,31 +75,32 @@ public class GameManager : MonoBehaviour
     private SceneTracker ST;
 
     [SerializeField]
+    private PhotonGameManager PGM;
+    [SerializeField]
     private bool paused = false;
     // Start is called before the first frame update
     void Start()
     {
-        GameObject temp;
+        object[] myData = new object[1];
+        myData[0] = PlayerNetwork.Instance.GetName();
         Debug.Log("OVR HEADSET: " + OVRManager.isHmdPresent);
         if (OVRManager.isHmdPresent)
         {
-            temp = PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0, myData);
             waveAnnouncementText = FindObjectOfType<WaveTextFinder>().GetComponent<TextMeshProUGUI>();
         }
         else
         {
-            temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0, myData);
         }
-        temp.name = PlayerNetwork.Instance.GetName();
-        Debug.LogError($"GameObject name: {temp.name}");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (ST == null)
+        if (PGM == null)
         {
-            ST = FindObjectOfType<SceneTracker>();
+            PGM = FindObjectOfType<PhotonGameManager>();
         }
     }
 
@@ -136,6 +137,10 @@ public class GameManager : MonoBehaviour
     {
         numberOfKills++;
         killTrackerText.text = ("KILLS: " + numberOfKills);
+        if (PGM != null)
+        {
+            killTrackerText.text = ("KILLS: " + PGM.kills);
+        }
     }
 
     private void GameOver()

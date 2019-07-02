@@ -2798,6 +2798,7 @@ GameObject:
   - component: {fileID: 6069621971803088583}
   - component: {fileID: 8092080601721365170}
   - component: {fileID: 1250550187014372351}
+  - component: {fileID: 1694511091240587430}
   m_Layer: 12
   m_Name: Player_VR
   m_TagString: Player
@@ -3187,6 +3188,18 @@ MonoBehaviour:
   fpsGun: {fileID: 2722081348051293346}
   tpsBarrel: {fileID: 8098140915632797336}
   tpsGun: {fileID: 8098140916310829456}
+--- !u!114 &1694511091240587430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098140915043513630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f415c2f16c4cbe42924f1c5357abcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8098140915084754611
 GameObject:
   m_ObjectHideFlags: 0

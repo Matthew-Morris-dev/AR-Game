@@ -80,13 +80,6 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth = _maxHealth;
         _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
-        gameObject.name = photonView.owner.NickName;
-        /*
-        if (photonView.isMine)
-        {
-            UpdateName(PlayerNetwork.Instance.GetName());
-        }*/
-        //photonView.RPC("UpdateName", PhotonTargets.All, PlayerNetwork.Instance.GetName());
     }
 
     // Update is called once per frame
