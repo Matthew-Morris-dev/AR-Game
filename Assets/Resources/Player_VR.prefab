@@ -3002,7 +3002,7 @@ MonoBehaviour:
   shoot: 0
   canMove: 1
   cameraRef: {fileID: 2722081347580032759}
-  _movementSpeed: 1
+  _movementSpeed: 2
   rotationSpeed: 1
   _maxHealth: 100
   _currentHealth: 0

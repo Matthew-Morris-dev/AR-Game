@@ -208,7 +208,7 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         {
             PGM.IncrementKills();
         }
-        _gm.IncrementKills();
+        //_gm.IncrementKills();
         PhotonNetwork.Destroy(this.gameObject);
     }
 

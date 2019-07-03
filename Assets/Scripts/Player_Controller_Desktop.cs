@@ -70,7 +70,9 @@ public class Player_Controller_Desktop : MonoBehaviour
     [SerializeField]
     private float cameraRotationSpeed;
     private bool _dead = false;
-    
+
+    public PhotonGameManager PGM;
+
     public LayerMask camLayerMask;
     // Start is called before the first frame update
     void Start()
@@ -80,6 +82,10 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth = _maxHealth;
         _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
+        if (PhotonNetwork.isMasterClient)
+        {
+            PhotonNetwork.InstantiateSceneObject("PhotonGameManager", Vector3.zero, Quaternion.identity, 0, null);
+        }
     }
 
     // Update is called once per frame
@@ -154,7 +160,7 @@ public class Player_Controller_Desktop : MonoBehaviour
                 _muzzleFlash2.SetActive(false);
             }
         }
-        if(cameraRotate)
+        if (cameraRotate)
         {
             Camera.main.transform.RotateAround(this.transform.position, Vector3.up, cameraRotationSpeed * Time.deltaTime);
             Camera.main.transform.LookAt(this.transform.position);
@@ -165,7 +171,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     {
         if (_dead == false)
         {
-            if(moveDirection.magnitude >= 0.1f)
+            if (moveDirection.magnitude >= 0.1f)
             {
                 transform.Translate(moveDirection * _movementSpeed * Time.deltaTime, Space.Self);
                 _animator.SetTrigger("Walking");
@@ -262,7 +268,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     private void DeathCameraAnimation()
     {
         Camera.main.cullingMask += camLayerMask;
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.up + -2*Camera.main.transform.forward, 5f);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.up + -2 * Camera.main.transform.forward, 5f);
         Camera.main.transform.LookAt(this.transform.position);
         cameraRotate = true;
     }
@@ -273,7 +279,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         myCamera.gameObject.GetComponent<AudioListener>().enabled = false;
         myCamera.enabled = false;
     }
-    
+
     [PunRPC]
     private void UpdateName(string name)
     {

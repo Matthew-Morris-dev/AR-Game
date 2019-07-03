@@ -133,14 +133,10 @@ public class GameManager : MonoBehaviour
         waveAnnouncementText.enabled = false;
     }
 
-    public void IncrementKills()
+    public void UpdateKills(int kills)
     {
-        numberOfKills++;
-        killTrackerText.text = ("KILLS: " + numberOfKills);
-        if (PGM != null)
-        {
-            killTrackerText.text = ("KILLS: " + PGM.kills);
-        }
+        //numberOfKills++;
+        killTrackerText.text = ("KILLS: " + kills);
     }
 
     private void GameOver()

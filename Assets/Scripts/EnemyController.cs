@@ -206,7 +206,7 @@ public class EnemyController : MonoBehaviour
             WC.decrementEnemiesAlive();
         }
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
-        _gm.IncrementKills();
+        //_gm.IncrementKills();
         Destroy(this.gameObject);
     }
 

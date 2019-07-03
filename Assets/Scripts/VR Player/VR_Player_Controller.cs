@@ -79,6 +79,10 @@ public class VR_Player_Controller : MonoBehaviour
         UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
         _laserSight.gameObject.SetActive(true);
+        if (PhotonNetwork.isMasterClient)
+        {
+            PhotonNetwork.InstantiateSceneObject("PhotonGameManager", Vector3.zero, Quaternion.identity, 0, null);
+        }
     }
 
     // Update is called once per frame
