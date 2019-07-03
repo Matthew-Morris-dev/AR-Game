@@ -82,7 +82,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         _currentHealth = _maxHealth;
         _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
-        if (PhotonNetwork.isMasterClient)
+        if (PhotonNetwork.isMasterClient && photonView.isMine)
         {
             PhotonNetwork.InstantiateSceneObject("PhotonGameManager", Vector3.zero, Quaternion.identity, 0, null);
         }
@@ -136,7 +136,8 @@ public class Player_Controller_Desktop : MonoBehaviour
                     {
                         gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
                         gunShotSFX.Play();
-                        PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
+                        GameObject temp = PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
+                        temp.transform.parent = GameObject.Find("World").gameObject.transform;
                         _muzzleFlash.SetActive(true);
                         _muzzleFlash2.SetActive(true);
                         _timeSinceLastBullet = 0;

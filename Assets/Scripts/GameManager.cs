@@ -86,12 +86,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("OVR HEADSET: " + OVRManager.isHmdPresent);
         if (OVRManager.isHmdPresent)
         {
-            PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0, myData);
+            GameObject temp = PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0, myData);
+            temp.transform.parent = GameObject.Find("World").gameObject.transform;
             waveAnnouncementText = FindObjectOfType<WaveTextFinder>().GetComponent<TextMeshProUGUI>();
         }
         else
         {
-            PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0, myData);
+            GameObject temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0, myData);
+            temp.transform.parent = GameObject.Find("World").gameObject.transform;
         }
     }
 
@@ -135,7 +137,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateKills(int kills)
     {
-        //numberOfKills++;
         killTrackerText.text = ("KILLS: " + kills);
     }
 

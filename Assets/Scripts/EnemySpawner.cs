@@ -31,14 +31,16 @@ public class EnemySpawner : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient)
         {
-            PhotonNetwork.InstantiateSceneObject("SpawnParticleEffect", this.transform.position, Quaternion.identity, 0, null);
+            GameObject temp = PhotonNetwork.InstantiateSceneObject("SpawnParticleEffect", this.transform.position, Quaternion.identity, 0, null);
+            temp.transform.parent = GameObject.Find("World").gameObject.transform;
             Invoke("instantiateEnemy", spawnDelay);
         }
     }
 
     private void instantiateEnemy()
     {
-        PhotonNetwork.InstantiateSceneObject("Skeleton_desktop", this.transform.position, Quaternion.identity,0,null);
+        GameObject temp = PhotonNetwork.InstantiateSceneObject("Skeleton_desktop", this.transform.position, Quaternion.identity,0,null);
+        temp.transform.parent = GameObject.Find("World").gameObject.transform;
     }
     
 }

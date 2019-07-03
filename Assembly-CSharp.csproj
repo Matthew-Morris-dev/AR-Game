@@ -601,7 +601,6 @@
     <Compile Include="Assets\Photon\PhotonChatApi\IChatClientListener.cs" />
     <Compile Include="Assets\Photon\Plugins\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\Photon\Plugins\WebSocket\WebSocket.cs" />
-    <Compile Include="Assets\PhotonGameManager.cs" />
     <Compile Include="Assets\Scripts\ArenaController.cs" />
     <Compile Include="Assets\Scripts\BillboardHealthBars.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
@@ -659,7 +658,6 @@
     <Compile Include="Assets\Scripts\WorldScale.cs" />
     <Compile Include="Assets\Scripts\XbuttonController.cs" />
     <Compile Include="Assets\Scripts\YbuttonController.cs" />
-    <Compile Include="Assets\WaveTextFinder.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

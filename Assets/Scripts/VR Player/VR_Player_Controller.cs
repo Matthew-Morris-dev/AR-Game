@@ -79,7 +79,7 @@ public class VR_Player_Controller : MonoBehaviour
         UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
         _laserSight.gameObject.SetActive(true);
-        if (PhotonNetwork.isMasterClient)
+        if (PhotonNetwork.isMasterClient && photonView.isMine)
         {
             PhotonNetwork.InstantiateSceneObject("PhotonGameManager", Vector3.zero, Quaternion.identity, 0, null);
         }
@@ -142,8 +142,9 @@ public class VR_Player_Controller : MonoBehaviour
                 {
                     gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
                     gunShotSFX.Play();
-                    PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
-                    _muzzleFlash.SetActive(false);
+                    GameObject temp = PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
+                temp.transform.parent = GameObject.Find("World").gameObject.transform;
+                _muzzleFlash.SetActive(false);
                     _timeSinceLastBullet = 0;
                 }
                 else
