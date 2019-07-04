@@ -2194,6 +2194,7 @@ GameObject:
   - component: {fileID: 3535289851468084020}
   - component: {fileID: 6343666170708964929}
   - component: {fileID: 3234461860967000502}
+  - component: {fileID: 6961887659376265045}
   m_Layer: 12
   m_Name: Player_Desktop
   m_TagString: Player
@@ -2631,6 +2632,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f415c2f16c4cbe42924f1c5357abcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6961887659376265045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622116664354533717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e1a67e67e006b43ad5fa186d728366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3622116664355220209

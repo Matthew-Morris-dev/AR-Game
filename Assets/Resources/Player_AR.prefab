@@ -1421,6 +1421,7 @@ GameObject:
   - component: {fileID: 3243760968867049866}
   - component: {fileID: 6062372096566621605}
   - component: {fileID: 10589092423919902}
+  - component: {fileID: 244241332822114549}
   m_Layer: 0
   m_Name: Player_AR
   m_TagString: Player
@@ -1518,7 +1519,6 @@ MonoBehaviour:
   _muzzleFlash: {fileID: 408503140887935044}
   _laserSight: {fileID: 6551021783225975012}
   _animationSpeed: 10
-  _jsc: {fileID: 0}
   _speed: 0.33333334
   _rotationSpeed: 360
   shootRaycastFrom: {fileID: 408503141107429959}
@@ -1537,7 +1537,6 @@ MonoBehaviour:
   _grounded: 1
   rayCastIcon: {fileID: 5208294696381877712, guid: 793ea1a94d60fab4794b384bcc755b6b,
     type: 3}
-  _scaleFactor: 0.1
   _gm: {fileID: 0}
 --- !u!114 &9203101724813714308
 MonoBehaviour:
@@ -1823,6 +1822,18 @@ MonoBehaviour:
   fpsGun: {fileID: 0}
   tpsBarrel: {fileID: 0}
   tpsGun: {fileID: 0}
+--- !u!114 &244241332822114549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408503140485499676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e1a67e67e006b43ad5fa186d728366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &408503140533303466
 GameObject:
   m_ObjectHideFlags: 0

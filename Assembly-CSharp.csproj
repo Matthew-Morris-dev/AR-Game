@@ -636,6 +636,7 @@
     <Compile Include="Assets\Scripts\Networks\PlayerNetwork.cs" />
     <Compile Include="Assets\Scripts\OldcharacterController.cs" />
     <Compile Include="Assets\Scripts\OldEnemyController.cs" />
+    <Compile Include="Assets\Scripts\ParentMe.cs" />
     <Compile Include="Assets\Scripts\PhotonViewControllers\DesktopBulletPhotonViewController.cs" />
     <Compile Include="Assets\Scripts\PhotonViewControllers\DesktopPlayerPhotonViewController.cs" />
     <Compile Include="Assets\Scripts\PhotonViewControllers\PlayerInstantiationData.cs" />

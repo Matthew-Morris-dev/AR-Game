@@ -136,10 +136,7 @@ public class Player_Controller_Desktop : MonoBehaviour
                     {
                         gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
                         gunShotSFX.Play();
-                        GameObject temp = PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
-                        Vector3 initialScale = temp.transform.localScale;
-                        temp.transform.parent = GameObject.Find("World").gameObject.transform;
-                        temp.transform.localScale = initialScale;
+                        PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
                         _muzzleFlash.SetActive(true);
                         _muzzleFlash2.SetActive(true);
                         _timeSinceLastBullet = 0;
