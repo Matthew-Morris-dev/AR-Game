@@ -628,6 +628,7 @@
     <Compile Include="Assets\Scripts\MainMenu\PlayerNameInputField.cs" />
     <Compile Include="Assets\Scripts\MakeMeATarget.cs" />
     <Compile Include="Assets\Scripts\MobileJoystickController.cs" />
+    <Compile Include="Assets\Scripts\Networks\GameNetwork.cs" />
     <Compile Include="Assets\Scripts\Networks\MenuNetwork.cs" />
     <Compile Include="Assets\Scripts\Networks\PlayerNetwork.cs" />
     <Compile Include="Assets\Scripts\OldcharacterController.cs" />
@@ -655,6 +656,7 @@
     <Compile Include="Assets\Scripts\VR Player\VR_Player_Controller.cs" />
     <Compile Include="Assets\Scripts\WallEffect.cs" />
     <Compile Include="Assets\Scripts\WaveController.cs" />
+    <Compile Include="Assets\Scripts\WaveTextFinder.cs" />
     <Compile Include="Assets\Scripts\WorldScale.cs" />
     <Compile Include="Assets\Scripts\XbuttonController.cs" />
     <Compile Include="Assets\Scripts\YbuttonController.cs" />

@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 2722081347982686625}
   - component: {fileID: 2722081347982686624}
   - component: {fileID: 1958305126050747347}
-  - component: {fileID: 1936654671729639985}
+  - component: {fileID: 5453834836783330863}
   m_Layer: 0
   m_Name: WaveAnouncementText
   m_TagString: Untagged
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1936654671729639985
+--- !u!114 &5453834836783330863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1236,7 +1236,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2722081347982686626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4334eca29dfdf9d46bf28a3464ce5407, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d59b4fd7a523954dba8722b90ac9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2722081348051293346

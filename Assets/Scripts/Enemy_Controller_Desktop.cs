@@ -32,14 +32,6 @@ public class Enemy_Controller_Desktop : MonoBehaviour
     private float _animationSpeed;
     [SerializeField]
     private GameObject _target;
-
-    //Scaling Stuff
-    [SerializeField]
-    private float _xScaleFactor;
-    [SerializeField]
-    private float _yScaleFactor;
-    [SerializeField]
-    private float _zScaleFactor;
     [SerializeField]
     private GameManager _gm;
 
@@ -50,12 +42,11 @@ public class Enemy_Controller_Desktop : MonoBehaviour
     private float _currentHealth;
     [SerializeField]
     private Image _hpBar;
-
-    private bool _scaled = false;
+    
     private bool _playerDead = false;
 
 
-    public PhotonGameManager PGM;
+    public GameNetwork GN;
     //Wave Spawning Stuff
     [SerializeField]
     private WaveController WC;
@@ -77,28 +68,15 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         {
             WC = FindObjectOfType<WaveController>();
         }
-        if(PGM == null)
+        if(GN == null)
         {
-            PGM = FindObjectOfType<PhotonGameManager>();
+            GN = FindObjectOfType<GameNetwork>();
         }
 
         //Find GM or scale
         if (_gm == null)
         {
             _gm = FindObjectOfType<GameManager>();
-        }
-        else if (_scaled == false)
-        {
-            //Debug.Log("we run this");
-            this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _xScaleFactor, _gm.GetGameWorldScale() * _yScaleFactor, _gm.GetGameWorldScale() * _zScaleFactor);
-            _speed *= _gm.GetGameWorldScale() * 0.1f; //set speed scale to the same as the players scale
-            //_animationSpeed *= _gm.GetGameWorldScale() * 1f;
-            //_animator.speed = _animationSpeed;
-            //damageDelay = damageDelay * (_animationSpeed);
-            initialDamageDelay = damageDelay;
-            _stoppingDistance *= _gm.GetGameWorldScale();
-            _attackRange *= _gm.GetGameWorldScale();
-            _scaled = true;
         }
         MakeMeATarget[] listOfPossibleTargets = FindObjectsOfType<MakeMeATarget>();
         //Find and move towards target
@@ -204,9 +182,9 @@ public class Enemy_Controller_Desktop : MonoBehaviour
             WC.decrementEnemiesAlive();
         }
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
-        if (PGM != null)
+        if (GN != null)
         {
-            PGM.IncrementKills();
+            GN.IncrementKills();
         }
         //_gm.IncrementKills();
         PhotonNetwork.Destroy(this.gameObject);

@@ -648,9 +648,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photonView: {fileID: 5674116446959478906}
   _speed: 1.5
-  _stoppingDistance: 0.1
+  _stoppingDistance: 0.3
   _attackDamage: 10
-  _attackRange: 0.15
+  _attackRange: 0.4
   sword: {fileID: 1901056571890879868}
   damageDelay: 0.8
   delayTimer: 0
@@ -659,14 +659,11 @@ MonoBehaviour:
   _animator: {fileID: 1901056571898281690}
   _animationSpeed: 1
   _target: {fileID: 0}
-  _targetPos: {x: 0, y: 0, z: 0}
-  _xScaleFactor: 1.3
-  _yScaleFactor: 1.3
-  _zScaleFactor: 1.3
   _gm: {fileID: 0}
   _maxHealth: 100
   _currentHealth: 0
   _hpBar: {fileID: 8201815652365524639}
+  GN: {fileID: 0}
   WC: {fileID: 0}
 --- !u!65 &586916507616798159
 BoxCollider:
@@ -909,15 +906,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_Controller

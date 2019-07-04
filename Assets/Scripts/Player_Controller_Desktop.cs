@@ -71,7 +71,7 @@ public class Player_Controller_Desktop : MonoBehaviour
     private float cameraRotationSpeed;
     private bool _dead = false;
 
-    public PhotonGameManager PGM;
+    public GameNetwork GN;
 
     public LayerMask camLayerMask;
     // Start is called before the first frame update
@@ -84,7 +84,7 @@ public class Player_Controller_Desktop : MonoBehaviour
         _animator.SetFloat("Health", _currentHealth);
         if (PhotonNetwork.isMasterClient && photonView.isMine)
         {
-            PhotonNetwork.InstantiateSceneObject("PhotonGameManager", Vector3.zero, Quaternion.identity, 0, null);
+            PhotonNetwork.InstantiateSceneObject("PhotonGameNetwork", Vector3.zero, Quaternion.identity, 0, null);
         }
     }
 

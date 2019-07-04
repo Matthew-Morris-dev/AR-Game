@@ -81,7 +81,7 @@ public class VR_Player_Controller : MonoBehaviour
         _laserSight.gameObject.SetActive(true);
         if (PhotonNetwork.isMasterClient && photonView.isMine)
         {
-            PhotonNetwork.InstantiateSceneObject("PhotonGameManager", Vector3.zero, Quaternion.identity, 0, null);
+            PhotonNetwork.InstantiateSceneObject("PhotonGameNetwork", Vector3.zero, Quaternion.identity, 0, null);
         }
     }
 

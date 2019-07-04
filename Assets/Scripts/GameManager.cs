@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     private SceneTracker ST;
 
     [SerializeField]
-    private PhotonGameManager PGM;
+    private GameNetwork GN;
     [SerializeField]
     private bool paused = false;
     // Start is called before the first frame update
@@ -100,9 +100,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PGM == null)
+        if (GN == null)
         {
-            PGM = FindObjectOfType<PhotonGameManager>();
+            GN = FindObjectOfType<GameNetwork>();
         }
     }
 

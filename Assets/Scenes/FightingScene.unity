@@ -2620,7 +2620,7 @@ MonoBehaviour:
   playerDead: 0
   _gameWorld: {fileID: 781565861531019709, guid: 6373217e9b1910d48858808783b70b8e,
     type: 3}
-  _gameWorldScale: 4
+  _gameWorldScale: 1
   ambientMusic: {fileID: 1548517909}
   ST: {fileID: 0}
   PGM: {fileID: 0}
@@ -3892,7 +3892,6 @@ GameObject:
   - component: {fileID: 781565861289034579}
   - component: {fileID: 781565861289034590}
   - component: {fileID: 781565861289034589}
-  - component: {fileID: 781565861289034588}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -3909,27 +3908,11 @@ Transform:
   m_GameObject: {fileID: 781565861289034578}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 2.5, z: 10}
+  m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 781565863150932306}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &781565861289034588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781565861289034578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21986bef6ecb2bb4bbf9d7248d1a3253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _xScaleFactor: 1
-  _yScaleFactor: 0.15
-  _zScaleFactor: 1
-  _gm: {fileID: 0}
 --- !u!199 &781565861289034589
 ParticleSystemRenderer:
   serializedVersion: 6
