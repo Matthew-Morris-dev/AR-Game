@@ -2998,7 +2998,7 @@ MonoBehaviour:
   _bullet: {fileID: 0}
   gunShotSFX: {fileID: 8098140915043513625}
   _attackDamage: 10
-  _rateOfFire: 0.6
+  _rateOfFire: 0.333333
   shoot: 0
   canMove: 1
   cameraRef: {fileID: 2722081347580032759}

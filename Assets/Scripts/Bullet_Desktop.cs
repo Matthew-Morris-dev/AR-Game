@@ -19,6 +19,7 @@ public class Bullet_Desktop : MonoBehaviour
 
     public Player_Controller_Desktop myPlayer;
     public VR_Player_Controller myVRPlayer;
+    public characterController myARPlayer;
     private Vector3 target;
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,18 @@ public class Bullet_Desktop : MonoBehaviour
             //this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
             this.transform.Rotate(90f, 0f, 0f);
             Vector3 endDestination = myVRPlayer.getLatestRaycastHit();
+            //Debug.Log("endDestination: " + endDestination);
+            Vector3 temp = endDestination - this.transform.position;
+            // Vector3 dir = new Vector3(temp.x, 0f, temp.z);
+            Vector3 dir = endDestination - this.transform.position;
+            rb.AddForce(dir * initialForce);
+        }
+        else if(Application.isMobilePlatform)
+        {
+            myARPlayer = FindObjectOfType<characterController>();
+            //this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
+            this.transform.Rotate(90f, 0f, 0f);
+            Vector3 endDestination = myPlayer.getLatestRaycastHit();
             //Debug.Log("endDestination: " + endDestination);
             Vector3 temp = endDestination - this.transform.position;
             // Vector3 dir = new Vector3(temp.x, 0f, temp.z);
@@ -69,7 +82,6 @@ public class Bullet_Desktop : MonoBehaviour
             Vector3 collisionNormal = collision.contacts[0].normal;
             Debug.Log("Collision normal: " + collisionNormal);
             Quaternion hitWallEffectRotation = Quaternion.LookRotation(collisionNormal);
-            //PhotonNetwork.Instantiate("HitWallEffect", collision.contacts[0].point, hitWallEffectRotation,0);
             Instantiate(wallHitEffect, collision.contacts[0].point, hitWallEffectRotation);
             Destroy(this.gameObject);
         }

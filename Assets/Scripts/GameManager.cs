@@ -87,13 +87,24 @@ public class GameManager : MonoBehaviour
         if (OVRManager.isHmdPresent)
         {
             GameObject temp = PhotonNetwork.Instantiate("Player_VR", Vector3.zero, Quaternion.identity, 0, myData);
+            Vector3 initialScale = temp.transform.localScale;
             temp.transform.parent = GameObject.Find("World").gameObject.transform;
+            temp.transform.localScale = initialScale;
             waveAnnouncementText = FindObjectOfType<WaveTextFinder>().GetComponent<TextMeshProUGUI>();
+        }
+        else if (Application.isMobilePlatform)
+        {
+            GameObject temp = PhotonNetwork.Instantiate("Player_AR", Vector3.zero, Quaternion.identity, 0, myData);
+            Vector3 initialScale = temp.transform.localScale;
+            temp.transform.parent = GameObject.Find("World").gameObject.transform;
+            temp.transform.localScale = initialScale;
         }
         else
         {
             GameObject temp = PhotonNetwork.Instantiate("Player_Desktop", Vector3.zero, Quaternion.identity, 0, myData);
+            Vector3 initialScale = temp.transform.localScale;
             temp.transform.parent = GameObject.Find("World").gameObject.transform;
+            temp.transform.localScale = initialScale;
         }
     }
 

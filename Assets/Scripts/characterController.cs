@@ -18,8 +18,6 @@ public class characterController : MonoBehaviour
     private LaserSight _laserSight;
     [SerializeField]
     private float _animationSpeed;
-    [SerializeField]
-    private MobileJoystickController _jsc;
     //Target Stuff
     [SerializeField]
     private float _speed;
@@ -65,20 +63,13 @@ public class characterController : MonoBehaviour
     //Raycast Stuff
     [SerializeField]
     private GameObject rayCastIcon;
-    //Scaling stuff
-    [SerializeField]
-    private float _scaleFactor;
     [SerializeField]
     private GameManager _gm;
-
-    private bool _scaled = false;
-    private bool _dead = false;
     // Start is called before the first frame update
     void Start()
     {
         _ARCamera = FindObjectOfType<Camera>().GetComponent<Camera>();
         _rb = GetComponent<Rigidbody>();
-        //_jsc = FindObjectOfType<MobileJoystickController>().GetComponent<MobileJoystickController>();
         _gm = FindObjectOfType<GameManager>();
         startingY = this.transform.position.y;
         Instantiate(rayCastIcon, Vector3.zero, Quaternion.identity);
@@ -94,16 +85,7 @@ public class characterController : MonoBehaviour
         {
             _gm = FindObjectOfType<GameManager>();
         }
-        else if (_scaled == false)
-        {
-            this.transform.localScale = new Vector3(_gm.GetGameWorldScale() * _scaleFactor, _gm.GetGameWorldScale() * _scaleFactor, _gm.GetGameWorldScale() * _scaleFactor);
-            _speed *= _gm.GetGameWorldScale() * _scaleFactor;
-            _animationSpeed *= _gm.GetGameWorldScale() * _scaleFactor;
-            _scaled = true;
-        }
         _hpBar.fillAmount = _currentHealth / _maxHealth;
-        if (_dead == false)
-        {
             if(Input.touchCount > 0)
             {
                 setCanMove(false);
@@ -124,123 +106,67 @@ public class characterController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
             {
-                //Debug.Log("we shoot raycast");
                 shootRaycastHit = hit.point;
             }
-            //Debug.Log("hit:" + hit.transform.tag);
             _laserSight.SetLaserSightEnd(shootRaycastHit);
 
-            if (shoot)
+        if (shoot)
+        {
+            if (_timeSinceLastBullet >= _rateOfFire)
             {
-                if(_timeSinceLastBullet >= _rateOfFire)
-                {
-                    /*
-                    RaycastHit hit;
-                    if (Physics.Raycast(shootRaycastFrom.transform.position, shootRaycastFrom.transform.forward, out hit, 100))
-                    {
-                        Debug.Log("we shoot raycast");
-                        shootRaycastHit = hit.point;
-                    }
-                    Debug.Log("hit:" + hit.transform.tag);
-                    */
-                    gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
-                    gunShotSFX.Play();
-                    Instantiate(_bullet, _bulletEmitter.transform.position, Quaternion.identity);
-                    _muzzleFlash.SetActive(true);
-                    _timeSinceLastBullet = 0;
-                }
-                else
-                {
-                    _timeSinceLastBullet += Time.deltaTime;
-                }
+                gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
+                gunShotSFX.Play();
+                GameObject temp = PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
+                Vector3 initialScale = temp.transform.localScale;
+                temp.transform.parent = GameObject.Find("World").gameObject.transform;
+                temp.transform.localScale = initialScale;
+                _muzzleFlash.SetActive(true);
+                _timeSinceLastBullet = 0;
             }
             else
             {
-                _muzzleFlash.SetActive(false);
+                _timeSinceLastBullet += Time.deltaTime;
             }
         }
         else
         {
-            _rb.freezeRotation = true;
             _muzzleFlash.SetActive(false);
         }
     }
 
     private void FixedUpdate()
     {
-        if (_dead == false)
+        if (canMove == true)
         {
-            if (canMove == true)
-            {
-                //_rb.velocity = moveDirection * _speed * Time.fixedDeltaTime;
-                transform.Translate(moveDirection * _speed * Time.fixedDeltaTime, Space.World);
-                _animator.SetTrigger("Walking");
-            }
-            else
-            {
-                _rb.velocity = Vector3.zero;
-                if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
-                {
-                    _animator.SetTrigger("Idle");
-                }
-            }
-            if (!shoot)
-            {
-                canMove = true;
-            }
-            /*
-            else if (_jsc.GetJoystickActive())
-            {
-                Vector3 camForward = _ARCamera.transform.forward;
-                Vector3 camRight = _ARCamera.transform.right;
-                camForward.y = 0f;
-                camRight.y = 0f;
-                camForward = camForward.normalized;
-                camRight = camRight.normalized;
-
-                moveDirection = ((camForward * _jsc.inputDirection.y + camRight * _jsc.inputDirection.x) * _speed * Time.deltaTime);
-                _rb.velocity = moveDirection;
-            }
-            */
-        }
-    }
-    /*
-    public void Attack(Vector3 target)
-    {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
-        {
-            return;
+            //_rb.velocity = moveDirection * _speed * Time.fixedDeltaTime;
+            transform.Translate(moveDirection * _speed * Time.fixedDeltaTime, Space.World);
+            _animator.SetTrigger("Walking");
         }
         else
         {
-            _animator.SetTrigger("Shoot");
-            RaycastHit hit;
-            if (Physics.Raycast(_gun.transform.position, (target - _gun.transform.position), out hit, 100))
+            _rb.velocity = Vector3.zero;
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
             {
-                Debug.Log("we are shooting");
-                if (hit.transform.gameObject.tag == "Enemy")
-                {
-                    Debug.Log("we hit :" + hit.transform.gameObject.name);
-                    hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(_attackDamage);
-                }
+                _animator.SetTrigger("Idle");
             }
         }
+        if (!shoot)
+        {
+            canMove = true;
+        }
     }
-    */
+
     public void TakeDamage(float damage)
     {
         Debug.Log("Player recieved damage message");
         _currentHealth -= damage;
         if(_currentHealth <= 0)
         {
-            _animator.SetFloat("Health", 0f);
-            _dead = true;
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-            {
-                enemy.GetComponent<EnemyController>().SetPlayerDead(true);
-            }
-            _gm.SetPlayerDead(true);
+            PhotonNetwork.Destroy(this.gameObject);
+            PhotonNetwork.Disconnect();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
+        _gm.UpdateHealth(_currentHealth);
     }
 
     private void CheckGrounded()

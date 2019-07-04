@@ -2297,7 +2297,7 @@ MonoBehaviour:
   _bullet: {fileID: 3145883551332174201, guid: 44bfd803e6f7fc242970b9cbc213a0a2, type: 3}
   gunShotSFX: {fileID: 3622116664354533714}
   _attackDamage: 10
-  _rateOfFire: 0.5
+  _rateOfFire: 0.3333
   shoot: 0
   canMove: 1
   playerGun: {fileID: 6416357924508374000}

@@ -135,28 +135,30 @@ public class VR_Player_Controller : MonoBehaviour
             float rightMovement = ((Vector3.Dot(this.transform.right, _rb.velocity)) / (this.transform.right.magnitude));
             _animator.SetFloat("Zmovement", forwardMovement);
             _animator.SetFloat("Xmovement", rightMovement);
-        
-            if (shoot)
+
+        if (shoot)
+        {
+            if (_timeSinceLastBullet >= _rateOfFire)
             {
-                if (_timeSinceLastBullet >= _rateOfFire)
-                {
-                    gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
-                    gunShotSFX.Play();
-                    GameObject temp = PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
+                gunShotSFX.pitch = Random.Range(-.25f, 0.25f) + 1f;
+                gunShotSFX.Play();
+                GameObject temp = PhotonNetwork.Instantiate("bullet_desktop", _bulletEmitter.transform.position, Quaternion.identity, 0);
+                Vector3 initialScale = temp.transform.localScale;
                 temp.transform.parent = GameObject.Find("World").gameObject.transform;
+                temp.transform.localScale = initialScale;
                 _muzzleFlash.SetActive(false);
-                    _timeSinceLastBullet = 0;
-                }
-                else
-                {
-                    _timeSinceLastBullet += Time.deltaTime;
-                }
+                _timeSinceLastBullet = 0;
             }
             else
             {
-                _muzzleFlash.SetActive(false);
                 _timeSinceLastBullet += Time.deltaTime;
             }
+        }
+        else
+        {
+            _muzzleFlash.SetActive(false);
+            _timeSinceLastBullet += Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
