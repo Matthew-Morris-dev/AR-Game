@@ -1790,6 +1790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ARCoreDevice: {fileID: 1537787082}
   firstPersonCamera: {fileID: 1537787084}
+  gameFloor: {fileID: 335946205}
   scale: 0
 --- !u!1 &960100011
 GameObject:
@@ -2647,6 +2648,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 19e6aaf0924b6f2489b32c4f637ae32f,
         type: 2}
+    - target: {fileID: 20155940112608238, guid: c10877f7cd5764de18d46d7b777d1faa,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
 --- !u!1 &1537787082 stripped
@@ -4118,6 +4124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bd9b6a51da26447a7db934a48ff258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialScale: {x: 0, y: 0, z: 0}
 --- !u!199 &781565861289034589
 ParticleSystemRenderer:
   serializedVersion: 6

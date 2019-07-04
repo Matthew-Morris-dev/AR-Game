@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class characterController : MonoBehaviour
 {
     [SerializeField]
+    private PhotonView photonView;
+    [SerializeField]
     private Camera _ARCamera;
     [SerializeField]
     private Rigidbody _rb;
@@ -72,8 +74,12 @@ public class characterController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _gm = FindObjectOfType<GameManager>();
         startingY = this.transform.position.y;
-        Instantiate(rayCastIcon, Vector3.zero, Quaternion.identity);
+        if (photonView.isMine)
+        {
+            Instantiate(rayCastIcon, Vector3.zero, Quaternion.identity);
+        }
         _currentHealth = _maxHealth;
+        _gm.UpdateHealth(_currentHealth);
         _animator.SetFloat("Health", _currentHealth);
     }
 

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ParticleScaling : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Vector3 initialScale;
+
+    private void Start()
     {
-        
+        initialScale = this.transform.localScale;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        this.gameObject.transform.localScale = new Vector3 (this.transform.parent.parent.localScale.x * initialScale.x, this.transform.parent.parent.localScale.y * initialScale.y, this.transform.parent.parent.localScale.z * initialScale.z);
     }
 }

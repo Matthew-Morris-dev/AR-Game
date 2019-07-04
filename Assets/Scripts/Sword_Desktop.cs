@@ -26,6 +26,10 @@ public class Sword_Desktop : MonoBehaviour
             {
                 other.GetComponent<VR_Player_Controller>().TakeDamage(_attackDamage);
             }
+            else if (other.GetComponent<characterController>() != null)
+            {
+                other.GetComponent<characterController>().TakeDamage(_attackDamage);
+            }
             canDoDamage = false;
             playerHitSFX.Play();
             Instantiate(playerDamageEffect, other.ClosestPointOnBounds(this.transform.position), Quaternion.identity);

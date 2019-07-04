@@ -12,9 +12,22 @@ public class ARWorld : MonoBehaviour
     [SerializeField]
     private Camera firstPersonCamera;
     public DetectedPlane detectedPlane;
+
+    [SerializeField]
+    private GameObject gameFloor;
+
     private bool planeSet = false;
 
     public float scale;
+
+    private void Start()
+    {
+        if (Application.isMobilePlatform)
+        {
+            gameFloor.SetActive(false);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -61,66 +74,68 @@ public class ARWorld : MonoBehaviour
             }
         }
 
-        //Used to test if raycast is working as intended
-        private void SetSelectedPlane(DetectedPlane selectedPlane)
+    //Used to test if raycast is working as intended
+    private void SetSelectedPlane(DetectedPlane selectedPlane)
+    {
+        if (selectedPlane.PlaneType == DetectedPlaneType.HorizontalUpwardFacing)
         {
-            if (selectedPlane.PlaneType == DetectedPlaneType.HorizontalUpwardFacing)
+            Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
+            detectedPlane = selectedPlane;
+
+            if (detectedPlane.ExtentX <= detectedPlane.ExtentZ)
             {
-                Debug.Log("selected plane at " + selectedPlane.CenterPose.position);
-                detectedPlane = selectedPlane;
-
-                if (detectedPlane.ExtentX <= detectedPlane.ExtentZ)
-                {
-                    scale = detectedPlane.ExtentX;
-                }
-                else
-                {
-                    scale = detectedPlane.ExtentZ;
-                }
-                this.gameObject.transform.localScale *= scale;
-                this.gameObject.transform.position = detectedPlane.CenterPose.position;
-
-                firstPersonCamera.GetComponentInParent<ARCoreSession>().SessionConfig.PlaneFindingMode = GoogleARCore.DetectedPlaneFindingMode.Disabled;
-                OnTogglePlanes(false);
-                planeSet = true;
+                scale = detectedPlane.ExtentX;
             }
             else
             {
-                return;
+                scale = detectedPlane.ExtentZ;
             }
-        }
+            this.gameObject.transform.localScale *= scale;
+            this.gameObject.transform.position = detectedPlane.CenterPose.position;
 
-
-        // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
-        /// <summary>
-        /// Show an Android toast message.
-        /// </summary>
-        /// <param name="message">Message string to show in the toast.</param>
-        private void _ShowAndroidToastMessage(string message)
+            firstPersonCamera.GetComponentInParent<ARCoreSession>().SessionConfig.PlaneFindingMode = GoogleARCore.DetectedPlaneFindingMode.Disabled;
+            OnTogglePlanes(false);
+            planeSet = true;
+            firstPersonCamera.cullingMask = -1;
+            }
+        else
         {
-            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-
-            if (unityActivity != null)
-            {
-                AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
-                unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
-                {
-                    AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity,
-                        message, 0);
-                    toastObject.Call("show");
-                }));
-            }
+            return;
         }
+    }
 
-        public void OnTogglePlanes(bool flag)
+
+    // Taken Directly from ARCore HELLOAR example (I understand what this does but not how it works !! need to learn)
+    /// <summary>
+    /// Show an Android toast message.
+    /// </summary>
+    /// <param name="message">Message string to show in the toast.</param>
+    private void _ShowAndroidToastMessage(string message)
+    {
+        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+
+        if (unityActivity != null)
         {
-            foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
+            AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
+            unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
             {
-                Renderer r = plane.GetComponent<Renderer>();
-                DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
-                r.enabled = flag;
-                t.enabled = flag;
-            }
+                AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity,
+                    message, 0);
+                toastObject.Call("show");
+            }));
         }
+    }
+
+    public void OnTogglePlanes(bool flag)
+    {
+        foreach (GameObject plane in GameObject.FindGameObjectsWithTag("Plane"))
+        {
+            Renderer r = plane.GetComponent<Renderer>();
+            DetectedPlaneVisualizer t = plane.GetComponent<DetectedPlaneVisualizer>();
+            r.enabled = flag;
+            t.enabled = flag;
+        }
+    }
+
 }

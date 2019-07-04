@@ -18,6 +18,9 @@ public class DesktopPlayerPhotonViewController : Photon.PunBehaviour
     [SerializeField]
     private GameObject tpsGun;
 
+    [SerializeField]
+    private GameObject ARlaserSight;
+
     private void Start()
     {
         if (!photonView.isMine)
@@ -37,10 +40,15 @@ public class DesktopPlayerPhotonViewController : Photon.PunBehaviour
                 SetLayerRecursively(this.gameObject, defaultLayer);
                 Destroy(this.gameObject.GetComponent<VR_Player_Controller>());
             }
+            else if (this.gameObject.GetComponent<characterController>())
+            {
+                ARlaserSight.SetActive(false);
+                Destroy(this.gameObject.GetComponent<characterController>());
+            }
         }
 
         //test
-        if (photonView.isMine)
+        if (photonView.isMine && !Application.isMobilePlatform)
         {
             fpsBarrel.SetActive(true);
             fpsGun.SetActive(true);

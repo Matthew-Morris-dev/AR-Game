@@ -41,7 +41,7 @@ public class Bullet_Desktop : MonoBehaviour
             myARPlayer = FindObjectOfType<characterController>();
             //this.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * FindObjectOfType<GameManager>().GetGameWorldScale();
             this.transform.Rotate(90f, 0f, 0f);
-            Vector3 endDestination = myPlayer.getLatestRaycastHit();
+            Vector3 endDestination = myARPlayer.getLatestRaycastHit();
             //Debug.Log("endDestination: " + endDestination);
             Vector3 temp = endDestination - this.transform.position;
             // Vector3 dir = new Vector3(temp.x, 0f, temp.z);

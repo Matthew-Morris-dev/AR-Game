@@ -47,6 +47,7 @@ public class TargetIndicator : MonoBehaviour
     private void InstainateTargetIcon()
     {
         m_icon = new GameObject().AddComponent<RectTransform>();
+        m_icon.gameObject.layer = LayerMask.NameToLayer("UI");
         thisIcon = m_icon.gameObject;
         m_icon.transform.SetParent(mainCanvas.transform);
         m_icon.localScale = m_targetIconScale;
