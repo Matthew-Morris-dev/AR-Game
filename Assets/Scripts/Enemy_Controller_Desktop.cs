@@ -59,6 +59,7 @@ public class Enemy_Controller_Desktop : MonoBehaviour
         _animator.SetFloat("Health", _currentHealth);
         _rb.drag = 0f;
         _rb.angularDrag = 0f;
+        initialDamageDelay = damageDelay;
     }
 
     // Update is called once per frame

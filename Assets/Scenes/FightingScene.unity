@@ -2623,7 +2623,7 @@ MonoBehaviour:
   _gameWorldScale: 1
   ambientMusic: {fileID: 1548517909}
   ST: {fileID: 0}
-  PGM: {fileID: 0}
+  GN: {fileID: 0}
   paused: 0
 --- !u!4 &1548517907
 Transform:
@@ -3892,6 +3892,7 @@ GameObject:
   - component: {fileID: 781565861289034579}
   - component: {fileID: 781565861289034590}
   - component: {fileID: 781565861289034589}
+  - component: {fileID: 781565861289034580}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -3908,11 +3909,23 @@ Transform:
   m_GameObject: {fileID: 781565861289034578}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 4}
+  m_LocalScale: {x: 0.4, y: 0.1, z: 0.4}
   m_Children: []
   m_Father: {fileID: 781565863150932306}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &781565861289034580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781565861289034578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bd9b6a51da26447a7db934a48ff258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!199 &781565861289034589
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9038,7 +9051,7 @@ Transform:
   m_GameObject: {fileID: 781565863150932311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 2, z: 10}
+  m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_Children:
   - {fileID: 781565861812734353}
   - {fileID: 781565862338601047}

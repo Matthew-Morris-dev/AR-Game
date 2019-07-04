@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 3145883551332174201}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 203243576405364292}
-  initialForce: 50
+  initialForce: 100
   damage: 10
   wallHitEffect: {fileID: 2156120584582666346, guid: 9723f5570d9edce4684e264a38489e92,
     type: 3}
@@ -135,6 +135,7 @@ MonoBehaviour:
     type: 3}
   scaleFactor: 1
   myPlayer: {fileID: 0}
+  myVRPlayer: {fileID: 0}
 --- !u!114 &1570975601194285078
 MonoBehaviour:
   m_ObjectHideFlags: 0

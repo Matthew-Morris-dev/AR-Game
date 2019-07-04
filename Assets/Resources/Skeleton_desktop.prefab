@@ -647,17 +647,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 5674116446959478906}
-  _speed: 1.5
-  _stoppingDistance: 0.3
+  _speed: 0.25
+  _stoppingDistance: 0.05
   _attackDamage: 10
-  _attackRange: 0.4
+  _attackRange: 0.06666667
   sword: {fileID: 1901056571890879868}
   damageDelay: 0.8
   delayTimer: 0
   hitSFX: {fileID: 2884075514207799566}
   _rb: {fileID: 600955703}
   _animator: {fileID: 1901056571898281690}
-  _animationSpeed: 1
+  _animationSpeed: 5
   _target: {fileID: 0}
   _gm: {fileID: 0}
   _maxHealth: 100
@@ -906,15 +906,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_Controller
