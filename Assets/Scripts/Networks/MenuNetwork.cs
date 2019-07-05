@@ -45,11 +45,13 @@ public class MenuNetwork : MonoBehaviour
         //Check if we are connected to a server
         if (PhotonNetwork.connected)
         {
+            Debug.LogError("We are connected, joining room");
             //if we are connected we join a room
             PhotonNetwork.JoinRandomRoom();
         }
         else
         {
+            Debug.LogError("We are connecting using game verrsion");
             //connect using gameVersion
             PhotonNetwork.ConnectUsingSettings(_gameVersion);
         }
