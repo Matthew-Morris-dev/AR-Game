@@ -12,7 +12,6 @@ public class BillboardHealthBars : MonoBehaviour
     {
         if(_ARCamera == null)
         {
-            //_ARCamera = FindObjectOfType<ARCoreSession>().transform.GetChild(0).GetComponent<Camera>();
             _ARCamera = Camera.main;
         }
     }

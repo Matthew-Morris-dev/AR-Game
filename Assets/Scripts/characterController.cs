@@ -86,6 +86,12 @@ public class characterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            PhotonNetwork.Destroy(this.gameObject);
+            PhotonNetwork.Disconnect();
+            Application.Quit();
+        }
         //Find GM or scale
         if (_gm == null)
         {

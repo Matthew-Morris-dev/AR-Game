@@ -171,10 +171,12 @@ public class Enemy_Controller_Desktop : MonoBehaviour
     {
         _animator.SetFloat("Health", _currentHealth);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        /*
         if (WC != null)
         {
             WC.decrementEnemiesAlive();
         }
+        */
         this.gameObject.GetComponent<TargetIndicator>().OnDestroy();
         if (GN != null)
         {

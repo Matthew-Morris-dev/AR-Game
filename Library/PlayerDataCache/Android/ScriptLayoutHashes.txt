@@ -442,7 +442,7 @@ e1b8eaae6a90f88343f8be6d517488f6 Assembly-CSharp.dll:.PhotonView
 6d6790618123d8df0986891d34c744b1 Assembly-CSharp.dll:.WaveController
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 e35c6df023c63e54386bf37fb9688a43 Assembly-CSharp.dll:.MobileJoystickController
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.PlayerInstantiationData
+9eb54a60ca1bd2d1f29621fd4078e89e Assembly-CSharp.dll:.PlayerInstantiationData
 c3bd598ebf26a1734f4e48c8dfe999af Assembly-CSharp.dll:.TeleportDestination
 cd06391f9225499fb9ea605ab668b015 Assembly-CSharp.dll:Oculus.Platform.Samples.VrHoops.VREyeRaycaster
 0e8dbd0a181c0f62f8eb34001deff1c7 Assembly-CSharp.dll:OculusSampleFramework.DistanceGrabberSample
@@ -451,3 +451,4 @@ cd06391f9225499fb9ea605ab668b015 Assembly-CSharp.dll:Oculus.Platform.Samples.VrH
 a56a51f2e505cce24d6eab45b4026f5d Assembly-CSharp.dll:.OVRVoiceModContext
 007b6be6e28b944e89296cec886db596 Assembly-CSharp.dll:.Look
 024f41b2944f04b2aa2c5f6a1d12ca22 Assembly-CSharp.dll:.WallEffect
+5a3d10d3ecaadf76a4160789773b6711 Assembly-CSharp.dll:.DisableMe

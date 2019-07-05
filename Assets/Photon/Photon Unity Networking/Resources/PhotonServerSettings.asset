@@ -50,4 +50,5 @@ MonoBehaviour:
   - UpdateName
   - ToggleShootAnimation
   - TellAllTakeDamage
+  - decrementEnemiesAlive
   DisableAutoOpenWizard: 1
